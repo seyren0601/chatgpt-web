@@ -1,0 +1,27 @@
+﻿@page
+@model ChatGPTCaller.Pages.IndexModel
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+}
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Index</title>
+	</head>
+	<body>
+		<form method="post">
+			<input asp-for="Input.Prompt" />
+			<input type="submit" />
+		</form>
+		<hr />
+
+		@if(Model.Completion != null)
+		{
+			<h1>Completion:</h1>
+			<div style="border:thin;border-color:black">
+				@Model.Completion.choices[0].message.content
+			</div>
+		}
+	</body>
+</html>
