@@ -23,5 +23,13 @@
 				@Model.Completion.choices[0].message.content
 			</div>
 		}
-	</body>
+
+		@if(Model.APIException != null)
+		{
+			<h1>Error</h1>
+			<div>
+				@Model.APIException.Message<br>Please contact website admin
+			</div>
+		}
+</body>
 </html>

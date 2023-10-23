@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
@@ -15,6 +16,7 @@ namespace ChatGPTCaller.Pages
         [BindProperty]
         public BindingModel Input { get; set; }
         public APIResponse Completion { get; set; }
+        public Exception APIException { get; set; }
         public void OnGet()
         {
         }
@@ -23,7 +25,13 @@ namespace ChatGPTCaller.Pages
         {
             if (ModelState.IsValid)
             {
-                Completion = await _chatGPTService.GetAPIResponse(Input.Prompt);
+                try
+                {
+					Completion = await _chatGPTService.GetAPIResponse(Input.Prompt);
+				}
+                catch (Exception ex){
+                    APIException = ex;
+                }
                 return Page();
             }
             return RedirectToPage("Index");

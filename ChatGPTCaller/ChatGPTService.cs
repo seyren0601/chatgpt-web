@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace ChatGPTCaller
 {
@@ -46,7 +47,7 @@ namespace ChatGPTCaller
 			}
 			else
 			{
-				return null;
+				throw new Exception(response.StatusCode.ToString());
 			}
 		}
 
