@@ -1,8 +1,10 @@
+using ChatGPTCaller.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using ChatGPTCaller.Models;
 
 namespace ChatGPTCaller.Pages
 {
@@ -15,7 +17,7 @@ namespace ChatGPTCaller.Pages
         }
         [BindProperty]
         public BindingModel Input { get; set; }
-        public APIResponse Completion { get; set; }
+        public ChatGPT_API_Response.APIResponse Completion { get; set; }
         public Exception APIException { get; set; }
         public void OnGet()
         {
