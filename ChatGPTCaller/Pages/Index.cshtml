@@ -4,32 +4,27 @@
 @{
 }
 
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Index</title>
-	</head>
-	<body>
-		<form method="post">
-			<input asp-for="Input.Prompt" />
-			<input type="submit" />
-		</form>
-		<hr />
-
-		@if(Model.Completion != null)
-		{
-			<h1>Completion:</h1>
-			<div style="border:thin;border-color:black">
-				@Model.Completion.choices[0].message.content
-			</div>
-		}
-
-		@if(Model.APIException != null)
-		{
-			<h1>Error</h1>
-			<div>
-				@Model.APIException.Message<br>Please contact website admin
-			</div>
-		}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT-like Page</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="js/script.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat">
+            <div class="messages" id="messages">
+                <div class="message received">
+                    <p>Hello! I'm Le Thuong. How can I help you?</p>
+                </div>
+            </div>
+            <input type="text" id="userInput" placeholder="Type a message...">
+            <button onclick="sendMessage()">Tìm Kiếm</button>
+        </div>
+    </div>
+    <img src="images/nhap_mon_5.png" alt="Background Image" class="background-image">
 </body>
 </html>

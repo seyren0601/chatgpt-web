@@ -9,8 +9,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\css\" />
-    <Folder Include="Pages\js\" />
+    <None Include="wwwroot\css\style.css" />
+    <None Include="wwwroot\images\nhap_mon_5.png" />
+    <None Include="wwwroot\js\script.js" />
   </ItemGroup>
 
 </Project>
