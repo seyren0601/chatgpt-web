@@ -4,7 +4,7 @@ function getCurrentTime() {
     var minutes = now.getMinutes();
     var ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12;
-    hours = hours ? hours : 12; // 12 giờ đối với 0 AM
+    hours = hours ? hours : 12; // 12 hours for 0 AM
     minutes = minutes < 10 ? '0' + minutes : minutes;
     var timeString = hours + ':' + minutes + ' ' + ampm;
     return timeString;
@@ -30,9 +30,16 @@ function sendMessage(event) {
 
         userInput.value = "";
 
-        // Gọi hàm để xử lý và hiển thị câu trả lời ở đây
-        // Ví dụ:
-        receiveMessage("Anh Thuong Dep Trai");
+        // Dùng AJAX request để lấy API
+        fetch("https://dummyjson.com/products")
+            .then(response => response.json())
+            .then(data => {
+                var jsonData = data.products;
+                let Mess = Object.values(jsonData[0]['description']);
+                 var Mess_received = Mess.join(""); //nối chuỗi lại Nha
+                receiveMessage(Mess_received);
+            })
+            .catch(error => console.error("Error fetching data:", error));
     }
 }
 
@@ -50,5 +57,5 @@ function receiveMessage(message) {
     messages.appendChild(botMessageElement);
 }
 
-document.getElementById("userInput").addEventListener("keydown", sendMessage);
 document.querySelector("button").addEventListener("click", sendMessage);
+document.getElementById("userInput").addEventListener("keydown", sendMessage);
