@@ -5,6 +5,9 @@ using System.Security.Cryptography.X509Certificates;
 using ChatGPTCaller.Services;
 using System.IO;
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+using System;
+using System.Net;
 
 namespace ChatGPTCaller.Controllers
 {
@@ -12,7 +15,8 @@ namespace ChatGPTCaller.Controllers
     [ApiController]
     public class CompletionController : ControllerBase
     {
-        public ChatGPT_API_Response.APIResponse Response { get; set; }
+        ChatGPT_API_Response.APIResponse Response { get; set; }
+        HttpStatusCode StatusCode { get; set; }
         private readonly ChatGPTService _chatGPTService;
         public CompletionController(ChatGPTService chatGPTService)
         {
@@ -22,9 +26,10 @@ namespace ChatGPTCaller.Controllers
         [HttpGet("completion")]
         public ActionResult<string> Get()
         {
+            
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return new StatusCodeResult(400);
             }
             else
             {
@@ -41,8 +46,15 @@ namespace ChatGPTCaller.Controllers
             }
             else
             {
-                Response = _chatGPTService.GetAPIResponse(model.requestBody).Result;
-                return Response.choices[0].message.content;
+                Response = _chatGPTService.GetAPIResponse(model.requestBody).Result.Item1;
+                StatusCode = _chatGPTService.GetAPIResponse(model.requestBody).Result.Item2;
+                switch (StatusCode)
+                {
+                    case HttpStatusCode.OK:
+                        return Response.choices[0].message.content;
+                    default:
+                        return new StatusCodeResult((int)StatusCode);
+                }
             }
         }
 

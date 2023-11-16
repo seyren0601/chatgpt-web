@@ -29,7 +29,7 @@ namespace ChatGPTCaller.Pages
             {
                 try
                 {
-					Completion = await _chatGPTService.GetAPIResponse(Input.Prompt);
+					Completion = _chatGPTService.GetAPIResponse(Input.Prompt).Result.Item1;
 				}
                 catch (Exception ex){
                     APIException = ex;
