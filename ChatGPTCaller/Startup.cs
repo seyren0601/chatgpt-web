@@ -19,6 +19,7 @@ namespace ChatGPTCaller
 		{
 			services.AddRazorPages();
 			services.AddSingleton<ChatGPTService>();
+			services.AddControllers();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +36,7 @@ namespace ChatGPTCaller
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapRazorPages();
+				endpoints.MapControllers();
 			});
 		}
 	}

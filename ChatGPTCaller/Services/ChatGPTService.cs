@@ -13,7 +13,7 @@ namespace ChatGPTCaller.Services
 {
     public class ChatGPTService
     {
-        string _APIKey = File.ReadAllText("Bearer Token.txt");
+        string _APIKey = File.ReadAllText("Bearer Token.txt"); // Phải tự tạo file này với nội dung là API Key của ChatGPT
         string _prompt { get; set; }
         string _apiUrl = "https://api.openai.com/v1/chat/completions";
         public async Task<ChatGPT_API_Response.APIResponse> GetAPIResponse(string request)
