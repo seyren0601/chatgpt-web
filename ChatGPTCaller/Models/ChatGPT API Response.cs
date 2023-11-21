@@ -26,6 +26,11 @@ namespace ChatGPTCaller.Models
 		{
 			public string role { get; set; }
 			public string content { get; set; }
+			public Message(string role, string content)
+			{
+				this.content = content;
+				this.role = role;
+			}
 		}
 
 		public class Usage

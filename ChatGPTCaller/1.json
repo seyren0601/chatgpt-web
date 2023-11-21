@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "Who is japanese singer named Yuuri?"
+  },
+  {
+    "role": "assistant",
+    "content": "I'm sorry, but I couldn't find information about a Japanese singer named Yuuri. It's possible that there may be multiple artists with the name Yuuri, or they may not be widely known internationally. If you have any specific details or additional information, I may be able to assist you further."
+  }
+]

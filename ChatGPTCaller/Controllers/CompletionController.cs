@@ -38,7 +38,7 @@ namespace ChatGPTCaller.Controllers
         }
 
         [HttpPost("completion")]
-        public ActionResult<ChatGPT_API_Response.APIResponse> GetCompletionAPI([FromBody] Model model)
+        public ActionResult<ChatGPT_API_Response.APIResponse> GetCompletionAPI([FromBody]PromptRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -46,8 +46,9 @@ namespace ChatGPTCaller.Controllers
             }
             else
             {
-                Response = _chatGPTService.GetAPIResponse(model.requestBody).Result.Item1;
-                StatusCode = _chatGPTService.GetAPIResponse(model.requestBody).Result.Item2;
+                var result = _chatGPTService.GetAPIResponse(request).Result;
+                Response = result.Item1;
+                StatusCode = result.Item2;
                 switch (StatusCode)
                 {
                     case HttpStatusCode.OK:
@@ -56,12 +57,6 @@ namespace ChatGPTCaller.Controllers
                         return new StatusCodeResult((int)StatusCode);
                 }
             }
-        }
-
-        public class Model
-        {
-            [Required]
-            public string requestBody { get; set; }
         }
     }
 }
