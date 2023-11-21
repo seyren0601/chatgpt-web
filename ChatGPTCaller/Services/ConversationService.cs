@@ -2,32 +2,38 @@
 using System.IO;
 using ChatGPTCaller.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks.Dataflow;
 
 namespace ChatGPTCaller.Services
 {
     static public class ConversationService
     {
-        static public void GetConversation(PromptRequest request)
+        static List<ChatGPT_API_Response.Message> messages = new List<ChatGPT_API_Response.Message>();
+        static public List<ChatGPT_API_Response.Message> GetConversation(PromptRequest request)
         {
             string fileName = request.ConversationID.ToString() + ".json";
-            if (!File.Exists(fileName))
+            if (File.Exists(fileName))
             {
-                File.Create(fileName);
+                FileStream f = File.Open(fileName, FileMode.Open);
+                using(StreamReader sr = new StreamReader(f))
+                {
+                    string jsonContent = sr.ReadToEnd();
+                    messages = JsonConvert.DeserializeObject<List<ChatGPT_API_Response.Message>>(jsonContent);
+                    messages.Add(request.message);
+                }
+                return messages;
             }
             else
             {
-                using (StreamReader sr = new StreamReader(fileName))
-                {
-                    string jsonString = sr.ReadToEnd();
-                    JsonSerializer jsonSerializer;
-                }
+                messages.Add(request.message);
+                return messages;
             }
         }
 
         static public void RecordConversation(PromptRequest request, ChatGPT_API_Response.APIResponse response)
         {
             string fileName = request.ConversationID.ToString() + ".json";
-            List<ChatGPT_API_Response.Message> messages = new List<ChatGPT_API_Response.Message>();
+            
             if(File.Exists(fileName))
             {
                 using(StreamReader sr = new StreamReader(fileName))
