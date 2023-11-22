@@ -8,6 +8,7 @@ using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging.Abstractions;
 using ChatGPTCaller.Models;
+using System.Net;
 
 namespace ChatGPTCaller.Services
 {
@@ -16,7 +17,7 @@ namespace ChatGPTCaller.Services
         string _APIKey = File.ReadAllText("Bearer Token.txt"); // Phải tự tạo file này với nội dung là API Key của ChatGPT
         string _prompt { get; set; }
         string _apiUrl = "https://api.openai.com/v1/chat/completions";
-        public async Task<ChatGPT_API_Response.APIResponse> GetAPIResponse(string request)
+        public async Task<(ChatGPT_API_Response.APIResponse, HttpStatusCode)> GetAPIResponse(string request)
         {
             _prompt = request;
 
@@ -38,18 +39,11 @@ namespace ChatGPTCaller.Services
 
             //string jsString = File.ReadAllText("response.json");
 
-            if (response.IsSuccessStatusCode)
-            {
-                string jsonResponse = response.Content.ReadAsStringAsync().Result;
-                //string responseData = JsonConvert.DeserializeObject<string>(jsonResponse);
+            string jsonResponse = response.Content.ReadAsStringAsync().Result;
+            //string responseData = JsonConvert.DeserializeObject<string>(jsonResponse);
 
-                ChatGPT_API_Response.APIResponse aPIResponse = JsonConvert.DeserializeObject<ChatGPT_API_Response.APIResponse>(jsonResponse);
-                return aPIResponse;
-            }
-            else
-            {
-                throw new Exception(response.StatusCode.ToString());
-            }
+            ChatGPT_API_Response.APIResponse aPIResponse = JsonConvert.DeserializeObject<ChatGPT_API_Response.APIResponse>(jsonResponse);
+            return (aPIResponse, response.StatusCode);
         }
 
         private async Task<HttpResponseMessage> PostRequest()
