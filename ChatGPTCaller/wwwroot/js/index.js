@@ -1,3 +1,4 @@
+
 function getCurrentTime() {
     var now = new Date();
     var hours = now.getHours();
@@ -30,13 +31,13 @@ function sendMessage(event) {
 
         userInput.value = "";
 
-        // Dùng AJAX request để lấy API
+        // Use AJAX request to fetch an API
         fetch("https://dummyjson.com/products")
             .then(response => response.json())
             .then(data => {
                 var jsonData = data.products;
                 let Mess = Object.values(jsonData[0]['description']);
-                 var Mess_received = Mess.join(""); //nối chuỗi lại Nha
+                var Mess_received = Mess.join(""); // Join strings together
                 receiveMessage(Mess_received);
             })
             .catch(error => console.error("Error fetching data:", error));
@@ -57,5 +58,53 @@ function receiveMessage(message) {
     messages.appendChild(botMessageElement);
 }
 
-document.querySelector("button").addEventListener("click", sendMessage);
+document.querySelector("#sendMessageButton").addEventListener("click", sendMessage);
 document.getElementById("userInput").addEventListener("keydown", sendMessage);
+
+/*
+// index.js
+
+function sendMessage(event) {
+    // Prevent the default form submission behavior
+    event.preventDefault();
+
+    // Get the user input value
+    var userInput = document.getElementById("userInput").value;
+
+    // Create the JSON payload
+    var requestBody = { "requestBody": userInput };
+
+    // Make an AJAX request using the Fetch API
+    fetch('https://localhost:44345/api/completion', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response data (update the UI, etc.)
+            console.log('Response from server:', data);
+            updateChatUI(data.responseBody); // Assuming there's a function to update the chat UI
+        })
+        .catch(error => {
+            // Handle errors
+            console.error('Error:', error);
+        });
+}
+
+function updateChatUI(message) {
+    // Update the chat UI with the received message
+    var messagesContainer = document.getElementById('messages');
+
+    var messageElement = document.createElement('div');
+    messageElement.classList.add('message', 'received');
+    messageElement.innerHTML = '<p>' + message + '</p>';
+
+    messagesContainer.appendChild(messageElement);
+
+    // Clear the user input
+    document.getElementById('userInput').value = '';
+}
+*/
