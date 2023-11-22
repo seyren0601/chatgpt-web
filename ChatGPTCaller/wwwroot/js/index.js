@@ -1,4 +1,3 @@
-
 function getCurrentTime() {
     var now = new Date();
     var hours = now.getHours();
@@ -12,99 +11,65 @@ function getCurrentTime() {
 }
 
 function sendMessage(event) {
+    // Check if the event is a click or Enter key press
     if (event.type === "click" || (event.type === "keydown" && event.key === "Enter")) {
         var userInput = document.getElementById("userInput");
         var messages = document.getElementById("messages");
 
-        var userMessage = userInput.value;
-        if (userMessage.trim() === "") return;
+        var userMessage = userInput.value.trim();
+        if (userMessage === "") return;
 
-        var userMessageElement = document.createElement("div");
-        userMessageElement.classList.add("message", "sent");
-        var messageContent = `
-            <p>
-                <span class="message-sender">User:</span> ${userMessage}
-                <span class="message-time">${getCurrentTime()}</span>
-            </p>`;
-        userMessageElement.innerHTML = messageContent;
+        // Create the user message element
+        var userMessageElement = createMessageElement("sent", "User", userMessage);
         messages.appendChild(userMessageElement);
 
+        // Clear the user input field after sending the message
         userInput.value = "";
 
-        // Use AJAX request to fetch an API
-        fetch("https://dummyjson.com/products")
-            .then(response => response.json())
+        // Create the JSON payload
+        var requestBody = { "requestBody": userMessage };
+
+        // Make an AJAX request using the Fetch API
+        fetch('https://localhost:44345/api/completion', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody),
+        })
+            .then(response => response.text())
             .then(data => {
-                var jsonData = data.products;
-                let Mess = Object.values(jsonData[0]['description']);
-                var Mess_received = Mess.join(""); // Join strings together
-                receiveMessage(Mess_received);
+                var Mess_received = data.trim();
+                if (Mess_received !== "") {
+                    // Create the bot message element
+                    var botMessageElement = createMessageElement("received", "Bot", Mess_received);
+                    messages.appendChild(botMessageElement);
+                }
             })
-            .catch(error => console.error("Error fetching data:", error));
+            .catch(error => {
+                // Handle errors
+                console.error('Error:', error);
+            });
     }
 }
 
-function receiveMessage(message) {
-    var messages = document.getElementById("messages");
-
-    var botMessageElement = document.createElement("div");
-    botMessageElement.classList.add("message", "received");
+function createMessageElement(type, sender, message) {
+    var messageElement = document.createElement("div");
+    messageElement.classList.add("message", type);
     var messageContent = `
         <p>
-            <span class="message-sender">Bot:</span> ${message}
+            <span class="message-sender">${sender}:</span> ${message}
             <span class="message-time">${getCurrentTime()}</span>
         </p>`;
-    botMessageElement.innerHTML = messageContent;
-    messages.appendChild(botMessageElement);
+    messageElement.innerHTML = messageContent;
+    return messageElement;
 }
 
-document.querySelector("#sendMessageButton").addEventListener("click", sendMessage);
-document.getElementById("userInput").addEventListener("keydown", sendMessage);
+document.getElementById("sendMessageButton").addEventListener("click", sendMessage);
 
-/*
-// index.js
-
-function sendMessage(event) {
-    // Prevent the default form submission behavior
-    event.preventDefault();
-
-    // Get the user input value
-    var userInput = document.getElementById("userInput").value;
-
-    // Create the JSON payload
-    var requestBody = { "requestBody": userInput };
-
-    // Make an AJAX request using the Fetch API
-    fetch('https://localhost:44345/api/completion', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
-    })
-        .then(response => response.json())
-        .then(data => {
-            // Handle the response data (update the UI, etc.)
-            console.log('Response from server:', data);
-            updateChatUI(data.responseBody); // Assuming there's a function to update the chat UI
-        })
-        .catch(error => {
-            // Handle errors
-            console.error('Error:', error);
-        });
-}
-
-function updateChatUI(message) {
-    // Update the chat UI with the received message
-    var messagesContainer = document.getElementById('messages');
-
-    var messageElement = document.createElement('div');
-    messageElement.classList.add('message', 'received');
-    messageElement.innerHTML = '<p>' + message + '</p>';
-
-    messagesContainer.appendChild(messageElement);
-
-    // Clear the user input
-    document.getElementById('userInput').value = '';
-}
-*/
+document.getElementById("userInput").addEventListener("keydown", function (event) {
+    // Check if the pressed key is Enter
+    if (event.key === "Enter") {
+        sendMessage(event);
+    }
+});
