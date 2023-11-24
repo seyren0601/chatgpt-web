@@ -11,7 +11,7 @@
   <ItemGroup>
     <None Include="wwwroot\css\style.css" />
     <None Include="wwwroot\images\nhap_mon_5.png" />
-    <None Include="wwwroot\js\script.js" />
+    <None Include="wwwroot\js\index.js" />
   </ItemGroup>
 
   <ItemGroup>
