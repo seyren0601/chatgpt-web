@@ -69,7 +69,9 @@ document.getElementById("sendMessageButton").addEventListener("click", sendMessa
 
 document.getElementById("userInput").addEventListener("keydown", function (event) {
     // Check if the pressed key is Enter
-    if (event.key === "Enter") {
+    if (event.type === "click" || (event.type === "keydown" && event.key === "Enter")) {
+        // Prevent the default behavior of the Enter key (e.g., adding a new line)
+        event.preventDefault();
         sendMessage(event);
     }
 });
