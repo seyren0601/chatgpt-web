@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System;
 using System.Net;
+using Newtonsoft.Json;
 
 namespace ChatGPTCaller.Controllers
 {
@@ -26,7 +27,6 @@ namespace ChatGPTCaller.Controllers
         [HttpGet("completion")]
         public ActionResult<string> Get()
         {
-            
             if (!ModelState.IsValid)
             {
                 return new StatusCodeResult(400);
@@ -38,7 +38,7 @@ namespace ChatGPTCaller.Controllers
         }
 
         [HttpPost("completion")]
-        public ActionResult<string> GetCompletionAPI([FromBody] Model model)
+        public ActionResult<ChatGPT_API_Response.APIResponse> GetCompletionAPI([FromBody]PromptRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -46,22 +46,17 @@ namespace ChatGPTCaller.Controllers
             }
             else
             {
-                Response = _chatGPTService.GetAPIResponse(model.requestBody).Result.Item1;
-                StatusCode = _chatGPTService.GetAPIResponse(model.requestBody).Result.Item2;
+                var result = _chatGPTService.GetAPIResponse(request).Result;
+                Response = result.Item1;
+                StatusCode = result.Item2;
                 switch (StatusCode)
                 {
                     case HttpStatusCode.OK:
-                        return Response.choices[0].message.content;
+                        return Response;
                     default:
                         return new StatusCodeResult((int)StatusCode);
                 }
             }
-        }
-
-        public class Model
-        {
-            [Required]
-            public string requestBody { get; set; }
         }
     }
 }
