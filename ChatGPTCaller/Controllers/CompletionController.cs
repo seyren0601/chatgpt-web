@@ -5,6 +5,10 @@ using System.Security.Cryptography.X509Certificates;
 using ChatGPTCaller.Services;
 using System.IO;
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+using System;
+using System.Net;
+using Newtonsoft.Json;
 
 namespace ChatGPTCaller.Controllers
 {
@@ -12,7 +16,8 @@ namespace ChatGPTCaller.Controllers
     [ApiController]
     public class CompletionController : ControllerBase
     {
-        public ChatGPT_API_Response.APIResponse Response { get; set; }
+        ChatGPT_API_Response.APIResponse Response { get; set; }
+        HttpStatusCode StatusCode { get; set; }
         private readonly ChatGPTService _chatGPTService;
         public CompletionController(ChatGPTService chatGPTService)
         {
@@ -24,7 +29,7 @@ namespace ChatGPTCaller.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return new StatusCodeResult(400);
             }
             else
             {
@@ -33,7 +38,7 @@ namespace ChatGPTCaller.Controllers
         }
 
         [HttpPost("completion")]
-        public ActionResult<string> GetCompletionAPI([FromBody] Model model)
+        public ActionResult<ChatGPT_API_Response.APIResponse> GetCompletionAPI([FromBody]PromptRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -41,15 +46,17 @@ namespace ChatGPTCaller.Controllers
             }
             else
             {
-                Response = _chatGPTService.GetAPIResponse(model.requestBody).Result;
-                return Response.choices[0].message.content;
+                var result = _chatGPTService.GetAPIResponse(request).Result;
+                Response = result.Item1;
+                StatusCode = result.Item2;
+                switch (StatusCode)
+                {
+                    case HttpStatusCode.OK:
+                        return Response;
+                    default:
+                        return new StatusCodeResult((int)StatusCode);
+                }
             }
-        }
-
-        public class Model
-        {
-            [Required]
-            public string requestBody { get; set; }
         }
     }
 }

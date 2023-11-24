@@ -16,7 +16,7 @@ namespace ChatGPTCaller.Pages
             _chatGPTService = chatGPTService;
         }
         [BindProperty]
-        public BindingModel Input { get; set; }
+        public PromptRequest Input { get; set; }
         public ChatGPT_API_Response.APIResponse Completion { get; set; }
         public Exception APIException { get; set; }
         public void OnGet()
@@ -29,7 +29,7 @@ namespace ChatGPTCaller.Pages
             {
                 try
                 {
-					Completion = await _chatGPTService.GetAPIResponse(Input.Prompt);
+					Completion = _chatGPTService.GetAPIResponse(Input).Result.Item1;
 				}
                 catch (Exception ex){
                     APIException = ex;
@@ -37,12 +37,6 @@ namespace ChatGPTCaller.Pages
                 return Page();
             }
             return RedirectToPage("Index");
-        }
-
-        public class BindingModel
-        {
-            [Required]
-            public string Prompt { get; set; }
         }
     }
 }

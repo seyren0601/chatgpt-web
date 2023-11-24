@@ -397,3 +397,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 ChatGPTCaller/Bearer Token.txt
+ChatGPTCaller/1.json

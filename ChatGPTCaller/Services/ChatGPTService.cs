@@ -8,6 +8,8 @@ using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging.Abstractions;
 using ChatGPTCaller.Models;
+using System.Net;
+using static ChatGPTCaller.Services.ConversationService;
 
 namespace ChatGPTCaller.Services
 {
@@ -16,10 +18,12 @@ namespace ChatGPTCaller.Services
         string _APIKey = File.ReadAllText("Bearer Token.txt"); // Phải tự tạo file này với nội dung là API Key của ChatGPT
         string _prompt { get; set; }
         string _apiUrl = "https://api.openai.com/v1/chat/completions";
-        public async Task<ChatGPT_API_Response.APIResponse> GetAPIResponse(string request)
+        List<ChatGPT_API_Response.Message> Messages = new List<ChatGPT_API_Response.Message>();
+        public async Task<(ChatGPT_API_Response.APIResponse, HttpStatusCode)> GetAPIResponse(PromptRequest request)
         {
-            _prompt = request;
-
+            _prompt = request.message.content;
+            Messages = GetConversation(request);
+            
             HttpResponseMessage response = await PostRequest();
 
             /*if (response.IsSuccessStatusCode)
@@ -38,18 +42,12 @@ namespace ChatGPTCaller.Services
 
             //string jsString = File.ReadAllText("response.json");
 
-            if (response.IsSuccessStatusCode)
-            {
-                string jsonResponse = response.Content.ReadAsStringAsync().Result;
-                //string responseData = JsonConvert.DeserializeObject<string>(jsonResponse);
+            string jsonResponse = response.Content.ReadAsStringAsync().Result;
+            //string responseData = JsonConvert.DeserializeObject<string>(jsonResponse);
 
-                ChatGPT_API_Response.APIResponse aPIResponse = JsonConvert.DeserializeObject<ChatGPT_API_Response.APIResponse>(jsonResponse);
-                return aPIResponse;
-            }
-            else
-            {
-                throw new Exception(response.StatusCode.ToString());
-            }
+            ChatGPT_API_Response.APIResponse aPIResponse = JsonConvert.DeserializeObject<ChatGPT_API_Response.APIResponse>(jsonResponse);
+            RecordConversation(request, aPIResponse);
+            return (aPIResponse, response.StatusCode);
         }
 
         private async Task<HttpResponseMessage> PostRequest()
@@ -58,15 +56,15 @@ namespace ChatGPTCaller.Services
             {
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_APIKey}");
 
-                var requestBody = new
-                {
+                var requestBody = new ChatGPT_API_Request.APIRequest("gpt-3.5-turbo", Messages);
+                /*{
                     model = "gpt-3.5-turbo",
                     messages = new[]
                     {
                         new { role = "system", content = "You are a helpful assistant." },
                         new { role = "user", content = _prompt }
                     }
-                };
+                };*/
 
                 var jsonRequest = JsonConvert.SerializeObject(requestBody);
 
