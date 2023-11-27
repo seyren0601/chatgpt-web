@@ -13,7 +13,7 @@ function sendMessage() {
     var userMessage = userInput.value.trim();
     if (userMessage === "") return;
 
-    // Create the user message element
+    // Create and append the user message element
     var userMessageElement = createMessageElement("sent", "User", userMessage);
     messages.appendChild(userMessageElement);
 
@@ -38,42 +38,59 @@ function sendMessage() {
         body: JSON.stringify(requestBody),
     })
         .then(response => response.json())
-        .then(data => {
-            var choices = data.choices;
-            if (choices && choices.length > 0) {
-                var botMessageContent = choices[0].message.content;
-                if (botMessageContent !== "") {
-                    // Create the bot message element
-                    var botMessageElement = createMessageElement("received", "Bot", botMessageContent);
-                    messages.appendChild(botMessageElement);
-                }
-            }
-        })
-        .catch(error => {
-            // Handle errors
-            console.error('Error:', error);
-        });
+        .then(data => handleBotResponse(data))
+        .catch(handleError);
+}
+
+function handleBotResponse(data) {
+    var choices = data.choices;
+    if (choices && choices.length > 0) {
+        var botMessageContent = choices[0].message.content;
+        if (botMessageContent !== "") {
+            // Create and append the bot message element
+            var botMessageElement = createMessageElement("received", "Bot", botMessageContent);
+            document.getElementById("messages").appendChild(botMessageElement);
+        }
+    }
+}
+
+function handleError(error) {
+    // Handle errors
+    console.error('Error:', error);
 }
 
 function createMessageElement(type, sender, message) {
     var messageElement = document.createElement("div");
     messageElement.classList.add("message", type);
+
     var messageContent = `
         <p>
             <span class="message-sender">${sender}:</span> ${message}
             <span class="message-time">${getCurrentTime()}</span>
         </p>`;
+
     messageElement.innerHTML = messageContent;
     return messageElement;
 }
 
-document.getElementById("sendMessageButton").addEventListener("click", sendMessage);
+function initChatApp() {
+    var searchInput = document.getElementById("userInput");
+    var button = document.getElementById("Button");
 
-document.getElementById("userInput").addEventListener("keydown", function (event) {
-    // Check if the pressed key is Enter
-    if (event.key === "Enter") {
-        // Prevent the default behavior of the Enter key (e.g., adding a new line)
-        event.preventDefault();
+    searchInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            sendMessage();
+            event.preventDefault();
+        } else if (event.key === "Tab") {
+            event.preventDefault();
+            button.focus();
+        }
+    });
+
+    button.addEventListener("click", function () {
         sendMessage();
-    }
-});
+        searchInput.focus();
+    });
+}
+
+initChatApp();
