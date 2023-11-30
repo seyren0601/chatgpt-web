@@ -23,15 +23,16 @@ namespace ChatGPTCaller.Pages
         {
         }
 
-        public async Task<IActionResult> OnPost()
+        public IActionResult OnPost()
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-					Completion = _chatGPTService.GetAPIResponse(Input).Result.Item1;
-				}
-                catch (Exception ex){
+                    Completion = _chatGPTService.GetAPIResponse(Input).Result.Item1;
+                }
+                catch (Exception ex)
+                {
                     APIException = ex;
                 }
                 return Page();
