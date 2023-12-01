@@ -3,25 +3,99 @@
 @addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
 @{
 }
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatGPT-like Page</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
-    <script src="js/index.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1.0, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Chat_GPT</title>
+
+    <meta name="title" content="CFD Circle" />
+    <meta name="description" content="" />
+    <meta name="keyword" content="" />
+
+    <link rel="canonical" href="https://cfdcircle.vn" />
+    <link rel="icon" href="favicon.ico">
+
+    <!-- Meta Tag Facebook -->
+    <meta property="og:locale" content="en" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="CFD Circle" />
+    <meta property="og:description" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="CFD Circle" />
+    <meta property="og:image" content="" />
+
+    <!-- Meta Tag Twitter -->
+    <meta name="twitter:card" content="" />
+    <meta name="twitter:site" content="" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:image" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="./scss/core/_variables.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/fonts.css">
 </head>
-<body>
-    <div class="chat-container">
-        <div class="chat">
-            <div class="messages" id="messages">
+
+<body class="homepage">
+    <!-- <video autoplay loop class="back-video" muted plays-inline>
+        <source src="./img/video.mp4" type="video/mp4">
+    </video> -->
+    <header class="header">
+
+        <div class="container">
+            <div class="header__left">
+                <a class="logo" href="./" target="_blank">
+                    <i class="fa-brands fa-slack"></i>
+                </a>
+                <ul class="menu">
+                    <li><a href="" target="_blank" rel="noopener" class=" --active">HOME</a></li>
+                    <li><a href="" target="_blank" rel="noopener">BLOG</a></li>
+
+                </ul>
             </div>
-            <input type="text" id="userInput" placeholder="Type a message...">
-            <button onclick="sendMessage(event)">Tìm Kiếm</button>
+            <div class="header__right">
+                <a href="" target="_blank" rel="noopener" class="btnhead">
+                    <i class="fa-solid fa-user"></i>
+                    <span>TÀI kHOẢN</span>
+                </a>
+            </div>
         </div>
-    </div>
-    <img src="images/nhap_mon_5.png" alt="Background Image" class="background-image">
+    </header>
+    <!-- === MAIN === -->
+    <main class="homepage">
+        <section class="sthero">
+            <div class="container">
+                <h1>STUDY WITH ME</h1>
+                <form>
+                    <i><img srcset="./img/icon-search.png 2x" alt="icon-search"></i>
+                    <input type="text" id="searchInput" placeholder="Enter Question">
+                    <button type="button" onclick="sendMessage()">Search</button>
+                </form>
+                <h2>Hello! Please ask our Chatbot will support you.</h2>
+                <div class="chat">
+                    <div class="messages" id="messages">
+                        <div class="message received">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+    <footer class="footer">
+    </footer>
+    <!-- Javascript -->
+    <script type="text/javascript" src="./js/main.js"></script>
+
 </body>
+
 </html>

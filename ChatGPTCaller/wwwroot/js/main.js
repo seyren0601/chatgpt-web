@@ -1,13 +1,13 @@
 function getCurrentTime() {
     var now = new Date();
-    var hours = now.getHours() % 12 || 12; // Ensure 12-hour format
-    var minutes = ('0' + now.getMinutes()).slice(-2); // Add leading zero if needed
+    var hours = now.getHours() % 12 || 12;
+    var minutes = ('0' + now.getMinutes()).slice(-2);
     var ampm = now.getHours() >= 12 ? 'PM' : 'AM';
     return hours + ':' + minutes + ' ' + ampm;
 }
 
 function sendMessage() {
-    var userInput = document.getElementById("userInput");
+    var userInput = document.getElementById("searchInput");
     var messages = document.getElementById("messages");
 
     var userMessage = userInput.value.trim();
@@ -67,9 +67,7 @@ function createMessageElement(type, sender, message) {
     return messageElement;
 }
 
-document.getElementById("sendMessageButton").addEventListener("click", sendMessage);
-
-document.getElementById("userInput").addEventListener("keydown", function (event) {
+document.getElementById("searchInput").addEventListener("keydown", function (event) {
     // Check if the pressed key is Enter
     if (event.key === "Enter") {
         // Prevent the default behavior of the Enter key (e.g., adding a new line)
@@ -77,3 +75,6 @@ document.getElementById("userInput").addEventListener("keydown", function (event
         sendMessage();
     }
 });
+
+// If you have a "Send" button, you can add an event listener to it as well
+// document.getElementById("sendMessageButton").addEventListener("click", sendMessage);
