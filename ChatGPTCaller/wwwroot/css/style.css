@@ -54,7 +54,7 @@ table {
     --gap-grid: 26px;
     --max-width-page: 2560px;
     --max-width-container: calc(1200px + calc(var(--gap) * 2));
-    --main-cl: #86868b;
+    --main-cl: #eb0fef;
     --blue-bg-cl: #0f2699;
     --blue-light-cl: #031FB4;
     --blue-dark-cl: #010D50;
