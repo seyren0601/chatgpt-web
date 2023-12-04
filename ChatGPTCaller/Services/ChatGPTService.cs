@@ -46,7 +46,10 @@ namespace ChatGPTCaller.Services
             //string responseData = JsonConvert.DeserializeObject<string>(jsonResponse);
 
             ChatGPT_API_Response.APIResponse aPIResponse = JsonConvert.DeserializeObject<ChatGPT_API_Response.APIResponse>(jsonResponse);
-            RecordConversation(request, aPIResponse);
+            if(response.StatusCode == HttpStatusCode.OK)
+            {
+                RecordConversation(request, aPIResponse);
+            }
             return (aPIResponse, response.StatusCode);
         }
 
