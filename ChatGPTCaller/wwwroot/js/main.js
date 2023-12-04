@@ -44,7 +44,7 @@ function sendMessage() {
                 var botMessageContent = choices[0].message.content;
                 if (botMessageContent !== "") {
                     // Create the bot message element
-                    var botMessageElement = createMessageElement("received", "Bot", botMessageContent);
+                    var botMessageElement = createMessageElement("received", "Bot_Assistant", botMessageContent);
                     messages.appendChild(botMessageElement);
                 }
             }
@@ -58,21 +58,20 @@ function createSendMessage(type, sender, message) {
     var messageElement = document.createElement("div");
     messageElement.classList.add("message", type);
     var messageContent = `
-        <p>
-            <span class="message-sender"><i class="fa-regular fa-user"></i>${sender}:</span> ${message}
-            <span class="message-time">${getCurrentTime()}</span>
-        </p>`;
+        <p class="message-sender">
+            <i class="fa-regular fa-user"></i>${sender}_${getCurrentTime()}:</p>
+        <p class="message-text">${message}</p>`;
     messageElement.innerHTML = messageContent;
     return messageElement;
 }
+
 function createMessageElement(type, sender, message) {
     var messageElement = document.createElement("div");
     messageElement.classList.add("message", type);
     var messageContent = `
-        <p>
-            <span class="message-sender"><i class="fa-solid fa-robot"></i>${sender}:</span> ${message}
-            <span class="message-time">${getCurrentTime()}</span>
-        </p>`;
+        <p class="message-sender">
+            <i class="fa-solid fa-robot"></i>${sender}_${getCurrentTime()}:</p>
+        <p class="message-text">${message}</p>`;
     messageElement.innerHTML = messageContent;
     return messageElement;
 }

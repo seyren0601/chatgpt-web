@@ -225,15 +225,18 @@ sup {
         height: 100%
     }
 }
+.message-text{
+    text-align:left;
+    margin-left:20px;
+}
 
 .message-sender {
     color: var(--main-cl);
-    font-weight: 900
+    font-weight: 900;
+    text-align: left;
+    margin-left: 20px;
 }
 
-    .message-sender i {
-        padding-right: 10px
-    }
 
 .fa-brands {
     color: var(--main-cl)
@@ -1450,6 +1453,18 @@ html.with-fancybox {
             background-position: 0 0;
             animation: back 20s linear infinite
         }
+        .homepage .sthero h2 {
+            font-size: 30px;
+            line-height: 40px;
+            color: transparent;
+            padding-bottom: 30px;
+            -webkit-text-stroke: 1px #fff;
+            background: url(../img/back.png);
+            white-space: nowrap;
+            -webkit-background-clip: text;
+            background-position: 0 0;
+            animation: back 20s linear infinite
+        }
 
 @keyframes back {
     100% {
@@ -1514,13 +1529,14 @@ html.with-fancybox {
         }
 
 .homepage .chat {
-    min-height: 300px;
+    border: 5px solid var(--main-cl);
     overflow-y: auto;
-    border: 5px solid var(--main-cl)
+    min-height: 300px;
+    max-height: 300px;
 }
 
-@media screen and (max-width: 1199.98px) {
-    .homepage .sthero h1 {
+    @media screen and (max-width: 1199.98px) {
+        .homepage .sthero h1 {
         font-size: 100px
     }
 }
