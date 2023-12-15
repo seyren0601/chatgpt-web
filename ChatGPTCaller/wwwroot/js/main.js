@@ -9,15 +9,25 @@
 function sendMessage() {
     var userInput = document.getElementById("searchInput");
     var messages = document.getElementById("messages");
+    var loadingIndicator = document.getElementById("loading");
+    // Disable the user input field during loading
+    userInput.disabled = true;
 
     var userMessage = userInput.value.trim();
-    if (userMessage === "") return;
+    if (userMessage === "") {
+        // Enable the user input field if the message is empty
+        userInput.disabled = false;
+        return;
+    }
     // Create the user message element
-    var userMessageElement = createSendMessage("sent", "User", userMessage);
+    var userMessageElement = createMessageElement("sent", "User", userMessage);
     messages.appendChild(userMessageElement);
 
     // Clear the user input field after sending the message
     userInput.value = "";
+
+    // Show the loading indicator
+    loadingIndicator.style.display = "block";
 
     // Create the JSON payload
     var requestBody = {
@@ -40,6 +50,11 @@ function sendMessage() {
             return response.json();
         })
         .then(data => {
+
+            // Hide the loading indicator when the response is received
+            loadingIndicator.style.display = "none";
+            userInput.disabled = false;
+
             // Handle successful response data
             var choices = data.choices;
             if (choices && choices.length > 0) {
@@ -50,15 +65,18 @@ function sendMessage() {
                     messages.appendChild(botMessageElement);
                 }
             }
-            else { 
+            else {
                 // If the response status is not OK, throw an error
                 throw new Error(`HTTP error! Status: ${data.status} Title: ${data.title}`);
             }
         })
         .catch(error => {
-            // Handle errors
+            // Hide the loading indicator in case of an error
+            loadingIndicator.style.display = "none";
+            userInput.disabled = false;
 
-            var errorElement = showErorrToast(error.message);
+            // Handle errors
+            var errorElement = showErrorToast(error.message);
         });
 }
 function displayErrorMessage(message) {
