@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ChatGPTCaller.Models;
+using ChatGPTCaller.Services;
+using System.Net;
 
 namespace ChatGPTCaller.Controllers
 {
@@ -7,15 +9,25 @@ namespace ChatGPTCaller.Controllers
     [ApiController]
     public class RegisterController : Controller
     {
-        public IActionResult Index()
+        RegisterResponse Response { get; set; }
+        private readonly RegisterService _registerService;
+        public RegisterController(RegisterService registerService)
         {
-            return View();
+            _registerService = registerService;
         }
 
-        [HttpPost("/request")]
-        public ActionResult<RegisterResponse> PostRegisterResult([FromBody]RegisterRequest request)
+        [HttpPost("request")]
+        public ActionResult<RegisterResponse> PostRegisterResult([FromBody]User user)
         {
-            return new OkResult();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                Response = _registerService.RegisterUser(user);
+                return Response;
+            }
         }
     }
 }
