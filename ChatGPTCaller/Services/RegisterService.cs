@@ -1,13 +1,23 @@
 ﻿using ChatGPTCaller.DAL;
 using ChatGPTCaller.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using MySqlConnector;
 using System;
-using static ChatGPTCaller.DAL.DbContext;
 
 namespace ChatGPTCaller.Services
 {
     public class RegisterService
     {
+        private readonly IConfiguration _configuration;
+        DbContext _dbContext;
+        public RegisterService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+            _dbContext = new DbContext(configuration);
+        }
+        
         public RegisterResponse RegisterUser(User user)
         {
             RegisterResponse response = new RegisterResponse();
@@ -15,7 +25,7 @@ namespace ChatGPTCaller.Services
             string sql = $"INSERT INTO user_info VALUES (NULL, '{userInfo.email}', '{userInfo.GetHashValue()}', '{Convert.ToBase64String(userInfo.hashSalt)}')";
             try
             {
-                int affected = ExecuteNonQueryCommand(sql);
+                int affected = _dbContext.ExecuteNonQueryCommand(sql);
                 response.ErrorMessage = "";
                 response.RegisterResult = true;
                 return response;

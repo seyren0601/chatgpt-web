@@ -1,22 +1,33 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using MySqlConnector;
+using System;
 using System.Data;
+using System.Data.Common;
 
 namespace ChatGPTCaller.DAL
 {
-    static class DbContext
+    public class DbContext
     {
-        static string connectionString = "Server=localhost;User ID=root;Password=;Database=gpt_user";
-        static MySqlConnection _connection = new MySqlConnection(connectionString);
+        string connectionString;
+        private MySqlConnection _connection;
+        public DbContext(IConfiguration configuration)
+        {
+            connectionString = configuration.GetConnectionString("userdb");
+            _connection = new MySqlConnection(connectionString);
+        }
+        public DbContext() { }
 
-        public static int ExecuteNonQueryCommand(string sql)
+        public int ExecuteNonQueryCommand(string sql)
         {
             _connection.Open();
 
             MySqlCommand cmd = new MySqlCommand() 
             { 
                 CommandText = sql,
-                CommandType = System.Data.CommandType.Text,
+                CommandType = CommandType.Text,
                 Connection = _connection
             };
             try
@@ -28,11 +39,12 @@ namespace ChatGPTCaller.DAL
             catch(MySqlException e)
             {
                 _connection.Close();
+                Console.WriteLine(_connection.ConnectionString);
                 throw (e);
             }
         }
 
-        public static DataTable ExecuteQueryCommand(string sql)
+        public DataTable ExecuteQueryCommand(string sql)
         {
             _connection.Open();
 

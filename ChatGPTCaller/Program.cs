@@ -22,5 +22,12 @@ namespace ChatGPTCaller
 				{
 					webBuilder.UseStartup<Startup>();
 				});
+		public static void AddAppConfiguration(
+			HostBuilderContext hostingContext,
+			IConfigurationBuilder config)
+		{
+			config.Sources.Clear();
+			config.AddJsonFile("appsettings.json", optional: true);
+		}
 	}
 }
