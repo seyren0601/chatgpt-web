@@ -1,4 +1,5 @@
-﻿function Validator(options) {
+﻿/*
+function Validator(options) {
     const getParent = (element, selector) => {
         while (element.parentElement) {
             if (element.parentElement.matches(selector)) {
@@ -146,7 +147,7 @@ Validator.isConfirmed = function (selector, getConfirmValue, message) {
             return value === getConfirmValue() ? undefined : message || "Giá trị nhập vào không chính xác";
         },
     };
-};
+};*/
 function changeOverlay() {
     const buttonClickChange = document.querySelector(".button-submit-overlay");
     const overlayChange = document.querySelector(".overlay-form");

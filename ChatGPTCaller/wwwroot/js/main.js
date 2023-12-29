@@ -181,7 +181,7 @@ function toast({ title = "", message = "", type = "", duration = "" }) {
 
 
 // Hàm showErrorToast sử dụng hàm toast để hiển thị một toast thất bại
-function showErorrToast(message) {
+function showErrorToast(message) {
     toast({
         title: "Thất Bại",
         message: message,
@@ -189,3 +189,49 @@ function showErorrToast(message) {
         duration: 5000,
     });
 }
+// Hàm showSuccessToast sử dụng hàm toast để hiển thị một toast thành công
+function showSuccessToast(message) {
+    toast({
+        title: "Thành Công",
+        message: message,
+        type: "success",
+        duration: 3000,
+    });
+}
+
+
+function registerRequest() {
+    var _email = document.getElementById("email");
+    var _password = document.getElementById("password");
+
+    var email = _email.value.trim();
+    var password = _password.value.trim();
+    // Create the JSON 
+    var requestBody = {
+        "email": email,
+        "password": password
+    };
+    // Make an AJAX request using the Fetch API
+    fetch('https://localhost:44345/register/request', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.registerResult) {
+                // Registration successful
+                showSuccessToast("Registration successful");
+            } else {
+                // Registration failed, handle the error message
+                showErrorToast("Registration failed. Error message: " + data.errorMessage);
+            }
+        })
+        .catch(error => {
+            // Handle errors that occur during the fetch
+            showErrorToast('Error during registration request:', error);
+        });
+}
+
