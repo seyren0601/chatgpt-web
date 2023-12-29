@@ -1,0 +1,179 @@
+﻿@page
+@model ChatGPTCaller.Pages.RegisterModel
+@{
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1.0, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Chat_GPT_Register</title>
+
+    <meta name="title" content="CFD Circle" />
+    <meta name="description" content="" />
+    <meta name="keyword" content="" />
+
+    <link rel="canonical" href="https://cfdcircle.vn" />
+    <link rel="icon" href="favicon.ico">
+
+    <!-- Meta Tag Facebook -->
+    <meta property="og:locale" content="en" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="CFD Circle" />
+    <meta property="og:description" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="CFD Circle" />
+    <meta property="og:image" content="" />
+
+    <!-- Meta Tag Twitter -->
+    <meta name="twitter:card" content="" />
+    <meta name="twitter:site" content="" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:image" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/fonts.css" />
+</head>
+
+<body class="contactpage">
+    <header class="header">
+
+        <div class="container">
+            <div class="header__left">
+                <a class="logo" href="./" target="_blank">
+                    <i class="fa-brands fa-slack"></i>
+                </a>
+                <ul class="menu">
+                    <li><a href="./" target="_blank" rel="noopener" class=" --active">HOME</a></li>
+                </ul>
+            </div>
+            <div class="header__right">
+                <a asp-page="./Register" target="_blank" rel="noopener" class="btnhead">
+                    <i class="fa-solid fa-user"></i>
+                    <span>TÀI kHOẢN</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="container_form">
+                <div class="form-wrapper right-panel-active">
+                    <div class="overlay-form">
+                        <button onclick="changeOverlay()" class="button-submit-overlay mt-1 mb-3">Register</button>
+                    </div>
+
+                    <form action="" method="POST" class="form_sign-in" id="form-1">
+                        <h4>Register</h4>
+                        <div class="spacer"></div>
+                        <div class="form-group">
+                            <label for="fullname" class="form-label">Tên đầy đủ</label>
+                            <input id="fullname" name="fullname" type="text" placeholder="Nhập Họ Và Tên"
+                                   class="form-control">
+                            <span class="form-message"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input id="email" name="email" type="text" placeholder="VD: email@domain.com"
+                                   class="form-control">
+                            <span class="form-message"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="form-label">Mật khẩu</label>
+                            <input id="password" name="password" type="password" placeholder="Nhập mật khẩu"
+                                   class="form-control">
+                            <span class="form-message"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
+                            <input id="password_confirmation" name="password_confirmation"
+                                   placeholder="Nhập lại mật khẩu" type="password" class="form-control">
+                            <span class="form-message"></span>
+                        </div>
+
+                        <button class="button-submit mt-1 mb-3">Register</button>
+                    </form>
+
+                    <form action="" method="POST" class="form_sign-up" id="form-2">
+                        <h4>Log In</h4>
+                        <div class="spacer"></div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input id="email" name="email" type="text" placeholder="VD: email@domain.com"
+                                   class="form-control">
+                            <span class="form-message"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="form-label">Mật khẩu</label>
+                            <input id="password" name="password" type="password" placeholder="Nhập mật khẩu"
+                                   class="form-control">
+                            <span class="form-message"></span>
+                        </div>
+
+                        <button class="button-submit mt-1 mb-3">Log In</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <!-- Javascript -->
+    <script type="text/javascript" src="./js/register.js"></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mong muốn của chúng ta
+            Validator({
+                form: '#form-1',
+                formGroupSelector: '.form-group',
+                errorSelector: '.form-message',
+                rules: [
+                    Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ của bạn'),
+                    Validator.isEmail('#email'),
+                    Validator.minLength('#password', 6),
+                    Validator.isRequired('#password_confirmation'),
+                    Validator.isConfirmed('#password_confirmation', function () {
+
+                        return document.querySelector('#form-1 #password').value;
+                    }, 'Mật khẩu nhập lại không chính xác')
+                ],
+                onSubmit: function (data) {
+                    // Call API
+                    console.log(data);
+                }
+            });
+            Validator({
+                form: '#form-2',
+                formGroupSelector: '.form-group',
+                errorSelector: '.form-message',
+                rules: [
+                    Validator.isEmail('#email'),
+                    Validator.minLength('#password', 6),
+                ],
+                onSubmit: function (data) {
+                    // Call API
+                    console.log(data);
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>

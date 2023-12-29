@@ -45,9 +45,6 @@
 </head>
 
 <body class="homepage">
-    <!-- <video autoplay loop class="back-video" muted plays-inline>
-        <source src="./img/video.mp4" type="video/mp4">
-    </video> -->
     <header class="header">
 
         <div class="container">
@@ -56,15 +53,13 @@
                     <i class="fa-brands fa-slack"></i>
                 </a>
                 <ul class="menu">
-                    <li><a href="" target="_blank" rel="noopener" class=" --active">HOME</a></li>
-                    <li><a href="" target="_blank" rel="noopener">BLOG</a></li>
-
+                    <li><a asp-page="./Index" target="_blank" rel="noopener" class=" --active">HOME</a></li>
                 </ul>
             </div>
             <div class="header__right">
-                <a href="" target="_blank" rel="noopener" class="btnhead">
+                <a asp-page="./Register" target="_blank" rel="noopener" class="btnhead">
                     <i class="fa-solid fa-user"></i>
-                    <span>TÀI kHOẢN</span>
+                    <span>TÀI KHOẢN</span>
                 </a>
             </div>
         </div>
