@@ -24,7 +24,7 @@ namespace ChatGPTCaller.Controllers
             _chatGPTService = chatGPTService;
         }
 
-        [HttpGet("completion")]
+        [HttpGet("completion/test")]
         public ActionResult<string> Get()
         {
             if (!ModelState.IsValid)

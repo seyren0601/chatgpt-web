@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,9 @@ namespace ChatGPTCaller
 		{
 			services.AddRazorPages();
 			services.AddSingleton<ChatGPTService>();
+			services.AddSingleton<RegisterService>();
 			services.AddControllers();
+			//services.AddMySqlDataSource("Server=localhost;User ID=root;Password=porsche0601;Database=gpt_user");
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

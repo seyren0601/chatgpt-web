@@ -26,24 +26,7 @@ namespace ChatGPTCaller.Services
             
             HttpResponseMessage response = await PostRequest();
 
-            /*if (response.IsSuccessStatusCode)
-			{
-				string jsonResponse = response.Content.ReadAsStringAsync().Result;
-				string responseData = JsonConvert.DeserializeObject<string>(jsonResponse);
-
-				string filePath = "response.json";
-				File.WriteAllText(filePath, JsonConvert.SerializeObject(responseData));
-				Console.WriteLine("Response saved to response.json");
-			}
-			else
-			{
-				Console.WriteLine($"Error: {response.ReasonPhrase}");
-			}*/
-
-            //string jsString = File.ReadAllText("response.json");
-
             string jsonResponse = response.Content.ReadAsStringAsync().Result;
-            //string responseData = JsonConvert.DeserializeObject<string>(jsonResponse);
 
             ChatGPT_API_Response.APIResponse aPIResponse = JsonConvert.DeserializeObject<ChatGPT_API_Response.APIResponse>(jsonResponse);
             if(response.StatusCode == HttpStatusCode.OK)
@@ -60,14 +43,6 @@ namespace ChatGPTCaller.Services
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_APIKey}");
 
                 var requestBody = new ChatGPT_API_Request.APIRequest("gpt-3.5-turbo", Messages);
-                /*{
-                    model = "gpt-3.5-turbo",
-                    messages = new[]
-                    {
-                        new { role = "system", content = "You are a helpful assistant." },
-                        new { role = "user", content = _prompt }
-                    }
-                };*/
 
                 var jsonRequest = JsonConvert.SerializeObject(requestBody);
 
@@ -77,12 +52,4 @@ namespace ChatGPTCaller.Services
             }
         }
     }
-
-
-
-    /*public class Request
-	{
-		public string? model { get; set; }
-		public List<Message> messages { get; set; }
-	}*/
 }
