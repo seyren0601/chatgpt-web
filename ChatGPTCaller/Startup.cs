@@ -30,6 +30,7 @@ namespace ChatGPTCaller
             services.AddRazorPages();
 			services.AddSingleton<ChatGPTService>();
 			services.AddSingleton<RegisterService>();
+			services.AddSingleton<LoginService>();
 			services.AddControllers();
         }
 
