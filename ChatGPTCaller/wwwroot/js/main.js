@@ -201,26 +201,44 @@ function showSuccessToast(message) {
 
 
 function registerRequest() {
-    var _email = document.getElementById("email");
-    var _password = document.getElementById("password");
+    // Get the email and password input elements
+    var emailInput = document.getElementById("email");
+    var passwordInput = document.getElementById("password");
 
-    var email = _email.value.trim();
-    var password = _password.value.trim();
-    // Create the JSON 
-    var requestBody = {
+    // Extract values and trim whitespace
+    var email = emailInput.value.trim();
+    var password = passwordInput.value.trim();
+
+    // Check if email and password are not empty
+    if (!email || !password) {
+        showErrorToast("Email and password are required");
+        return;
+    }
+
+    // Create the JSON payload
+    var request = {
         "email": email,
         "password": password
     };
+
     // Make an AJAX request using the Fetch API
     fetch('https://localhost:44345/register/request', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json;charset=UTF-8'
         },
-        body: JSON.stringify(requestBody)
+        body: JSON.stringify(request)
     })
-        .then(response => response.json())
+        .then(response => {
+            // Check if the response status is in the range 200-299
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        })
         .then(data => {
+            // Check if registration was successful
             if (data.registerResult) {
                 // Registration successful
                 showSuccessToast("Registration successful");
@@ -234,4 +252,5 @@ function registerRequest() {
             showErrorToast('Error during registration request:', error);
         });
 }
+
 

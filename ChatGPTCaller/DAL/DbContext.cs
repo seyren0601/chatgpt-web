@@ -6,7 +6,7 @@ namespace ChatGPTCaller.DAL
 {
     static class DbContext
     {
-        static string connectionString = "Server=localhost;User ID=root;Password=;Database=gpt_user";
+        static string connectionString = "Server=localhost;User ID=root;Password=thuong0909;Database=gpt_user";
         static MySqlConnection _connection = new MySqlConnection(connectionString);
 
         public static int ExecuteNonQueryCommand(string sql)
