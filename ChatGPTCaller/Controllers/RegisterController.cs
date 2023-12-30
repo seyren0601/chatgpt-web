@@ -9,8 +9,8 @@ namespace ChatGPTCaller.Controllers
     [ApiController]
     public class RegisterController : Controller
     {
-        RegisterResponse Response { get; set; }
         private readonly RegisterService _registerService;
+        RegisterResponse Response;
         public RegisterController(RegisterService registerService)
         {
             _registerService = registerService;
