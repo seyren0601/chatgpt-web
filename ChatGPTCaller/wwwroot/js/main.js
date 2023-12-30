@@ -254,3 +254,56 @@ function registerRequest() {
 }
 
 
+function loginRequest() {
+    // Get the email and password input elements
+    const emailInput = document.getElementById("email_login");
+    const passwordInput = document.getElementById("password_login");
+
+    // Extract values and trim whitespace
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    // Check if email and password are not empty
+    if (!email || !password) {
+        showErrorToast("Email and password are required");
+        return;
+    }
+
+    // Create the JSON payload
+    const request = {
+        email: email,
+        password: password
+    };
+
+    // Make an AJAX request using the Fetch API
+    fetch('https://localhost:44345/login/request', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify(request)
+    })
+        .then(response => {
+            // Check if the response status is in the range 200-299
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        })
+        .then(data => {
+            // Check if login was successful
+            if (data.loginResult) {
+                showSuccessToast("Login successful");
+            } else {
+                showErrorToast("Login failed. Error message: " + data.errorMessage);
+            }
+        })
+        .catch(error => {
+            // Handle errors that occur during the fetch
+            showErrorToast('Error during login request:', error);
+        });
+}
+
+
+
