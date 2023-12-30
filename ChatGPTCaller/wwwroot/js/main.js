@@ -271,8 +271,8 @@ function loginRequest() {
 
     // Create the JSON payload
     const request = {
-        email: email,
-        password: password
+        "email": email,
+        "password": password
     };
 
     // Make an AJAX request using the Fetch API
@@ -293,7 +293,7 @@ function loginRequest() {
         })
         .then(data => {
             // Check if login was successful
-            if (data.loginResult) {
+            if (data.logInResult) {
                 showSuccessToast("Login successful");
             } else {
                 showErrorToast("Login failed. Error message: " + data.errorMessage);
