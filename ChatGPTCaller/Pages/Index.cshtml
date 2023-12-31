@@ -53,13 +53,14 @@
                     <i class="fa-brands fa-slack"></i>
                 </a>
                 <ul class="menu">
-                    <li><a asp-page="./Index" target="_blank" rel="noopener" class=" --active">HOME</a></li>
+                    <li><a asp-page="./Index" rel="noopener" class=" --active">HOME</a></li>
                 </ul>
-            </div>
+            </div>           
             <div class="header__right">
-                <a asp-page="./Register" target="_blank" rel="noopener" class="btnhead">
+                <a asp-page="./Register" rel="noopener" class="btnhead">
                     <i class="fa-solid fa-user"></i>
-                    <span>TÀI KHOẢN</span>
+                    <span id="usernameSpan">TÀI KHOẢN</span>
+                    <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
                 </a>
             </div>
         </div>
@@ -99,8 +100,6 @@
     </footer>
     <!-- Javascript -->
     <script type="text/javascript" src="./js/main.js"></script>
-    <script type="text/javascript" src="./js/register.js"></script>
-
 </body>
 
 </html>

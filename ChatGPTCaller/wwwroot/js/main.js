@@ -252,7 +252,41 @@ function registerRequest() {
             showErrorToast('Error during registration request:', error);
         });
 }
+function updateHeaderOnLogin(username) {
+    const usernameSpan = document.getElementById('usernameSpan');
+    const accountLink = document.querySelector('.header__right .btnhead');
 
+    if (usernameSpan && accountLink) {
+        usernameSpan.textContent = username;
+
+        // Store the username in localStorage
+        localStorage.setItem('username', username);
+        // Display the logout button
+        logoutButton.style.display = 'inline';
+
+        // Change the link to a different page (you can adjust the href accordingly)
+        accountLink.setAttribute('href', '/profile');
+
+        // Update the user icon class
+        const userIcon = accountLink.querySelector('i');
+
+        if (userIcon) {
+            // Change the user icon to a different icon (you can adjust the class accordingly)
+            userIcon.classList.replace('fa-user', 'fa-check-circle');
+        }
+    }
+}
+
+// Add this function to be called when the page is loaded
+function loadUsernameFromStorage() {
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+        updateHeaderOnLogin(storedUsername);
+    }
+}
+
+// Call the function when the page is loaded
+document.addEventListener('DOMContentLoaded', loadUsernameFromStorage);
 
 function loginRequest() {
     // Get the email and password input elements
@@ -295,6 +329,12 @@ function loginRequest() {
             // Check if login was successful
             if (data.logInResult) {
                 showSuccessToast("Login successful");
+                localStorage.setItem('username', email);
+                updateHeaderOnLogin(email);
+                // Redirect to '/Index' after a successful login
+                setTimeout(function () {
+                    window.location.href = '/Index';
+                }, 3000);
             } else {
                 showErrorToast("Login failed. Error message: " + data.errorMessage);
             }
@@ -305,5 +345,24 @@ function loginRequest() {
         });
 }
 
+// Function to clear user-related information and revert the header to the initial state
+function logout() {
+    const usernameSpan = document.getElementById('usernameSpan');
+    const accountLink = document.querySelector('.header__right .btnhead');
+
+    if (usernameSpan && accountLink) {
+        // Clear the username from localStorage
+        localStorage.removeItem('username');
+
+        // Revert the header to its initial state
+        usernameSpan.textContent = 'TÀI KHOẢN'; // or whatever your default text is
+        accountLink.setAttribute('href', '/Register'); // or the appropriate link for logout
+        const userIcon = accountLink.querySelector('i');
+        if (userIcon) {
+            // Change the user icon back to the initial icon
+            userIcon.classList.replace('fa-check-circle', 'fa-user');
+        }
+    }
+}
 
 
