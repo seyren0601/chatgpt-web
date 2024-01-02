@@ -3,13 +3,14 @@ using System.IO;
 using ChatGPTCaller.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks.Dataflow;
+using System.Collections;
 
 namespace ChatGPTCaller.Services
 {
     static public class ConversationService
     {
-        static List<ChatGPT_API_Response.Message> messages = new List<ChatGPT_API_Response.Message>();
-        static public List<ChatGPT_API_Response.Message> GetConversation(PromptRequest request)
+        static ArrayList messages = new ArrayList();
+        static public ArrayList GetConversation(PromptRequest request)
         {
             string fileName = request.ConversationID.ToString() + ".json";
             if (File.Exists(fileName))
@@ -18,7 +19,7 @@ namespace ChatGPTCaller.Services
                 using(StreamReader sr = new StreamReader(f))
                 {
                     string jsonContent = sr.ReadToEnd();
-                    messages = JsonConvert.DeserializeObject<List<ChatGPT_API_Response.Message>>(jsonContent);
+                    messages = JsonConvert.DeserializeObject<ArrayList>(jsonContent);
                     messages.Add(request.message);
                 }
                 return messages;
@@ -39,7 +40,7 @@ namespace ChatGPTCaller.Services
                 using(StreamReader sr = new StreamReader(fileName))
                 {
                     string jsonContent = sr.ReadToEnd();
-                    messages = JsonConvert.DeserializeObject<List<ChatGPT_API_Response.Message>>(jsonContent);
+                    messages = JsonConvert.DeserializeObject<ArrayList>(jsonContent);
                     messages.Add(request.message);
                     messages.Add(response.choices[0].message);
                 }

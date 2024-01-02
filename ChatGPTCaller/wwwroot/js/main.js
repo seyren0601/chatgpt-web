@@ -20,7 +20,7 @@ function sendMessage() {
         return;
     }
     // Create the user message element
-    var userMessageElement = createMessageElement("sent", "User", userMessage);
+    var userMessageElement = createSendMessage("sent", "User", userMessage);
     messages.appendChild(userMessageElement);
 
     // Clear the user input field after sending the message
@@ -76,7 +76,7 @@ function sendMessage() {
             userInput.disabled = false;
 
             // Handle errors
-            var errorElement = showErrorToast(error.message);
+            showErrorToast(error.message);
         });
 }
 function displayErrorMessage(message) {
@@ -186,7 +186,7 @@ function showErrorToast(message) {
         title: "Thất Bại",
         message: message,
         type: "error",
-        duration: 5000,
+        duration: 3000,
     });
 }
 // Hàm showSuccessToast sử dụng hàm toast để hiển thị một toast thành công
@@ -195,7 +195,7 @@ function showSuccessToast(message) {
         title: "Thành Công",
         message: message,
         type: "success",
-        duration: 3000,
+        duration: 2000,
     });
 }
 
@@ -283,6 +283,11 @@ function loadUsernameFromStorage() {
     if (storedUsername) {
         updateHeaderOnLogin(storedUsername);
     }
+    else {
+        if (window.location.href = "https://localhost:44345/Index") {
+            window.location = "Register";
+        }
+    }
 }
 
 // Call the function when the page is loaded
@@ -292,6 +297,7 @@ function loginRequest() {
     // Get the email and password input elements
     const emailInput = document.getElementById("email_login");
     const passwordInput = document.getElementById("password_login");
+    const username = document.getElementById("fullname").value.trim();
 
     // Extract values and trim whitespace
     const email = emailInput.value.trim();
@@ -334,7 +340,7 @@ function loginRequest() {
                 // Redirect to '/Index' after a successful login
                 setTimeout(function () {
                     window.location.href = '/Index';
-                }, 3000);
+                }, 1500);
             } else {
                 showErrorToast("Login failed. Error message: " + data.errorMessage);
             }
