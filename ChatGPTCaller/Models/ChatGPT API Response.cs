@@ -26,11 +26,28 @@ namespace ChatGPTCaller.Models
 		{
 			public string role { get; set; }
 			public string content { get; set; }
+			public List<ToolCall> tool_calls { get; set; }
+			public string? tool_call_id { get; set; }
+			public string? name { get; set; }
 			public Message(string role, string content)
 			{
 				this.content = content;
 				this.role = role;
 			}
+			public Message() { }
+		}
+
+		public class ToolCall
+		{
+			public string id { get; set; }
+			public string type { get; set; }
+			public Function function { get; set; }
+		}
+
+		public class Function
+		{
+			public string name { get; set; }
+			public string arguments { get; set; }
 		}
 
 		public class Usage
