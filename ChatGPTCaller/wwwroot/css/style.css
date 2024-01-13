@@ -225,9 +225,11 @@ sup {
         height: 100%
     }
 }
-.message-text{
-    text-align:left;
-    margin-left:20px;
+
+.message-text {
+    text-align: left;
+    margin-left: 20px;
+    white-space: pre-wrap; /*force html to render \n escape sign*/
 }
 
 .message-sender {
