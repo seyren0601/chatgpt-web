@@ -283,6 +283,11 @@ function loadUsernameFromStorage() {
     if (storedUsername) {
         updateHeaderOnLogin(storedUsername);
     }
+    else {
+        if (window.location.href = "https://localhost:44345/Index") {
+            window.location = "Register";
+        }
+    }
 }
 
 // Call the function when the page is loaded
