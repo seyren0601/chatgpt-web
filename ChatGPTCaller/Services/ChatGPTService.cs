@@ -15,6 +15,7 @@ using System.Collections;
 using System.Security;
 using System.Diagnostics;
 using System.Xml.Linq;
+using ChatGPTCaller.DAL;
 
 namespace ChatGPTCaller.Services
 {
@@ -24,6 +25,7 @@ namespace ChatGPTCaller.Services
         string _prompt { get; set; }
         string _apiUrl = "https://api.openai.com/v1/chat/completions";
         ArrayList Messages = new ArrayList();
+        DbContext db = new DbContext();
         public async Task<(ChatGPT_API_Response.APIResponse, HttpStatusCode)> GetAPIResponse(PromptRequest request)
         {
             _prompt = request.message.content;
@@ -35,7 +37,7 @@ namespace ChatGPTCaller.Services
 
             ChatGPT_API_Response.APIResponse aPIResponse = JsonConvert.DeserializeObject<ChatGPT_API_Response.APIResponse>(jsonResponse);
 
-            if (aPIResponse.choices[0].finish_reason == "tool_calls")
+            if (aPIResponse.choices != null && aPIResponse.choices[0].finish_reason == "tool_calls")
             {
                 var response_message = new
                 {
@@ -54,8 +56,8 @@ namespace ChatGPTCaller.Services
                 List<ChatGPT_API_Response.ToolCall> tool_calls = aPIResponse.choices[0].message.tool_calls;
                 var available_functions = new Dictionary<string, Func<string, string>>
                 {
-                    { "get_link_about_sort", get_link_about_sort },
-                    { "get_link_about_search", get_link_about_search }
+                    { "get_link_about_sort", db.get_link_about_sort },
+                    { "get_link_about_search", db.get_link_about_search }
                 };
                 Messages.Add(response_message);
                 foreach(var tool_call in tool_calls)
@@ -104,6 +106,10 @@ namespace ChatGPTCaller.Services
             }
             else
             {
+                /*if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    RecordConversation(request, aPIResponse);
+                }*/
                 return (aPIResponse, response.StatusCode);
             }
         }
@@ -115,12 +121,13 @@ namespace ChatGPTCaller.Services
                 Messages.Add(new
                 {
                     role = "system",
-                    content = "Bạn là một giảng viên đại học chuyên dạy về môn học Cấu Trúc Dữ Liệu Và Giải Thuật (Data Structures And Algorithms) cho người mới học lập trình"
+                    content = "You are a professor at university and you are teaching the course Data Structures and Algorithms. Do not give source code in answers."
                 });
                 Messages.Add(new
                 {
                     role = "system",
-                    content = "Return the youtube link, say no more."
+                    content = @"The API completion call can be given a stop sequence like '\nuser'" +
+                               "If the AI writes that itself, the characters are recognized and the generation of output is terminated."
                 });
                 Messages.Add(new
                 {
@@ -135,13 +142,13 @@ namespace ChatGPTCaller.Services
                     messages = Messages,
                     tools = new ArrayList
                     {
-                        new
+                        new 
                         {
                             type = "function",
                             function = new
                             {
                                 name = "get_link_about_sort",
-                                description = "Get the current documents about sorting algorithms",
+                                description = "Get materials",
                                 parameters = new
                                 {
                                     type = "object",
@@ -163,7 +170,7 @@ namespace ChatGPTCaller.Services
                             function = new
                             {
                                 name = "get_link_about_search",
-                                description = "Lấy liên kết youtube về thuật giải tìm kiếm",
+                                description = "Get link youtube about sorting algorithms",
                                 parameters = new
                                 {
                                     type = "object",
@@ -181,7 +188,8 @@ namespace ChatGPTCaller.Services
                             },
                         },
                     },
-                    tool_choice = "auto"
+                    tool_choice = "auto",
+                    temperature = 0.2
                 };
 
                 //var requestBody = new ChatGPT_API_Request.APIRequest("gpt-3.5-turbo", Messages);
@@ -203,7 +211,7 @@ namespace ChatGPTCaller.Services
 
                 var requestBody = new
                 {
-                    model = "ft:gpt-3.5-turbo-0613:personal::8fTDY39Q",
+                    model = "ft:gpt-3.5-turbo-0613:personal::8g5tg9eN",
                     messages = Messages,
                 };
 
@@ -215,71 +223,6 @@ namespace ChatGPTCaller.Services
                 HttpResponseMessage response = await client.PostAsync(_apiUrl, content);
                 return response;
             }
-        }
-
-        private string get_link_about_sort(string sort_type)
-        {
-            sort_type = sort_type.ToLower();
-            if(sort_type.Contains("quick sort"))
-            {
-                var quickSort = new
-                {
-                    sort_type = "Quick sort",
-                    link = "https://www.youtube.com/watch?v=Hoixgm4-P4M&pp=ygUKcXVpY2sgc29ydA%3D%3D"
-                };
-                return JsonConvert.SerializeObject(quickSort);
-            }
-            if(sort_type.Contains("bubble sort"))
-            {
-                var bubbleSort = new
-                {
-                    sort_type = "Bubble sort",
-                    link = "https://www.youtube.com/watch?v=xli_FI7CuzA&pp=ygULYnViYmxlIHNvcnQ%3D"
-                };
-                return JsonConvert.SerializeObject(bubbleSort);
-            }
-            if (sort_type.Contains("insertion sort"))
-            {
-                var insertionSort = new
-                {
-                    sort_type = "Insertion sort",
-                    link = "https://www.youtube.com/watch?v=JU767SDMDvA&pp=ygUOaW5zZXJ0aW9uIHNvcnQ%3D"
-                };
-                return JsonConvert.SerializeObject(insertionSort);
-            }
-            if(sort_type.Contains("merge sort")){
-                var mergeSort = new
-                {
-                    sort_type = "Merge sort",
-                    link = "https://www.youtube.com/watch?v=4VqmGXwpLqc&pp=ygUKbWVyZ2Ugc29ydA%3D%3D"
-                };
-                return JsonConvert.SerializeObject(mergeSort);
-            }
-            return "";
-        }
-
-        private string get_link_about_search(string search_type)
-        {
-            search_type = search_type.ToLower();
-            if(search_type.Contains("linear search"))
-            {
-                var linearSearch = new
-                {
-                    search_type = "Linear search",
-                    link = "https://www.youtube.com/watch?v=YvAosi_pZ8w&list=PLrcfrbKhqmAWrIoc47jVx1eEzS9gJUdg_&index=3&pp=iAQB"
-                };
-                return JsonConvert.SerializeObject(linearSearch);
-            }
-            if(search_type.Contains("binary search"))
-            {
-                var binarySearch = new
-                {
-                    search_type = "Binary search",
-                    link = "https://youtu.be/YvAosi_pZ8w?list=PLrcfrbKhqmAWrIoc47jVx1eEzS9gJUdg_&t=2365"
-                };
-                return JsonConvert.SerializeObject(binarySearch);
-            }
-            return "";
         }
     }
 }
