@@ -204,10 +204,12 @@ function registerRequest() {
     // Get the email and password input elements
     var emailInput = document.getElementById("email");
     var passwordInput = document.getElementById("password");
+    var fullnameInput = document.getElementById("fullname");
 
     // Extract values and trim whitespace
     var email = emailInput.value.trim();
     var password = passwordInput.value.trim();
+    var fullname = fullnameInput.value.trim();
 
     // Check if email and password are not empty
     if (!email || !password) {
@@ -217,6 +219,7 @@ function registerRequest() {
 
     // Create the JSON payload
     var request = {
+        "full_name": fullname,
         "email": email,
         "password": password
     };

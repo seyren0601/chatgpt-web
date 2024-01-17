@@ -21,8 +21,9 @@ namespace ChatGPTCaller.Services
         public RegisterResponse RegisterUser(User user)
         {
             RegisterResponse response = new RegisterResponse();
-            UserInfo userInfo = new UserInfo(user.email, user.password);
-            string sql = $"INSERT INTO user_info VALUES (NULL, '{userInfo.email}', '{userInfo.GetHashValue()}', '{Convert.ToBase64String(userInfo.hashSalt)}')";
+            UserInfo userInfo = new UserInfo(user.mssv, user.full_name, user.gender, user.birthday, user.email,
+            user.address, user.nationality, user.religion, user.entry_date, user.faculty, user.major, user.class_sv, user.password);
+            string sql = $"INSERT INTO user_info VALUES (NULL,NULL,'{user.full_name}',NULL,NULL,'{userInfo.email}',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'{userInfo.GetHashValue()}', '{Convert.ToBase64String(userInfo.hashSalt)}')";
             try
             {
                 int affected = _dbContext.ExecuteNonQueryCommand(sql);
