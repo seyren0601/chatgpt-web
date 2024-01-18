@@ -150,11 +150,6 @@ body {
 
     body .container {
         width: 100%;
-        max-width: var(--max-width-container);
-        padding-right: var(--gap);
-        padding-left: var(--gap);
-        margin-right: auto;
-        margin-left: auto;
         position: relative
     }
 
@@ -1189,7 +1184,6 @@ html.with-fancybox {
 }
 
 .nav {
-    display: none;
     height: 100%;
     width: 100%;
     align-items: flex-end;
@@ -1537,12 +1531,11 @@ html.with-fancybox {
 .homepage .chat {
     border: 5px solid var(--main-cl);
     overflow-y: auto;
-    min-height: 300px;
-    max-height: 300px;
+    height:400px;
 }
 
-    @media screen and (max-width: 1199.98px) {
-        .homepage .sthero h1 {
+@media screen and (max-width: 1199.98px) {
+    .homepage .sthero h1 {
         font-size: 100px
     }
 }
