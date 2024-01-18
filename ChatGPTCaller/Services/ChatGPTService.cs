@@ -16,6 +16,7 @@ using System.Security;
 using System.Diagnostics;
 using System.Xml.Linq;
 using ChatGPTCaller.DAL;
+using System.Xml;
 
 namespace ChatGPTCaller.Services
 {
@@ -97,21 +98,22 @@ namespace ChatGPTCaller.Services
 
                 jsonResponse = response.Content.ReadAsStringAsync().Result;
                 aPIResponse = JsonConvert.DeserializeObject<ChatGPT_API_Response.APIResponse>(jsonResponse);
-
-                /*if(response.StatusCode == HttpStatusCode.OK)
-                {
-                    RecordConversation(request, aPIResponse);
-                }*/
-                return (aPIResponse, response.StatusCode);
             }
-            else
+            string responseContent = "<answer>" + aPIResponse.choices[0].message.content + "</answer>";
+            XmlDocument xml = new XmlDocument();
+            xml.LoadXml(responseContent);
+            XmlNode concept = xml.DocumentElement.SelectSingleNode("/answer/concept");
+            XmlNode example = xml.DocumentElement.SelectSingleNode("/answer/example");
+            string conceptString = "[Khái niệm]\n";
+            string exampleString = "\n\n[Ví dụ]\n";
+            conceptString += concept.InnerText;
+            exampleString += example.InnerText;
+            aPIResponse.choices[0].message.content = conceptString + exampleString;
+            /*if (response.StatusCode == HttpStatusCode.OK)
             {
-                /*if (response.StatusCode == HttpStatusCode.OK)
-                {
-                    RecordConversation(request, aPIResponse);
-                }*/
-                return (aPIResponse, response.StatusCode);
-            }
+                RecordConversation(request, aPIResponse);
+            }*/
+            return (aPIResponse, response.StatusCode);
         }
 
         private async Task<HttpResponseMessage> PostRequest1()
@@ -120,14 +122,11 @@ namespace ChatGPTCaller.Services
             {
                 Messages.Add(new
                 {
-                    role = "system",
-                    content = "You are a professor at university and you are teaching the course Data Structures and Algorithms. Do not give source code in answers."
-                });
-                Messages.Add(new
-                {
-                    role = "system",
-                    content = @"The API completion call can be given a stop sequence like '\nuser'" +
-                               "If the AI writes that itself, the characters are recognized and the generation of output is terminated."
+                    role ="system",
+                    content = "Bạn là một giảng viên đại học giải thích về thuật toán được người dùng nhập vào trong môn học cấu trúc dữ liệu và giải thuật cho người mới học lập trình." + 
+                                "Khi được hỏi, bạn trả lời về khái niệm và ví dụ về thuật toán mà bạn được người dùng nhập vào." + 
+                                "Lưu ý khi trả về kết quả, phần khái niệm sẽ nằm trong thẻ <concept>, phần ví dụ sẽ nằm trong thẻ <example>," +
+                                "ví dụ:\n<concept>\nViết phần khái niệm của bạn trong đây\n</concept>\n<example>\nViết phần ví dụ của bạn trong đây\n</example>"
                 });
                 Messages.Add(new
                 {
@@ -138,7 +137,7 @@ namespace ChatGPTCaller.Services
 
                 var requestBody = new
                 {
-                    model = "ft:gpt-3.5-turbo-0613:personal::8g5tg9eN",
+                    model = "ft:gpt-3.5-turbo-0613:personal::8hjFRloj",
                     messages = Messages,
                     tools = new ArrayList
                     {
@@ -211,7 +210,7 @@ namespace ChatGPTCaller.Services
 
                 var requestBody = new
                 {
-                    model = "ft:gpt-3.5-turbo-0613:personal::8g5tg9eN",
+                    model = "ft:gpt-3.5-turbo-0613:personal::8hjFRloj",
                     messages = Messages,
                 };
 
