@@ -231,6 +231,10 @@ sup {
     margin-left: 20px;
     white-space: pre-wrap; /*force html to render \n escape sign*/
 }
+p.message-text {
+    color: aliceblue;
+    font-size: medium;
+}
 
 .message-sender {
     color: var(--main-cl);

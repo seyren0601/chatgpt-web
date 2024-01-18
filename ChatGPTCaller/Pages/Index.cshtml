@@ -38,15 +38,17 @@
           integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="./css/reset.css"/>
-    <link rel="stylesheet" href="./css/style.css?123456789" type="text/css" /> <!-- force update css --!>
+    <link rel="stylesheet" href="./css/style.css?v=2" type="text/css" /> <!-- force update css --!>
     <link rel="stylesheet" href="./css/fonts.css"/>
     <link rel="stylesheet" href="./css/rotate.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
 
 <body class="homepage">
     <header class="header">
-
         <div class="container">
             <div class="header__left">
                 <a class="logo" href="./" target="_blank">
@@ -69,26 +71,31 @@
     <main class="homepage">
         <section class="sthero">
             <div class="container">
-                <h1>STUDY WITH ME</h1>
-                <form>
-                    <i><img srcset="./img/icon-search.png 2x" alt="icon-search"></i>
-                    <input type="text" id="searchInput" placeholder="Enter Question">
-                    <button type="button" onclick="sendMessage()">Search</button>
-                </form>
-                <h2>Hello! Please ask our Chatbot will support you.</h2>
-                <div class="chat">
-                    <div class="messages" id="messages">
-                        <div class="message received">
+                <div class="col-sm-3">
+                    <h2>thuong adasda</h2>
+                    <h2>thuong  adadsasd</h2>
+                    <h2>thuong sdsada</h2>
+                </div>
+                <div class="col-sm-9">
+                    <h1>STUDY WITH ME</h1>
+                    <form>
+                        <i><img srcset="./img/icon-search.png 2x" alt="icon-search"></i>
+                        <input type="text" id="searchInput" placeholder="Enter Question">
+                        <button type="button" onclick="sendMessage()">Search</button>
+                    </form>
+                    <h2>Hello! Please ask our Chatbot will support you.</h2>
+                    <div class="chat">
+                        <div class="messages" id="messages">
+                            <div class="message received">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!--Showing error-->
-                <div id="toast">
-
-                </div>
-                <!--Showing loading-->
-                <div id="loading" class="loading">
-
+                    <!--Showing error-->
+                    <div id="toast">
+                    </div>
+                    <!--Showing loading-->
+                    <div id="loading" class="loading">
+                    </div>
                 </div>
             </div>
         </section>
