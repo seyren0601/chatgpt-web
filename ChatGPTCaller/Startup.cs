@@ -31,6 +31,7 @@ namespace ChatGPTCaller
 			services.AddSingleton<ChatGPTService>();
 			services.AddSingleton<RegisterService>();
 			services.AddSingleton<LoginService>();
+			services.AddSingleton<ConversationService>();
 			services.AddControllers();
         }
 

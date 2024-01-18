@@ -7,10 +7,14 @@ using System.Collections;
 
 namespace ChatGPTCaller.Services
 {
-    static public class ConversationService
+    public class ConversationService
     {
-        static ArrayList messages = new ArrayList();
-        static public ArrayList GetConversation(PromptRequest request)
+        ArrayList thread;
+        public ConversationService() 
+        {
+            thread = new ArrayList();
+        }
+        public ArrayList GetConversation(PromptRequest request)
         {
             string fileName = request.ConversationID.ToString() + ".json";
             if (File.Exists(fileName))
@@ -19,19 +23,14 @@ namespace ChatGPTCaller.Services
                 using(StreamReader sr = new StreamReader(f))
                 {
                     string jsonContent = sr.ReadToEnd();
-                    messages = JsonConvert.DeserializeObject<ArrayList>(jsonContent);
-                    messages.Add(request.message);
+                    thread = JsonConvert.DeserializeObject<ArrayList>(jsonContent);
                 }
-                return messages;
+                f.Close();
             }
-            else
-            {
-                messages.Add(request.message);
-                return messages;
-            }
+            return thread;
         }
 
-        static public void RecordConversation(PromptRequest request, ChatGPT_API_Response.APIResponse response)
+        public void RecordConversation(PromptRequest request, ChatGPT_API_Response.APIResponse response)
         {
             string fileName = request.ConversationID.ToString() + ".json";
             
@@ -40,13 +39,21 @@ namespace ChatGPTCaller.Services
                 using(StreamReader sr = new StreamReader(fileName))
                 {
                     string jsonContent = sr.ReadToEnd();
-                    messages = JsonConvert.DeserializeObject<ArrayList>(jsonContent);
-                    messages.Add(request.message);
-                    messages.Add(response.choices[0].message);
+                    thread = JsonConvert.DeserializeObject<ArrayList>(jsonContent);
+                    thread.Add(new
+                    {
+                        role = "user",
+                        content = request.message.content
+                    });
+                    thread.Add(new
+                    {
+                        role = "assistant",
+                        content = response.choices[0].message.content
+                    });
                 }
                 using(StreamWriter sw = new StreamWriter(fileName, false))
                 {
-                    string jsonContent = JsonConvert.SerializeObject(messages, Formatting.Indented);
+                    string jsonContent = JsonConvert.SerializeObject(thread, Formatting.Indented);
                     sw.Write(jsonContent);
                 }
             }
@@ -55,9 +62,17 @@ namespace ChatGPTCaller.Services
                 FileStream f = File.Create(fileName);
                 using (StreamWriter sw = new StreamWriter(f))
                 {
-                    messages.Add(request.message);
-                    messages.Add(response.choices[0].message);
-                    string jsonContent = JsonConvert.SerializeObject(messages, Formatting.Indented);
+                    thread.Add(new
+                    {
+                        role = "user",
+                        content = request.message.content
+                    });
+                    thread.Add(new
+                    {
+                        role = "assistant",
+                        content = response.choices[0].message.content
+                    });
+                    string jsonContent = JsonConvert.SerializeObject(thread, Formatting.Indented);
                     sw.Write(jsonContent);
                 }
                 f.Close();
