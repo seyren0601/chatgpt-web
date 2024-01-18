@@ -255,46 +255,6 @@ function registerRequest() {
             showErrorToast('Error during registration request:', error);
         });
 }
-function updateHeaderOnLogin(username) {
-    const usernameSpan = document.getElementById('usernameSpan');
-    const accountLink = document.querySelector('.header__right .btnhead');
-
-    if (usernameSpan && accountLink) {
-        usernameSpan.textContent = username;
-
-        // Store the username in localStorage
-        localStorage.setItem('username', username);
-        // Display the logout button
-        logoutButton.style.display = 'inline';
-
-        // Change the link to a different page (you can adjust the href accordingly)
-        accountLink.setAttribute('href', '/profile');
-
-        // Update the user icon class
-        const userIcon = accountLink.querySelector('i');
-
-        if (userIcon) {
-            // Change the user icon to a different icon (you can adjust the class accordingly)
-            userIcon.classList.replace('fa-user', 'fa-check-circle');
-        }
-    }
-}
-
-// Add this function to be called when the page is loaded
-function loadUsernameFromStorage() {
-    const storedUsername = localStorage.getItem('username');
-    if (storedUsername) {
-        updateHeaderOnLogin(storedUsername);
-    }
-    else {
-        if (window.location.href = "https://localhost:44345/Index") {
-            window.location = "Register";
-        }
-    }
-}
-
-// Call the function when the page is loaded
-document.addEventListener('DOMContentLoaded', loadUsernameFromStorage);
 
 function loginRequest() {
     // Get the email and password input elements
@@ -354,24 +314,59 @@ function loginRequest() {
         });
 }
 
-// Function to clear user-related information and revert the header to the initial state
-function logout() {
+document.addEventListener('DOMContentLoaded', loadUsernameFromStorage);
+
+function updateHeaderOnLogin(username) {
     const usernameSpan = document.getElementById('usernameSpan');
-    const accountLink = document.querySelector('.header__right .btnhead');
+    const logoutButton = document.getElementById('logoutButton');
 
-    if (usernameSpan && accountLink) {
-        // Clear the username from localStorage
-        localStorage.removeItem('username');
+    if (usernameSpan && logoutButton) {
+        // Display the username in the header
+        usernameSpan.textContent = username;
 
-        // Revert the header to its initial state
-        usernameSpan.textContent = 'TÀI KHOẢN'; // or whatever your default text is
-        accountLink.setAttribute('href', '/Register'); // or the appropriate link for logout
-        const userIcon = accountLink.querySelector('i');
-        if (userIcon) {
-            // Change the user icon back to the initial icon
-            userIcon.classList.replace('fa-check-circle', 'fa-user');
+        // Store the username in localStorage
+        localStorage.setItem('username', username);
+
+        // Display the logout button
+        logoutButton.style.display = 'inline';
+
+        // Change the link to a different page (you can adjust the href accordingly)
+        logoutButton.parentElement.setAttribute('href', './Register');
+    }
+}
+
+function logout() {
+    // Implement your logout logic here
+
+    // After successful logout
+    const usernameSpan = document.getElementById('usernameSpan');
+    const logoutButton = document.getElementById('logoutButton');
+
+    if (usernameSpan && logoutButton) {
+        // Hide the username in the header
+        usernameSpan.textContent = 'Sign Up';
+
+        // Change the link back to the original (Sign Up)
+        logoutButton.parentElement.setAttribute('href', './Register');
+
+        // Redirect to the Register page
+        window.location.href = "./Register";
+    }
+}
+
+function loadUsernameFromStorage() {
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+        // If the username is stored, update the header
+        updateHeaderOnLogin(storedUsername);
+    } else {
+        // If the username is not stored, check if the current URL is the specified one
+        if (window.location.href === "https://localhost:44345/Index") {
+            // Redirect to the Register page
+            window.location.href = "./Register";
         }
     }
 }
+
 
 
