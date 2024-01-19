@@ -133,6 +133,12 @@ nav.navbar.navbar-inverse {
     background-color: #500b4d;
     border-color: #080808;
 }
+
+.nav .nav-item {
+    font-size: 30px;
+    line-height: 50px;
+    text-align:left;
+}
 .message-text {
     text-align: left;
     margin-left: 20px;
