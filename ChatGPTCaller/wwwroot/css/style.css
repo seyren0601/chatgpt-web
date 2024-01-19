@@ -99,7 +99,7 @@ body {
     font-size: var(--fs-body1);
     line-height: var(--lh-body1);
     letter-spacing: var(--ls-body1);
-    color: var(--white-cl)
+    color: var(--white-cl);
 }
 
 body::-webkit-scrollbar {
@@ -739,7 +739,7 @@ p.message-text {
 .homepage .chat {
     border: 5px solid var(--main-cl);
     overflow-y: auto;
-    height:400px;
+    height:40vh;
 }
 
 @media screen and (max-width: 1199.98px) {
