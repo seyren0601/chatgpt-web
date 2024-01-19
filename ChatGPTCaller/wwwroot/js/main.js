@@ -314,7 +314,6 @@ function loginRequest() {
         });
 }
 
-document.addEventListener('DOMContentLoaded', loadUsernameFromStorage);
 
 function updateHeaderOnLogin(username) {
     const usernameSpan = document.getElementById('usernameSpan');
@@ -329,9 +328,6 @@ function updateHeaderOnLogin(username) {
 
         // Display the logout button
         logoutButton.style.display = 'inline';
-
-        // Change the link to a different page (you can adjust the href accordingly)
-        logoutButton.parentElement.setAttribute('href', './Register');
     }
 }
 
@@ -344,6 +340,7 @@ function logout() {
 
     if (usernameSpan && logoutButton) {
         // Hide the username in the header
+        localStorage.removeItem('username');
         usernameSpan.textContent = 'Sign Up';
 
         // Change the link back to the original (Sign Up)
@@ -367,6 +364,8 @@ function loadUsernameFromStorage() {
         }
     }
 }
+
+document.addEventListener('DOMContentLoaded', loadUsernameFromStorage);
 
 
 

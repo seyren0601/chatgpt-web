@@ -105,6 +105,10 @@ body {
 body::-webkit-scrollbar {
     width: 5px
 }
+.col-sm-3 {
+    padding-top: 120px;
+    padding-left: 60px;
+}
 
     body::-webkit-scrollbar-track {
         background: var(--blue-bg-cl);
