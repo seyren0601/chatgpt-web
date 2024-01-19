@@ -19,21 +19,6 @@
     <link rel="canonical" href="https://cfdcircle.vn" />
     <link rel="icon" href="favicon.ico">
 
-    <!-- Meta Tag Facebook -->
-    <meta property="og:locale" content="en" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="CFD Circle" />
-    <meta property="og:description" content="" />
-    <meta property="og:url" content="" />
-    <meta property="og:site_name" content="CFD Circle" />
-    <meta property="og:image" content="" />
-
-    <!-- Meta Tag Twitter -->
-    <meta name="twitter:card" content="" />
-    <meta name="twitter:site" content="" />
-    <meta name="twitter:title" content="" />
-    <meta name="twitter:description" content="" />
-    <meta name="twitter:image" content="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
           integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -46,26 +31,24 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
-
-<body class="homepage">
-    <header class="header">
-        <div class="container">
-            <div class="header__left">
-                <a class="logo" href="./" target="_blank">
-                    <i class="fa-brands fa-slack"></i>
-                </a>
-                <ul class="menu">
-                    <li><a asp-page="./Index" rel="noopener" class=" --active">HOME</a></li>
-                </ul>
-            </div>           
-            <div class="header__right">
-                <a asp-page="./Register" rel="noopener" class="btnhead">
-                    <i class="fa-solid fa-user"></i>
-                    <span id="usernameSpan">TÀI KHOẢN</span>
-                    <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
-                </a>
-            </div>
-        </div>
+ <body class="contactpage">
+        <header class="header">
+                <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="./Index">WebSiteName</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="./Index">Home</a></li>
+                        <li><a href="#">Page 1</a></li>
+                        <li><a href="#">Page 2</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href=""><span class="glyphicon glyphicon-user" id="usernameSpan"></span></a></li>
+                        <li><a href="./Register"><span class="glyphicon glyphicon-log-in" id="logoutButton" onclick="logout()"></span>Logout</a></li>
+                    </ul>
+                </div>
+            </nav>
     </header>
     <!-- === MAIN === -->
     <main class="homepage">
