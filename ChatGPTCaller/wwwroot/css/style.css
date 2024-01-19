@@ -139,7 +139,7 @@ nav.navbar.navbar-inverse {
     white-space: pre-wrap; /*force html to render \n escape sign*/
 }
 p.message-text {
-    color: aliceblue;
+    color:navy;
     font-size: medium;
 }
 
@@ -642,7 +642,7 @@ header.header {
 }
 
 .homepage {
-    background: url("../img/background3.jpg") no-repeat center center fixed;
+    background: url("../img/background4.jpg") no-repeat center center fixed;
     background-size: cover;
     font-family: 'Raleway', sans-serif;
     height: 100%;
@@ -656,7 +656,7 @@ header.header {
         .homepage .sthero h1 {
             font-size: 100px;
             line-height: 120px;
-            color: transparent;
+            color:rebeccapurple;
             padding-bottom: 30px;
             -webkit-text-stroke: 1px #fff;
             background: url(../img/back.png);
@@ -668,7 +668,7 @@ header.header {
         .homepage .sthero h2 {
             font-size: 30px;
             line-height: 40px;
-            color: transparent;
+            color: rebeccapurple;
             padding-bottom: 30px;
             -webkit-text-stroke: 1px #fff;
             background: url(../img/back.png);
@@ -745,6 +745,9 @@ header.header {
     overflow-y: auto;
     height:40vh;
 }
+.chat {
+    background-color: #a8778d3d;
+}
 
 @media screen and (max-width: 1199.98px) {
     .homepage .sthero h1 {
@@ -785,7 +788,7 @@ header.header {
 }
 
 .contactpage {
-    background: url("../img/background3.jpg") no-repeat center center fixed;
+    background: url("../img/background4.jpg") no-repeat center center fixed;
     background-size: cover;
     font-family: 'Raleway', sans-serif;
     height: 100%
@@ -941,6 +944,7 @@ header.header {
     align-self: center;
     box-shadow: 0 2px 5px 0 rgba(51, 62, 73, 0.1)
 }
+
 
     .form .heading {
         font-size: 2rem
