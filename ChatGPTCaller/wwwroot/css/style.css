@@ -743,7 +743,7 @@ header.header {
 .homepage .chat {
     border: 5px solid var(--main-cl);
     overflow-y: auto;
-    height:40vh;
+    height:50vh;
 }
 .chat {
     background-color: #a8778d3d;
