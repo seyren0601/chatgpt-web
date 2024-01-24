@@ -1,0 +1,81 @@
+﻿@page
+@model ChatGPTCaller.Pages.Student_InforModel
+@{
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Profile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/student_Infor.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="./Index">WebSiteName</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="./Index">Home</a></li>
+                    <li><a href="./Student_Infor">student-profile</a></li>
+                    <li><a href="#">Page 2</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!--Main-->
+    <main>
+        <div class="container student-profile">
+            <div class="row">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        Dropdown Example
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">HTML</a></li>
+                        <li><a href="#">CSS</a></li>
+                        <li><a href="#">JavaScript</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Student Photo -->
+                <div class="col-md-4 student-photo img">
+                    <img src="./img/thuong.jpg" alt="Student Photo" class="img-responsive">
+                </div>
+
+                <!-- Student Info -->
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>MSSV:</strong> 2111110611</p>
+                            <p><strong>Họ tên:</strong> Lê Danh Thưởng</p>
+                            <p><strong>Giới tính:</strong> Nam</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Khoa:</strong> Khoa Công Nghệ - Kỹ Thuật</p>
+                            <p><strong>Ngành:</strong> Công nghệ thông tin</p>
+                            <p><strong>Chuyên ngành:</strong> Công nghệ thông tin</p>
+                        </div>
+                        <div class="col-md-12">
+                            <p><strong>Email:</strong> ledanhthuong0909@gmail.com</p>
+                            <p><strong>Điện thoại:</strong> 0345817993</p>
+                            <p><strong>Địa chỉ:</strong> 129/51/49 Đường Số 2, Phường 16, Quận Gò Vấp, TP. Hồ Chí Minh</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- footer -->
+    <footer>
+
+    </footer>
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>

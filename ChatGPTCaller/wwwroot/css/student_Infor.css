@@ -1,0 +1,33 @@
+﻿body {
+    font-family: Arial, sans-serif;
+}
+
+.student-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.student-photo img {
+    border-radius: 50%;
+    width: 200px; /* Adjust as needed */
+    height: 200px; /* Adjust as needed */
+    object-fit:contain;
+    margin-right: 20px;
+    border: 2px solid #333; /* Optional border */
+}
+
+.student-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-column {
+    margin: 0 10px;
+    flex-basis: 33%; /* Adjust the width of each column */
+}
+
+    .info-column p {
+        margin: 5px 0;
+    }
