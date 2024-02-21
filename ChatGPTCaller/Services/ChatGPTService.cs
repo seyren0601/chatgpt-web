@@ -114,7 +114,7 @@ namespace ChatGPTCaller.Services
                 _conversationService.RecordConversation(request, aPIResponse);
             }
 
-            if (aPIResponse.choices[0] != null 
+            if (aPIResponse.choices != null
                 && aPIResponse.choices[0].message.content.Contains("<concept>") 
                 && aPIResponse.choices[0].message.content.Contains("<example>"))
             {
