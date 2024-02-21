@@ -8,10 +8,10 @@ using ChatGPTCaller.Models;
 
 namespace ChatGPTCaller.Pages
 {
-    public class IndexModel : PageModel
+    public class AssistantModel : PageModel
     {
         private readonly ChatGPTService _chatGPTService;
-        public IndexModel(ChatGPTService chatGPTService)
+        public AssistantModel(ChatGPTService chatGPTService)
         {
             _chatGPTService = chatGPTService;
         }
