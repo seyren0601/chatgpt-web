@@ -1,0 +1,116 @@
+﻿@page
+@model ChatGPTCaller.Pages.AssistantModel
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1.0, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Chat_GPT</title>
+
+    <meta name="title" content="CFD Circle" />
+    <meta name="description" content="" />
+    <meta name="keyword" content="" />
+
+    <link rel="canonical" href="https://cfdcircle.vn" />
+    <link rel="icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="./css/reset.css"/>
+    <link rel="stylesheet" href="./css/style.css?v=2" type="text/css" />
+    <!-- force update css --!>
+    <link rel="stylesheet" href="./css/fonts.css"/>
+    <link rel="stylesheet" href="./css/rotate.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+</head>
+ <body class="contactpage">
+        <header class="header">
+                <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="./Home">WebSiteName</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li><a href="./Home">Home</a></li>
+                        <li><a href="./Content">Content</a></li>
+                        <li class="active"><a href="./Assistant">Assistant</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href=""><span class="glyphicon glyphicon-user" id="usernameSpan"></span></a></li>
+                            <li onclick="logout()"><a href=""><span class="glyphicon glyphicon-log-out" id="logoutButton" onclick="logout()"></span>Logout</a></li>
+                    </ul>
+                </div>
+            </nav>
+    </header>
+    <!-- === MAIN === -->
+    <main class="homepage">
+        <section class="sthero">
+            <div class="container">
+                <div class="col-sm-3 d-flex flex-column flex-shrink-0">
+                    <ul class="nav flex-column mb-auto" style="text-align:left">
+                        <li class="nav-item">
+                            <h3 style="font-size:30px;line-height:50px"><a class="nav-link active" href="#">Khái niệm thuật toán</a></h3>
+                        </li>
+                        <hr />
+                        <li class="nav-item">
+                            <h3 style="font-size:30px;line-height:50px"><a class="nav-link active" href="#">Độ phức tạp</a></h3>
+                        </li>
+                        <hr />
+                        <li class="nav-item">
+                            <h3 style="font-size:30px;line-height:50px"><a class="nav-link active" href="#">Tìm kiếm</a></h3>
+                        </li>
+                        <hr />
+                        <li class="nav-item">
+                            <h3 style="font-size:30px;line-height:50px"><a class="nav-link active" href="#">Sắp xếp</a></h3>
+                        </li>
+                        <hr />
+                        <li class="nav-item">
+                            <h3 style="font-size:30px;line-height:50px"><a class="nav-link active" href="#">Danh sách liên kết</a></h3>
+                        </li>
+                        <hr />
+                    </ul>
+                </div>
+                <div class="col-sm-9">
+                    <h1>STUDY WITH ME</h1>
+                    <form>
+                        <i><img srcset="./img/icon-search.png 2x" alt="icon-search"></i>
+                        <input type="text" id="searchInput" placeholder="Enter Question">
+                        <button type="button" onclick="sendMessage()">Search</button>
+                    </form>
+                    <h2>Hello! Please ask our Chatbot will support you.</h2>
+                    <div class="chat">
+                        <div class="messages" id="messages">
+                            <div class="message received">
+                            </div>
+                        </div>
+                    </div>
+                    <!--Showing error-->
+                    <div id="toast">
+                    </div>
+                    <!--Showing loading-->
+                    <div id="loading" class="loading">
+                    </div>
+                </div>
+            
+            </div>
+        </section>
+    </main>
+
+
+
+    <footer class="footer">
+    </footer>
+    <!-- Javascript -->
+    <script type="text/javascript" src="./js/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -300,9 +300,9 @@ function loginRequest() {
                 showSuccessToast("Login successful");
                 localStorage.setItem('username', email);
                 updateHeaderOnLogin(email);
-                // Redirect to '/Index' after a successful login
+                // Redirect to '/Home' after a successful login
                 setTimeout(function () {
-                    window.location.href = '/Index';
+                    window.location.href = '/Home';
                 }, 1500);
             } else {
                 showErrorToast("Login failed. Error message: " + data.errorMessage);
@@ -358,7 +358,7 @@ function loadUsernameFromStorage() {
         updateHeaderOnLogin(storedUsername);
     } else {
         // If the username is not stored, check if the current URL is the specified one
-        if (window.location.href === "https://localhost:44345/Index") {
+        if (window.location.href === "https://localhost:44345/Home") {
             // Redirect to the Register page
             window.location.href = "./Register";
         }
