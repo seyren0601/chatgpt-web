@@ -3,79 +3,129 @@
 @{
 }
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Student Profile</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="./css/student_Infor.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="./css/bootstrap-3.4.1-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./css/student_update_data.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/57ae888bd4.js" crossorigin="anonymous"></script>
+    <title>Student_ìnfor</title>
 </head>
 <body>
-    <header>
+    <section class="top">
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="./Index">WebSiteName</a>
+                    <a class="navbar-brand" href="">CHAT_GPT_API</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="./Index">Home</a></li>
-                    <li><a href="./Student_Infor">student-profile</a></li>
-                    <li><a href="#">Page 2</a></li>
+                    <li class=""><a href="">Home</a></li>
+                    <li><a href="/Content.html">Content</a></li>
+                    <li><a href="">Assistant</a></li>
                 </ul>
             </div>
         </nav>
+    </section>
+    <header class="header">
+        <div class="logo"><img class="logo-img" src="./img/hongbang.png" alt="SIS Logo"></div>
+        <h2 class="header-heading lg-heading text-light">Student Information</h2>
     </header>
-    <!--Main-->
-    <main>
-        <div class="container student-profile">
-            <div class="row">
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                        Dropdown Example
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">HTML</a></li>
-                        <li><a href="#">CSS</a></li>
-                        <li><a href="#">JavaScript</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <!-- Student Photo -->
-                <div class="col-md-4 student-photo img">
-                    <img src="./img/thuong.jpg" alt="Student Photo" class="img-responsive">
-                </div>
 
-                <!-- Student Info -->
-                <div class="col-md-8">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p><strong>MSSV:</strong> 2111110611</p>
-                            <p><strong>Họ tên:</strong> Lê Danh Thưởng</p>
-                            <p><strong>Giới tính:</strong> Nam</p>
+    <section class="main">
+        <div class="container-fluid">
+            <div class="form-wrapper">
+                <form class="form">
+                    <div class="row student-details">
+                        <div class="col-sm-3 student-details-left">
+                            <div class="picture">
+                                <img src="./img/thuong.jpg" class="img-thumbnail" alt="Cinque Terre" width="180" height="100">
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <p><strong>Khoa:</strong> Khoa Công Nghệ - Kỹ Thuật</p>
-                            <p><strong>Ngành:</strong> Công nghệ thông tin</p>
-                            <p><strong>Chuyên ngành:</strong> Công nghệ thông tin</p>
+
+                        <div class="col-sm-4 student-details-middle">
+                            <label class="fname-label" for="fname">Full Name: </label>
+                            <label class="hienthi" id="name">Lê Danh Thưởng</label><br>
+                            <label class="Student-Number-label" for="student-number">Student Number: </label>
+                            <label class="hienthi" id="mssv">2111110611</label><br>
+                            <label class="gender-label" for="gender">Gender: </label>
+                            <label class="hienthi" id="gender">Nam</label><br>
+                            <label class="dob-label" for="dob">Date of birth: </label>
+                            <label class="hienthi" id="dob">09/09/1993</label><br>
                         </div>
-                        <div class="col-md-12">
-                            <p><strong>Email:</strong> ledanhthuong0909@gmail.com</p>
-                            <p><strong>Điện thoại:</strong> 0345817993</p>
-                            <p><strong>Địa chỉ:</strong> 129/51/49 Đường Số 2, Phường 16, Quận Gò Vấp, TP. Hồ Chí Minh</p>
+
+                        <div class="col-sm-5 student-details-middle">
+                            <label class="Khoa_label" for="class">Faculty: </label>
+                            <label class="hienthi" id="khoa">Khoa Công Nghệ - Kỹ Thuật</label><br>
+                            <label class="major-label" for="major">Major: </label>
+                            <label class="hienthi" id="major">Công Nghệ Thông Tin</label><br>
+                            <label class="class-label" for="class">Nationnality: </label>
+                            <label class="hienthi" id="nationnality">Vietnamese</label><br>
+                            <label class="religion" for="religion">Religion: </label>
+                            <label class="hienthi" id="religion">Christianity</label><br>
                         </div>
                     </div>
+
+                    <div class="horizontal-line"></div>
+
+                    <div class="row contact-details">
+                        <div class="col-sm-1">
+                        </div>
+                        <div class="col-sm-3 other-details-right">
+                            <label class="id-card-number-label" for="id-card-number">ID card number: </label>
+                            <label class="hienthi" id="id-card-number">042093000777</label><br>
+
+                            <label class="dou-label" for="dou">Date of issue: </label>
+                            <label class="hienthi" id="dou">23/05/2021</label><br>
+
+                            <label class="Place-label" for="Place">Place of issue: </label>
+                            <label class="hienthi" id="place">Công An Hà tĩnh</label><br>
+                        </div>
+                        <div class="col-sm-8  other-details-right">
+                            <label class="mobNo-label" for="mobNo">Mobile No: </label>
+                            <label class="hienthi" id="mobNo">0345817993</label><br>
+
+                            <label class="mobNo-label" for="parentMobNo">Parent Mobile No: </label>
+                            <label class="hienthi" id="parentMobNo">0345817993</label><br>
+
+                            <label class="email-label" for="email">Email: </label>
+                            <label class="hienthi" id="email">thuongld2110611@student.hiu.vn</label><br>
+
+                            <label class="address-label" for="address">Address: </label>
+                            <label class="hienthi" id="address">817/4 Lê Đức Thọ, Phường 16, Quận Gò Vấp, Hồ Chí Minh</label><br>
+
+                        </div>
+                    </div>
+
+                    <div class="horizontal-line"></div>
+
+                    <div class="row other-details">
+                        <div class="col-sm-12 other-details-right">
+                            <label for="note">About Student : </label><br>
+                            <label class="hienthi" id="thongtin">
+                                Lê Danh Thưởng là một sinh viên tận tụy theo đuổi bằng cấp về Công Nghệ Thông Tin từ Khoa Công Nghệ - Kỹ Thuật.
+                                Với niềm đam mê phát triển phần mềm và khoa học dữ liệu, Thưởng đã tham gia tích cực vào các khóa học lập trình và hội thảo.
+                                Anh cũng đã đóng góp cho các dự án mã nguồn mở và rất muốn áp dụng kỹ năng của mình vào các ứng dụng thực tế.
+                                Thưởng còn tham gia vào các hoạt động phục vụ cộng đồng,
+                                thể hiện vai trò lãnh đạo trong các chiến dịch nâng cao nhận thức về môi trường trong trường đại học.
+                            </label>
+                        </div>
+                    </div>
+                </form>
+                <div class="btn-group">
+                    <button class="btn-primary btn-lg" type="button">View Details</button>
+                    <button class="btn-primary btn-lg" onclick="addStudentDetails()" type="submit">Add Details</button>
                 </div>
             </div>
         </div>
-    </main>
-    <!-- footer -->
-    <footer>
-
-    </footer>
+    </section>
     
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </body>
-</html>
+<script>
+    function addStudentDetails() {
+        // Navigate to the student details page
+        window.location.href = './Student_Update_Data'; // Change this URL to the correct page for your application
+    }
+</script>
