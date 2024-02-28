@@ -1,4 +1,4 @@
-* {
+﻿* {
     margin: 0;
     padding: 0;
     border: 0;
@@ -102,48 +102,52 @@ body {
     color: var(--blue-dark-cl);
 }
 
-body::-webkit-scrollbar {
-    width: 5px
-}
+    body::-webkit-scrollbar {
+        width: 5px
+    }
+
 .col-sm-3 {
     padding-top: 120px;
     padding-left: 60px;
 }
 
-    body::-webkit-scrollbar-track {
-        background: var(--blue-bg-cl);
-        border-radius: 10px
+body::-webkit-scrollbar-track {
+    background: var(--blue-bg-cl);
+    border-radius: 10px
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--main-cl);
+    border-radius: 10px
+}
+
+    body::-webkit-scrollbar-thumb:hover {
+        background: var(--main-cl)
     }
 
-    body::-webkit-scrollbar-thumb {
-        background: var(--main-cl);
-        border-radius: 10px
-    }
+body.--disable-scroll {
+    height: 100vh;
+    overflow: hidden
+}
 
-        body::-webkit-scrollbar-thumb:hover {
-            background: var(--main-cl)
-        }
+body .container {
+    width: 100%;
+    position: relative
+}
 
-    body.--disable-scroll {
-        height: 100vh;
-        overflow: hidden
-    }
-
-    body .container {
-        width: 100%;
-        position: relative
-    }
 nav.navbar.navbar-inverse {
     background-color: #500b4d;
     border-color: #080808;
 }
+
 .message-text {
     text-align: left;
     margin-left: 20px;
     white-space: pre-wrap; /*force html to render \n escape sign*/
 }
+
 p.message-text {
-    color:navy;
+    color: navy;
     font-size: medium;
 }
 
@@ -586,45 +590,44 @@ header.header {
     padding: 33px 0
 }
 
-.header__left .logo {
-    padding-left: 50px;
-    margin-right: 30px;
-}
+    .header__left .logo {
+        padding-left: 50px;
+        margin-right: 30px;
+    }
 
 
-.header__left .menu {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-left: 18px;
-    border-left: 1px solid var(--blue-light-cl)
-}
-
-.header__left .menu li {
-    padding: 14px;
-    height: 100%
-}
-
-    .header__left .menu li a {
-        height: 100%;
+    .header__left .menu {
         display: flex;
         align-items: center;
-        align-items: center;
         justify-content: center;
-        font-family: DMS-R;
-        font-size: var(--fs-text-menu);
-        line-height: var(--lh-text-menu);
-        color: #0f2699;
-        text-transform: uppercase;
-        letter-spacing: var(--ls-text-menu);
-        position: relative;
-        overflow: hidden;
-        transition: var(--duration);
-        -webkit-transition: var(--duration);
-        -moz-transition: var(--duration);
-        -ms-transition: var(--duration);
-        -o-transition: var(--duration)
+        padding-left: 18px;
+        border-left: 1px solid var(--blue-light-cl)
     }
+
+        .header__left .menu li {
+            padding: 14px;
+            height: 100%
+        }
+
+            .header__left .menu li a {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: DMS-R;
+                font-size: var(--fs-text-menu);
+                line-height: var(--lh-text-menu);
+                color: var(--white-cl);
+                text-transform: uppercase;
+                letter-spacing: var(--ls-text-menu);
+                position: relative;
+                overflow: hidden;
+                transition: var(--duration);
+                -webkit-transition: var(--duration);
+                -moz-transition: var(--duration);
+                -ms-transition: var(--duration);
+                -o-transition: var(--duration)
+            }
 
 .header__right .btnhead {
     height: 70px;
@@ -649,7 +652,7 @@ header.header {
 }
 
 .homepage {
-    background: url("../img/backgroundText.jpg") no-repeat center center fixed;
+    background: url("../img/background4.jpg") no-repeat center center fixed;
     background-size: cover;
     font-family: 'Raleway', sans-serif;
     height: 100%;
@@ -663,7 +666,7 @@ header.header {
         .homepage .sthero h1 {
             font-size: 100px;
             line-height: 120px;
-            color:rebeccapurple;
+            color: rebeccapurple;
             padding-bottom: 30px;
             -webkit-text-stroke: 1px #fff;
             background: url(../img/back.png);
@@ -672,6 +675,7 @@ header.header {
             background-position: 0 0;
             animation: back 20s linear infinite
         }
+
         .homepage .sthero h2 {
             font-size: 30px;
             line-height: 40px;
@@ -750,8 +754,9 @@ header.header {
 .homepage .chat {
     border: 5px solid var(--main-cl);
     overflow-y: auto;
-    height:50vh;
+    height: 50vh;
 }
+
 .chat {
     background-color: #a8778d3d;
 }
@@ -901,7 +906,7 @@ header.header {
         border: none;
         border: 1px solid var(--main-cl);
         background-color: transparent;
-        color: #374151
+        color: var(--white-cl)
     }
 
 .form_sign-in input {
@@ -909,7 +914,7 @@ header.header {
     border: none;
     border: 1px solid var(--main-cl);
     background-color: transparent;
-    color: #374151
+    color: var(--white-cl)
 }
 
 .right-panel-active .form_sign-up {
