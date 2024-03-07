@@ -1,0 +1,157 @@
+﻿header {
+    background-color: #070953;
+}
+
+.navbar {
+    background-color: #7a0b68;
+    padding: 0.5rem;
+    margin-bottom: 0 !important;
+}
+
+.logo {
+    margin-top: 15px;
+    margin-left: 10%;
+}
+
+h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif; /* Chọn font chữ */
+    font-size: 50px; /* Cỡ chữ */
+    color: #ec1212; /* Màu chữ */
+    font-weight: bold;
+    text-align: center; /* Căn giữa tiêu đề */
+    text-transform: uppercase; /* Chuyển đổi chữ thành chữ in hoa */
+    padding: 20px 0; /* Khoảng cách giữa tiêu đề và nội dung */
+}
+
+h2 {
+    font-family: 'Times New Roman', Times, serif; /* Chọn font chữ */
+    font-size: 50px; /* Cỡ chữ */
+    color: #110101; /* Màu chữ */
+    font-weight: bold;
+    text-align: center; /* Căn giữa tiêu đề */
+    padding: 20px 0; /* Khoảng cách giữa tiêu đề và nội dung */
+}
+
+h3 {
+    font-family: 'Times New Roman', Times, serif; /* Chọn font chữ */
+    font-size: 30px; /* Cỡ chữ */
+    color: #130202; /* Màu chữ */
+}
+
+.tieude {
+    background: url("../img/chatgpt/696x350.jpg") no-repeat center center fixed;
+    background-size: cover;
+    background-position: center; /* Vị trí hiển thị hình ảnh trong phần tử */
+}
+
+.ban {
+    text-align: left;
+    color: #f0c44b;
+}
+/*chay chu*/
+
+@keyframes chuchay {
+    0% {
+        transform: translateX(0);
+    }
+    /* Chuyển chữ về vị trí ban đầu */
+    100% {
+        transform: translateX(100%);
+    }
+    /* Chuyển chữ về bên phải 100% */
+}
+
+.ban {
+    animation: chuchay 10s linear infinite; /* Áp dụng animation với tên chuchay, thời gian 5s, chạy mượt mà và lặp vô hạn */
+    white-space: nowrap; /* Ngăn chữ xuống dòng khi chạy */
+}
+
+.myCarousel {
+    padding: 20px;
+}
+
+.noidung {
+    padding-left: 20%;
+    text-justify: distribute;
+}
+
+p {
+    display: inline-block;
+    font-size: larger;
+}
+
+.media-heading {
+    margin-top: 20px;
+}
+
+.tacgia {
+    padding: 30px;
+    text-align: center;
+}
+
+/* Footer styles
+-------------------------------------------------- */
+footer {
+    background: #f5f8f7;
+    color: #7117df;
+    padding-top: 10px;
+}
+
+    footer a {
+        color: #921c1c;
+    }
+
+        footer a:hover {
+            color: #7e3030;
+        }
+
+    footer h3 {
+        color: #15b0f3;
+        letter-spacing: 1px;
+        margin: 30px 0 20px;
+    }
+
+    footer .three-column {
+        overflow: hidden;
+    }
+
+        footer .three-column li {
+            width: 33.3333%;
+            float: left;
+            padding: 5px 0;
+        }
+
+    footer .socila-list {
+        overflow: hidden;
+        margin: 20px 0 10px;
+    }
+
+        footer .socila-list li {
+            float: left;
+            margin-right: 3px;
+            opacity: 0.7;
+            overflow: hidden;
+            border-radius: 50%;
+            transition: all 0.3s ease-in-out;
+        }
+
+            footer .socila-list li:hover {
+                opacity: 1;
+            }
+
+    footer .img-thumbnail {
+        background: rgba(150, 120, 120, 0.2);
+        border: 1px solid #b61919;
+        margin-bottom: 5px;
+    }
+
+    footer .copyright {
+        padding: 15px 0;
+        background: #eee7e7;
+        margin-top: 20px;
+        font-size: 15px;
+    }
+
+        footer .copyright span {
+            color: #4222b4;
+        }
