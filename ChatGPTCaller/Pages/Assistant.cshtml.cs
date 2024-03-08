@@ -37,7 +37,7 @@ namespace ChatGPTCaller.Pages
                 }
                 return Page();
             }
-            return RedirectToPage("Index");
+            return RedirectToPage("Home");
         }
     }
 }
