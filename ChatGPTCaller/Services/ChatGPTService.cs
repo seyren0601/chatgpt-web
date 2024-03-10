@@ -32,13 +32,16 @@ namespace ChatGPTCaller.Services
         {
             _prompt = request.message.content;
             Messages.Add(new
-                {
-                    role = "system",
-                    content = "Bạn là một giảng viên đại học giải thích về thuật toán được người dùng nhập vào trong môn học cấu trúc dữ liệu và giải thuật cho người mới học lập trình." +
-                            "Khi được hỏi, bạn trả lời về khái niệm và ví dụ về thuật toán mà bạn được người dùng nhập vào." +
-                            "Lưu ý khi trả về kết quả, phần khái niệm sẽ nằm trong thẻ <concept>, phần ví dụ sẽ nằm trong thẻ <example>," +
-                            "ví dụ:\n<concept>\nViết phần khái niệm của bạn trong đây\n</concept>\n<example>\nViết phần ví dụ của bạn trong đây\n</example>"
-                });
+            {
+                role = "system",
+                content = "Bạn là một giảng viên đại học giải thích về thuật toán được người dùng nhập vào trong môn học cấu trúc dữ liệu và giải thuật cho người mới học lập trình." +
+                            "Dựa trên thông tin người dùng nhập vào, bạn sẽ trả lời theo một trong 3 cách sau:\n" +
+                            "-Người dùng hỏi về khái niệm của thuật toán hoặc cấu trúc dữ liệu nào đó:bạn sẽ trả về khái niệm và ví dụ của thuật toán hoặc cấu trúc dữ liệu đó. NHƯNG KHÔNG được trả về source code.\n" + 
+                            "* Lưu ý, phần khái niệm sẽ nằm trong thẻ <concept>, phần ví dụ sẽ nằm trong thẻ <example>\n" +
+                            "-Người dùng hỏi về thao tác xử lý đối với cấu trúc dữ liệu nào đó:bạn trả về kết quả như sau \"3 đến 4 dòng đầu sẽ giải thích về cách thức hoạt động và quy trình xử lý của thao tác đó, đồng thời trả về mã nguồn C++\"\n"
+                //"Lưu ý khi trả về kết quả, ," +
+                //"ví dụ:\n<concept>\nViết phần khái niệm của bạn trong đây\n</concept>\n<example>\nViết phần ví dụ của bạn trong đây\n</example>"
+            });
             Messages.AddRange(_conversationService.GetConversation(request));
 
             HttpResponseMessage response = await PostRequest1();
@@ -66,8 +69,9 @@ namespace ChatGPTCaller.Services
                 List<ChatGPT_API_Response.ToolCall> tool_calls = aPIResponse.choices[0].message.tool_calls;
                 var available_functions = new Dictionary<string, Func<string, string>>
                 {
-                    { "get_link_about_sort", db.get_link_about_sort },
-                    { "get_link_about_search", db.get_link_about_search }
+                    { "get_link_about_sort", Functions.get_link_about_sort },
+                    { "get_link_about_search", Functions.get_link_about_search },
+                    { "get_link_about_linkedlist", Functions.get_link_about_linkedlist }
                 };
                 Messages.Add(response_message);
                 foreach(var tool_call in tool_calls)
@@ -87,13 +91,28 @@ namespace ChatGPTCaller.Services
                             name = function_name,
                         });
                     }
-                    else
+                    else if(tool_call.function.name == "get_link_about_search")
                     {
                         var function_name = tool_call.function.name;
                         var function_to_call = available_functions[function_name];
                         var function_args = JsonConvert.DeserializeObject<Dictionary<string, string>>(tool_call.function.arguments);
                         var search_type = function_args["search_type"];
                         var function_response = function_to_call(search_type);
+                        Messages.Add(new
+                        {
+                            content = function_response,
+                            role = "tool",
+                            tool_call_id = tool_call.id,
+                            name = function_name,
+                        });
+                    }
+                    else
+                    {
+                        var function_name = tool_call.function.name;
+                        var function_to_call = available_functions[function_name];
+                        var function_args = JsonConvert.DeserializeObject<Dictionary<string, string>>(tool_call.function.arguments);
+                        var linkedlist_type = function_args["linkedlist_type"];
+                        var function_response = function_to_call(linkedlist_type);
                         Messages.Add(new
                         {
                             content = function_response,
@@ -195,6 +214,29 @@ namespace ChatGPTCaller.Services
                                 }
                             },
                         },
+                        new
+                        {
+                            type = "function",
+                            function = new
+                            {
+                                name = "get_link_about_linkedlist",
+                                description = "Get youtube videos about linked list",
+                                parameters = new
+                                {
+                                    type = "object",
+                                    properties = new
+                                    {
+                                        linkedlist_type = new
+                                        {
+                                            type = "string",
+                                            @enum = new [] {"single", "double" },
+                                            description = "Kiểu danh sách liên kết"
+                                        }
+                                    },
+                                    required = new[] { "linkedlist_type" }
+                                }
+                            },
+                        }
                     },
                     tool_choice = "auto",
                     temperature = 0.2
