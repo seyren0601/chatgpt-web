@@ -41,16 +41,42 @@ namespace ChatGPTCaller.Models
         public int mssv { get; set; }
         public string gender { get; set; }
         public DateTime birthday { get; set; }
-        public string address { get; set; }
-        public string nationality { get; set; }
-        public string religion { get; set; }
-        public DateTime entry_date { get; set; }
         public string faculty { get; set; }
         public string major { get; set; }
-        public string class_sv { get; set; }
+        public string nationality { get; set; }
+        public string religion { get; set; }
+        public int idcard {  get; set; }
+        public DateTime dateofissue { get; set; }
+        public string placeofissue { get; set; }
+        public int myphone {  get; set; }
+        public int parentphone {  get; set; }
+        public string address { get; set; }
+        public string aboutstudent { get; set; }
+
         public UserInfo() { }
+
         public UserInfo(User user):base(user.full_name, user.email, user.password)
         {
+            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+            rng.GetBytes(hashSalt);
+        }
+        public UserInfo(User user,byte[] hashSalt, int mssv, string gender, DateTime birthday, string faculty, string major, string nationality, string religion, int idcard, DateTime dateofissue, string placeofissue, int myphone, int parentphone, string address, string aboutstudent) : base(user.full_name, user.email, user.password)
+        {
+            this.hashSalt = hashSalt;
+            this.mssv = mssv;
+            this.gender = gender;
+            this.birthday = birthday;
+            this.faculty = faculty;
+            this.major = major;
+            this.nationality = nationality;
+            this.religion = religion;
+            this.idcard = idcard;
+            this.dateofissue = dateofissue;
+            this.placeofissue = placeofissue;
+            this.myphone = myphone;
+            this.parentphone = parentphone;
+            this.address = address;
+            this.aboutstudent = aboutstudent;
             RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
             rng.GetBytes(hashSalt);
         }

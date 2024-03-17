@@ -38,8 +38,8 @@ namespace ChatGPTCaller.Services
                 else
                 {
                     DataRow user_row = dt.Rows[0];
-                    string db_h_pass = (string)user_row[13];
-                    byte[] salt = Convert.FromBase64String((string)user_row[14]);
+                    string db_h_pass = (string)user_row[17];
+                    byte[] salt = Convert.FromBase64String((string)user_row[18]);
                     string h_pass = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                                         password: password!,
                                         salt: salt,

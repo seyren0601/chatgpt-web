@@ -7,7 +7,7 @@ USE gpt_user;
 CREATE TABLE user_info(
 	id int auto_increment,
     full_name char(50),
-       mssv int,
+    mssv int,
     gender char(50),
     birthday date,
     faculty char(50),
@@ -21,7 +21,7 @@ CREATE TABLE user_info(
     parentphone int,
 	email char(50) unique,
     address char(50),
-    aboutstudent char(500),
+    aboutstudent char(255),
     hashed_pw char(50),
     salt char(50),
     PRIMARY KEY (id)

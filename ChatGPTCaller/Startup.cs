@@ -1,4 +1,5 @@
 using ChatGPTCaller.Services;
+using ChatGPTCaller.Services.SinhVien;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -31,6 +32,7 @@ namespace ChatGPTCaller
 			services.AddSingleton<ChatGPTService>();
 			services.AddSingleton<RegisterService>();
 			services.AddSingleton<LoginService>();
+			services.AddSingleton<GetService>();
 			services.AddSingleton<ConversationService>();
 			services.AddControllers();
         }
