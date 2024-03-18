@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="./css/student_update_data.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/57ae888bd4.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="./js/UpdatedSinhVien.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
     <title>Student_Data</title>
 </head>
 <body>
@@ -43,7 +45,7 @@
                             <label class="fname-label" for="fname">Full Name: </label>
                             <input class="fname" type="text" name="firstName" id="fname" placeholder="Full Name">
                             <label class="Student-Number-label" for="student-number">Student Number </label>
-                            <input class="student-number" class="student-number" type="number" name="student-number" id="student-number" placeholder="Student Number" min="1" max="9999999999"><br>
+                            <input class="student-number" class="student-number" type="text" name="student-number" id="student-number" placeholder="Student Number" min="1" max="9999999999"><br>
                             <label class="gender-label" for="gender">Gender: </label>
                             <select class="gender" name="gender" id="gender">
                                 <option value="male">Male</option>
@@ -59,24 +61,25 @@
 
                             <label class="Khoa_label" for="class">Faculty: </label>
                             <select class="khoa" name="khoa" id="khoa">
-                                <option value="1">Khoa Công Nghệ - Kỹ Thuật</option>
-                                <option value="2">Khoa Kinh tế - Quản trị</option>
-                                <option value="3">Khoa Ngôn ngữ và văn hóa quốc tế</option>
-                                <option value="4">Khoa Y</option>
-                                <option value="5">Khoa Dược</option>
-                                <option value="6">Khoa Răng Hàm Mặt</option>
-                                <option value="7">Khoa Điều Dưỡng – Hộ Sinh</option>
-                                <option value="8">Khoa Xét Nghiệm Y Học</option>
-                                <option value="9">Khoa Kỹ thuật Phục hồi chức năng</option>
-                                <option value="10">Khoa Khoa học Xã hội</option>
-                                <option value="11">Bộ môn Giáo dục thể chất</option>
+                                <option value="CNTT">Khoa Công Nghệ - Kỹ Thuật</option>
+                                <option value="KQ">Khoa Kinh tế - Quản trị</option>
+                                <option value="NNVHQT">Khoa Ngôn ngữ và văn hóa quốc tế</option>
+                                <option value="Y">Khoa Y</option>
+                                <option value="D">Khoa Dược</option>
+                                <option value="RH">Khoa Răng Hàm Mặt</option>
+                                <option value="DDHS">Khoa Điều Dưỡng – Hộ Sinh</option>
+                                <option value="XNYH">Khoa Xét Nghiệm Y Học</option>
+                                <option value="KTPHCHN">Khoa Kỹ thuật Phục hồi chức năng</option>
+                                <option value="KHXH">Khoa Khoa học Xã hội</option>
+                                <option value="GDTC">Bộ môn Giáo dục thể chất</option>
                                 <option value="Msc">Msc</option>
                                 <option value="Phd">Phd</option>
                             </select><br>
+
                             <label class="major-label" for="major">Major: </label>
                             <input class="major" type="text" name="major" id="major" placeholder="major">
-                            <label class="class-label" for="class">Nationnality: </label>
-                            <input class="nationnality" type="text" name="nationnality" id="nationnality" placeholder="nationnality">
+                            <label class="class-label" for="class">Nationality: </label>
+                            <input class="nationnality" type="text" name="nationality" id="nationality" placeholder="nationality">
 
                             <label class="religion" for="religion">Religion: </label>
                             <select class="religion" name="religion" id="religion">
@@ -102,60 +105,50 @@
                     <div class="horizontal-line"></div>
 
                     <div class="row contact-details">
-                        <div class="col-sm-4 contact-details-left">
-                            <label class="address-label" for="address">Address: </label><br>
-                            <textarea class="address" name="address" id="address" placeholder=" Start writing here..."></textarea>
-                        </div>
-
-                        <div class="col-sm-4 contact-details-middle">
-                            <label class="country-label" for="country">Country: </label>
-                            <input class="country" type="text" name="country" id="country" placeholder="Country"><br>
-
-                            <label class="city-label" for="city">City: </label>
-                            <input class="city" type="text" name="city" id="city" placeholder="City"><br>
-
-
-                            <label class="District-label" for="District">District: </label>
-                            <input class="District" type="text" name="District" id="District" placeholder="District"><br>
-
-                            <label class="pincode-label" for="pincode">Pin Code: </label>
-                            <input class="pincode" type="number" name="pincode" id="pincode" placeholder="Pin Code" min="000000" max="999999"><br>
-                        </div>
-                        <div class="col-sm-4 contact-details-right">
-                            <label class="mobNo-label" for="mobNo">Mobile No: </label>
-                            <input class="mobNo" type="number" name="mobNo" id="mobNo" placeholder="Mobile Number" minlength="10" maxlength="10"><br>
-
-                            <label class="mobNo-label" for="parentMobNo">Parent Mobile No: </label>
-                            <input class="mobNo" type="number" name="parentMobNo" id="parentMobNo" placeholder="Parent Mobile Number"><br>
-
-                            <label class="email-label" for="email">Email: </label>
-                            <input class="email" type="email" name="email" id="email" placeholder="Email"><br>
-
-                        </div>
-                    </div>
-
-                    <div class="horizontal-line"></div>
-
-                    <div class="row other-details">
-                        <div class="col-sm-4 other-details-left">
+                        <div class="col-sm-6 contact-details-left">
                             <label class="id-card-number-label" for="id-card-number">ID card number: </label>
-                            <input class="id-card-number" type="number" name="id-card-number" id="id-card-number" placeholder="id-card-number"><br>
+                            <input class="id-card-number" type="text" name="id-card-number" id="id-card-number" placeholder="id-card-number"><br>
 
                             <label class="dou-label" for="dou">Date of issue: </label>
                             <input class="dou" type="date" name="dou" id="dou"><br>
 
                             <label class="Place-label" for="Place">Place of issue: </label>
                             <input class="Place" type="text" name="Place" id="Place" placeholder="Place of issue">
+                            
                         </div>
 
-                        <div class="col-sm-8 other-details-right">
+                        <div class="col-sm-6 contact-details-right">
+                            <label class="mobNo-label" for="mobNo">Mobile No: </label>
+                            <input class="mobNo" type="text" name="mobNo" id="mobNo" placeholder="Mobile Number" minlength="10" maxlength="10"><br>
+
+                            <label class="mobNo-label" for="parentMobNo">Parent Mobile No: </label>
+                            <input class="mobNo" type="text" name="parentMobNo" id="parentMobNo" placeholder="Parent Mobile Number"><br>
+
+                            <label class="email-label" for="email">Email: </label>
+                            <input class="email" type="email" name="email" id="email" placeholder="Email"><br>
+
+                        </div>
+                    </div>
+                    <div class="row other-details">
+                        <div class="col-sm-12 other-details-left">
+                            <label class="address-label" for="address">Address: </label><br>
+                            <textarea class="address" name="address" id="address" placeholder=" Start writing here..."></textarea>
+                        </div>
+
+                    </div>
+
+
+                    <div class="horizontal-line"></div>
+
+                    <div class="row other-details">
+                        <div class="col-sm-12 other-details-left">
                             <label for="note">About Student : </label><br>
                             <textarea name="note" id="note" placeholder=" Start writing here..."></textarea>
                         </div>
                     </div>
                     <div class="btn-wrapper">
                         <button class="btn btn-primary" onclick="viewStudentDetails()" type="button">View Details</button>
-                        <button class="btn btn-primary" type="submit">Save Details</button>
+                        <button class="btn btn-primary" onclick="UpdateSinhVien()" type="submit">Save Details</button>
                     </div>
 
                 </form>
@@ -172,10 +165,5 @@
         <p class="text-light small-heading">Student Information &copy; 2024, All Rights Reserved</p>
     </footer
 </body>
- <script>
-    function viewStudentDetails() {
-    // Navigate to the student details page
-    window.location.href = './Student_Infor'; // Change this URL to the correct page for your application
-    }
-    </script>
+
 </html>

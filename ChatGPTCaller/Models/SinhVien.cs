@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace ChatGPTCaller.Models
 {
@@ -32,18 +33,18 @@ namespace ChatGPTCaller.Models
         [Required]
         public string full_name { get; set; }
         [Required]
-        public int mssv { get; set; }
+        public string mssv { get; set; }
         public string gender { get; set; } 
-        public DateTime birthday { get; set; }
+        public DateTimeFormat birthday { get; set; }
         public string faculty { get; set; }
         public string major { get; set; }
         public string nationality { get; set; }
         public string religion { get; set; }
-        public int idcard { get; set; }
+        public string idcard { get; set; }
         public DateTime dateofissue { get; set; }
         public string placeofissue { get; set; }
-        public int myphone { get; set; }
-        public int parentphone { get; set; }
+        public string myphone { get; set; }
+        public string parentphone { get; set; }
         [DisplayName("E-Mail")]
         [Required]
         public string email { get; set; }   

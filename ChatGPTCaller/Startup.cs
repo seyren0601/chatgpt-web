@@ -33,7 +33,8 @@ namespace ChatGPTCaller
 			services.AddSingleton<RegisterService>();
 			services.AddSingleton<LoginService>();
 			services.AddSingleton<GetService>();
-			services.AddSingleton<ConversationService>();
+            services.AddSingleton<UpdateService>();
+            services.AddSingleton<ConversationService>();
 			services.AddControllers();
         }
 

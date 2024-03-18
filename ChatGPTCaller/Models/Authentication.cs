@@ -6,6 +6,11 @@ using System.Security.Cryptography;
 
 namespace ChatGPTCaller.Models
 {
+    public class UpdateRespond
+    {
+        public bool UpdateResult { get; set; }
+        public string? ErrorMessage { get; set; }
+    }
     public class RegisterResponse
     {
         public bool RegisterResult { get; set; }
@@ -38,18 +43,18 @@ namespace ChatGPTCaller.Models
     public class UserInfo:User
     {
         public byte[] hashSalt { get; set; } = new byte[16];
-        public int mssv { get; set; }
+        public string mssv { get; set; }
         public string gender { get; set; }
         public DateTime birthday { get; set; }
         public string faculty { get; set; }
         public string major { get; set; }
         public string nationality { get; set; }
         public string religion { get; set; }
-        public int idcard {  get; set; }
+        public string idcard {  get; set; }
         public DateTime dateofissue { get; set; }
         public string placeofissue { get; set; }
-        public int myphone {  get; set; }
-        public int parentphone {  get; set; }
+        public string myphone {  get; set; }
+        public string parentphone {  get; set; }
         public string address { get; set; }
         public string aboutstudent { get; set; }
 
@@ -60,9 +65,8 @@ namespace ChatGPTCaller.Models
             RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
             rng.GetBytes(hashSalt);
         }
-        public UserInfo(User user,byte[] hashSalt, int mssv, string gender, DateTime birthday, string faculty, string major, string nationality, string religion, int idcard, DateTime dateofissue, string placeofissue, int myphone, int parentphone, string address, string aboutstudent) : base(user.full_name, user.email, user.password)
+        public UserInfo( string mssv, string gender, DateTime birthday, string faculty, string major, string nationality, string religion, string idcard, DateTime dateofissue, string placeofissue, string myphone, string parentphone, string address, string aboutstudent)
         {
-            this.hashSalt = hashSalt;
             this.mssv = mssv;
             this.gender = gender;
             this.birthday = birthday;
@@ -77,8 +81,6 @@ namespace ChatGPTCaller.Models
             this.parentphone = parentphone;
             this.address = address;
             this.aboutstudent = aboutstudent;
-            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
-            rng.GetBytes(hashSalt);
         }
 
         public string GetHashValue()

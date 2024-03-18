@@ -3,11 +3,12 @@ using ChatGPTCaller.Services;
 using ChatGPTCaller.Services.SinhVien;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Data;
 
 namespace ChatGPTCaller.Controllers.SinhVien
 {
-    [Route("getsinhvien")]
+    [Route("sinhvien")]
     [ApiController]
     public class SinhVienController : Controller
     {
@@ -18,7 +19,7 @@ namespace ChatGPTCaller.Controllers.SinhVien
             SV = getService;
         }
 
-        [HttpGet("request")]
+        [HttpGet("getSV")]
         public void GetAll()
         {
             DataTable sinhviens = SV.GetSinhViens();

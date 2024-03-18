@@ -22,7 +22,6 @@ namespace ChatGPTCaller.Services.SinhVien
         {
             DataTable resultTable = new DataTable();
             string sql = $"SELECT * FROM user_info";
-            LoginResponse response;
             DataTable dt = _dbContext.ExecuteQueryCommand(sql);
             return dt;
         }
