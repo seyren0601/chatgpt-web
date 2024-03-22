@@ -28,7 +28,17 @@ function updateFormWithStudentData(data) {
     document.getElementById("fname").setAttribute("readonly", true);
     document.querySelector("#fname").value = data.full_name || '';
     document.querySelector("#student-number").value = data.mssv || '';
-    document.querySelector("#dob").value = data.birthday || '';
+    if (data.birthday) {
+        const birthday = new Date(data.birthday);
+        const formattedBirthday = [
+            birthday.getFullYear(),
+            ('0' + (birthday.getMonth() + 1)).slice(-2),
+            ('0' + birthday.getDate()).slice(-2)
+        ].join('-');
+        document.querySelector("#dob").textContent = formattedBirthday;
+    } else {
+        document.querySelector("#dob").textContent = '';
+    }
     document.querySelector("#major").value = data.major || '';
     document.querySelector("#nationality").value = data.nationality || '';
     document.querySelector("#address").value = data.address || '';
@@ -36,36 +46,33 @@ function updateFormWithStudentData(data) {
 
     // Update selects. This example assumes the value is an exact match.
     if (data.gender) {
-        document.querySelector("#gender").value = data.gender;
+        document.querySelector("#gender").value = data.gender || '';
     }
 
-    if (data.faculty) {
-        // This assumes you have set the value attributes of the options to match the faculty names exactly.
-        document.querySelector("#khoa").value = data.faculty;
-    }
+ 
 
-    if (data.religion) {
-        document.querySelector("#religion").value = data.religion;
-    }
+    document.querySelector("#khoa").value = data.faculty || '';
+     document.querySelector("#religion").value = data.religion || '';
 
     if (data.idcard) {
-        document.querySelector("#id-card-number").value = data.idcard;
+        document.querySelector("#id-card-number").value = data.idcard || '';
     }
     if (data.dateofissue) {
-        document.querySelector("#dou").value = data.dateofissue;
+        const dateOfIssue = new Date(data.dateofissue);
+        const formattedDateOfIssue = [
+            dateOfIssue.getFullYear(),
+            ('0' + (dateOfIssue.getMonth() + 1)).slice(-2),
+            ('0' + dateOfIssue.getDate()).slice(-2)
+        ].join('-');
+        document.querySelector("#dou").textContent = formattedDateOfIssue;
+    } else {
+        document.querySelector("#dou").textContent = '';
     }
-    if (data.placeofissue) {
-        document.querySelector("#Place").value = data.placeofissue;
-    }
-    if (data.aboutstudent) {
-        document.querySelector("#note").value = data.aboutstudent;
-    }
-    if (data.myphone) {
-        document.querySelector("#mobNo").value = data.myphone;
-    }
-    if (data.parentphone) {
-        document.querySelector("#parentMobNo").value = data.parentphone;
-    }
+    document.querySelector("#Place").value = data.placeofissue || '';
+    document.querySelector("#note").value = data.aboutstudent || '';
+    document.querySelector("#mobNo").value = data.myphone || '';
+    document.querySelector("#parentMobNo").value = data.parentphone || '';
+    
 }
 
 

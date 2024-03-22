@@ -99,11 +99,6 @@ body {
     color: #333;
 }
 
-.container-fluid {
-    max-width: 1900px;
-    margin: 0 auto;
-    padding: 20px;
-}
 
 .row {
     display: flex;
@@ -217,4 +212,8 @@ body {
 .footer {
     position: relative;
     margin-top: 20px; /* Điều chỉnh khoảng cách giữa nội dung và footer */
+}
+.navbar-inverse {
+    background-color: #7a0b68 !important;
+    border-color: #080808;
 }
