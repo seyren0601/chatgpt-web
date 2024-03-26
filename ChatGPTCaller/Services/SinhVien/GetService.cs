@@ -25,6 +25,13 @@ namespace ChatGPTCaller.Services.SinhVien
             DataTable dt = _dbContext.ExecuteQueryCommand(sql);
             return dt;
         }
+        public DataTable GetMotSinhVien(string email)
+        {
+            DataTable resultTable = new DataTable();
+            string sql = $"SELECT * FROM user_info WHERE email = '{email}'";
+            DataTable dt = _dbContext.ExecuteQueryCommand(sql);
+            return dt;
+        }
         public string DataTableToJSONWithJSONNet(DataTable table)
         {
             string JSONString = string.Empty;

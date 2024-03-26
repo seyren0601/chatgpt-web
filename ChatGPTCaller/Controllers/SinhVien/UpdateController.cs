@@ -6,18 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ChatGPTCaller.Controllers.SinhVien
 {
-    [Route("update")]
+    [Route("sinhvien")]
     [ApiController]
-    public class UpdateControler : ControllerBase
+    public class UpdateController : ControllerBase
     {
         private readonly UpdateService _updateService;
         UpdateRespond Response;
-        public UpdateControler(UpdateService updateService)
+        public UpdateController(UpdateService updateService)
         {
             _updateService = updateService;
         }
 
-        [HttpPost("sinhvien")]
+        [HttpPost("update")]
         public ActionResult<UpdateRespond> PostUpdateResult([FromBody] UserInfo user)
         {
             if (!ModelState.IsValid)

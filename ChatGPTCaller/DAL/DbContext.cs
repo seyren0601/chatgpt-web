@@ -42,6 +42,12 @@ namespace ChatGPTCaller.DAL
                 Console.WriteLine(_connection.ConnectionString);
                 throw (e);
             }
+            catch (Exception e)
+            {
+                _connection.Close();
+                Console.WriteLine(_connection.ConnectionString);
+                throw (e);
+            }
         }
 
         public DataTable ExecuteQueryCommand(string sql)

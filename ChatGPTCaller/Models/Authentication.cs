@@ -21,6 +21,7 @@ namespace ChatGPTCaller.Models
     {
         public bool LogInResult { get; set; }
         public int? UserID { get; set; }
+        public string? Full_name { get; set; }
         public string? UserRole { get; set; }
         public string ErrorMessage { get; set; }
         public LoginResponse() { }

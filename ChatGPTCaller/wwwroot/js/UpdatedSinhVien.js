@@ -1,157 +1,122 @@
-﻿//get the student information
+﻿// Fetches and displays student information
 async function getSinhVien() {
     const url = 'https://localhost:44345/sinhvien/getSv';
 
     try {
         const response = await fetch(url);
-        // Check if the request was successful
         if (!response.ok) {
             throw new Error(`Error: ${response.status}`);
         }
 
         const datas = await response.json();
-        const email = localStorage.getItem('username');
-        for (const data of datas) { // Fixed the iteration here
-            if (data.email === email) {
-                updateFormWithStudentData(data);
-                break; // If you only need to find one match then break
-            }
+        const email = localStorage.getItem('username'); // Assuming 'username' is the student's email
+
+        // Find the student data that matches the email
+        const data = datas.find(d => d.email === email);
+        if (data) {
+            updateFormWithStudentData(data);
         }
     } catch (error) {
         console.error('Failed to fetch data:', error);
     }
 }
 
+// Updates the form with the fetched student data
 function updateFormWithStudentData(data) {
-    // Update text inputs
+    // Fields that are always read-only
+    document.getElementById("email").value = data.email || '';
     document.getElementById("email").setAttribute("readonly", true);
+    document.getElementById("fname").value = data.full_name || '';
     document.getElementById("fname").setAttribute("readonly", true);
-    document.querySelector("#fname").value = data.full_name || '';
-    document.querySelector("#student-number").value = data.mssv || '';
-    if (data.birthday) {
-        const birthday = new Date(data.birthday);
-        const formattedBirthday = [
-            birthday.getFullYear(),
-            ('0' + (birthday.getMonth() + 1)).slice(-2),
-            ('0' + birthday.getDate()).slice(-2)
-        ].join('-');
-        document.querySelector("#dob").textContent = formattedBirthday;
+
+    // Fields that are editable
+    document.getElementById("student-number").value = data.mssv || '';
+    document.getElementById("major").value = data.major || '';
+    document.getElementById("nationality").value = data.nationality || '';
+    document.getElementById("address").value = data.address || '';
+    document.getElementById("gender").value = data.gender || '';
+    document.getElementById("khoa").value = data.faculty || '';
+    document.getElementById("religion").value = data.religion || '';
+    document.getElementById("id-card-number").value = data.idcard || '';
+    document.getElementById("mobNo").value = data.myphone || '';
+    document.getElementById("parentMobNo").value = data.parentphone || '';
+    document.getElementById("note").value = data.aboutstudent || '';
+
+    // Handling date formatting for the date of birth and date of issue
+    setDateInInput("dob", data.birthday);
+    setDateInInput("dou", data.dateofissue);
+    document.getElementById("Place").value = data.placeofissue || '';
+}
+
+// Helper function to set dates in input fields
+function setDateInInput(elementId, dateString) {
+    if (dateString) {
+        const date = new Date(dateString);
+        // Adjust for time zone offset
+        const offset = date.getTimezoneOffset() * 60000; // Convert minutes to milliseconds
+        const localDate = new Date(date.getTime() - offset);
+        document.getElementById(elementId).value = localDate.toISOString().split('T')[0];
     } else {
-        document.querySelector("#dob").textContent = '';
+        document.getElementById(elementId).value = '';
     }
-    document.querySelector("#major").value = data.major || '';
-    document.querySelector("#nationality").value = data.nationality || '';
-    document.querySelector("#address").value = data.address || '';
-    document.querySelector("#email").value = data.email || '';
-
-    // Update selects. This example assumes the value is an exact match.
-    if (data.gender) {
-        document.querySelector("#gender").value = data.gender || '';
-    }
-
- 
-
-    document.querySelector("#khoa").value = data.faculty || '';
-     document.querySelector("#religion").value = data.religion || '';
-
-    if (data.idcard) {
-        document.querySelector("#id-card-number").value = data.idcard || '';
-    }
-    if (data.dateofissue) {
-        const dateOfIssue = new Date(data.dateofissue);
-        const formattedDateOfIssue = [
-            dateOfIssue.getFullYear(),
-            ('0' + (dateOfIssue.getMonth() + 1)).slice(-2),
-            ('0' + dateOfIssue.getDate()).slice(-2)
-        ].join('-');
-        document.querySelector("#dou").textContent = formattedDateOfIssue;
-    } else {
-        document.querySelector("#dou").textContent = '';
-    }
-    document.querySelector("#Place").value = data.placeofissue || '';
-    document.querySelector("#note").value = data.aboutstudent || '';
-    document.querySelector("#mobNo").value = data.myphone || '';
-    document.querySelector("#parentMobNo").value = data.parentphone || '';
-    
 }
 
 
-function UpdateSinhVien() {
-    // Get the input elements
-    var email = document.getElementById("email").value.trim();
-    var mssv = document.getElementById("student-number").value.trim();
-    var gender = document.getElementById("gender").value.trim();
-    var birthday = document.getElementById("dob").value.trim();
-    var faculty = document.getElementById("khoa").value.trim();
-    var major = document.getElementById("major").value.trim();
-    var nationality = document.getElementById("nationality").value.trim();
-    var religion = document.getElementById("religion").value.trim();
-    var idcard = document.getElementById("id-card-number").value.trim();
-    var dateofissue = document.getElementById("dou").value.trim();
-    var placeofissue = document.getElementById("Place").value.trim();
-    var myphone = document.getElementById("mobNo").value.trim();
-    var parentphone = document.getElementById("parentMobNo").value.trim();
-    var address = document.getElementById("address").value.trim();
-    var aboutstudent = document.getElementById("note").value.trim();
+// Update student information
+async function UpdateSinhVien() {
+    const request = gatherFormData();
 
-    // Check if required fields are not empty
-    if (!email || !mssv || !birthday) {
+    if (!request.email || !request.mssv || !request.birthday) {
         alert("Email, mssv, and birthday are required");
         return;
     }
 
-    // Create the JSON payload
-    var request = {
-        "email": email,
-        "mssv": mssv,
-        "gender": gender,
-        "birthday": birthday,
-        "faculty": faculty,
-        "major": major,
-        "nationality": nationality,
-        "religion": religion,
-        "idcard": idcard,
-        "dateofissue": dateofissue,
-        "placeofissue": placeofissue,
-        "myphone": myphone,
-        "parentphone": parentphone,
-        "address": address,
-        "aboutstudent": aboutstudent
-    };
-
-    // Make an AJAX request using the Fetch API
-    fetch('https://localhost:44345/update/sinhvien', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json; charset=utf-8'
-        },
-        body: JSON.stringify(request)
-    })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                // Log or alert the status code for more information
-                console.error('Error status code:', response.status);
-                alert('Network response was not ok. Status code: ' + response.status);
-                return Promise.reject('Error ' + response.status);
-            }
-        })
-        .then(data => {
-            // Check if updation was successful
-            if (data.UpdateResult == true) {
-                // Updation successful
-                alert("Updation successful");
-            } else {
-                // Updation failed, handle the error message
-                alert("Updation failed. Error message: " + data.errorMessage);
-            }
-        })
-        .catch(error => {
-            console.error('Error during updation request:', error.message);
-            alert('Error during updation request: ' + error.message);
+    try {
+        const response = await fetch('https://localhost:44345/sinhvien/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify(request)
         });
+
+        if (response.ok) {
+            const data = await response.json();
+            if (data.updateResult) {
+                alert("Update successful");
+            } else {
+                alert("Update failed. Error message: " + data.errorMessage);
+            }
+        } else {
+            throw new Error(`Network response was not ok: ${response.status}`);
+        }
+    } catch (error) {
+        alert('Error during the update request: ' + error.message);
+    }
 }
+
+// Gathers form data into a JSON object
+function gatherFormData() {
+    return {
+        email: document.getElementById("email").value.trim(),
+        mssv: document.getElementById("student-number").value.trim(),
+        gender: document.getElementById("gender").value.trim(),
+        birthday: document.getElementById("dob").value.trim(),
+        faculty: document.getElementById("khoa").value.trim(),
+        major: document.getElementById("major").value.trim(),
+        nationality: document.getElementById("nationality").value.trim(),
+        religion: document.getElementById("religion").value.trim(),
+        idcard: document.getElementById("id-card-number").value.trim(),
+        dateofissue: document.getElementById("dou").value.trim(),
+        placeofissue: document.getElementById("Place").value.trim(),
+        myphone: document.getElementById("mobNo").value.trim(),
+        parentphone: document.getElementById("parentMobNo").value.trim(),
+        address: document.getElementById("address").value.trim(),
+        aboutstudent: document.getElementById("note").value.trim(),
+    };
+}
+
+
 
 window.onload = function () {
     getSinhVien();

@@ -52,6 +52,7 @@ namespace ChatGPTCaller.Services
                         {
                             LogInResult = true,
                             UserID = (int)user_row[0],
+                            Full_name = (string)user_row[1],
                             UserRole = (int)user_row[0] == 1?"admin":"user"
                         };
                     }

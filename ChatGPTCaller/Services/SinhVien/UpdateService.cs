@@ -34,6 +34,7 @@ namespace ChatGPTCaller.Services.SinhVien
               $"address = '{user.address}', " +
               $"aboutstudent = '{user.aboutstudent}' " +
               $"WHERE email = '{user.email}'";
+
             try
             {
                 int affected = _dbContext.ExecuteNonQueryCommand(sql);

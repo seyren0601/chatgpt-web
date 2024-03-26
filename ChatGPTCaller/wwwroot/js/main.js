@@ -109,10 +109,10 @@ function createMessageElement(type, sender, message) {
     return messageElement;
 }
 
-document.getElementById("searchInput").addEventListener("keydown", function (event) {
+document.getElementById("search_enter").addEventListener("keydown", function (event) {
     // Check if the pressed key is Enter
     if (event.key === "Enter") {
-// Prevent the default behavior of the Enter key (e.g., adding a new line)
+// Prevent the default behavior of the Enter key 
         event.preventDefault();
         sendMessage();
     }
@@ -260,7 +260,6 @@ function loginRequest() {
     // Get the email and password input elements
     const emailInput = document.getElementById("email_login");
     const passwordInput = document.getElementById("password_login");
-    const username = document.getElementById("fullname").value.trim();
 
     // Extract values and trim whitespace
     const email = emailInput.value.trim();
@@ -297,9 +296,12 @@ function loginRequest() {
         .then(data => {
             // Check if login was successful
             if (data.logInResult) {
+                var respond = data;
                 showSuccessToast("Login successful");
                 localStorage.setItem('username', email);
-                updateHeaderOnLogin(email);
+                localStorage.setItem('name', respond.full_name);
+               
+                updateHeaderOnLogin(email,respond.full_name);
                 // Redirect to '/Home' after a successful login
                 setTimeout(function () {
                     window.location.href = '/Home';
@@ -315,16 +317,17 @@ function loginRequest() {
 }
 
 
-function updateHeaderOnLogin(username) {
+function updateHeaderOnLogin(username, name) {
     const usernameSpan = document.getElementById('usernameSpan');
     const logoutButton = document.getElementById('logoutButton');
 
     if (usernameSpan && logoutButton) {
         // Display the username in the header
-        usernameSpan.textContent = username;
+        usernameSpan.textContent = name;
 
         // Store the username in localStorage
         localStorage.setItem('username', username);
+        localStorage.setItem('name', name);
 
         // Display the logout button
         logoutButton.style.display = 'inline';
@@ -341,6 +344,7 @@ function logout() {
     if (usernameSpan && logoutButton) {
         // Hide the username in the header
         localStorage.removeItem('username');
+        localStorage.removeItem('name');
         usernameSpan.textContent = 'Sign Up';
 
         // Change the link back to the original (Sign Up)
@@ -353,9 +357,10 @@ function logout() {
 
 function loadUsernameFromStorage() {
     const storedUsername = localStorage.getItem('username');
+    const name = localStorage.getItem('name');
     if (storedUsername) {
         // If the username is stored, update the header
-        updateHeaderOnLogin(storedUsername);
+        updateHeaderOnLogin(storedUsername, name);
     } else {
         // If the username is not stored, check if the current URL is the specified one
         if (window.location.href === "https://localhost:44345/Home") {
@@ -366,6 +371,4 @@ function loadUsernameFromStorage() {
 }
 
 document.addEventListener('DOMContentLoaded', loadUsernameFromStorage);
-
-
 
