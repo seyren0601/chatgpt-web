@@ -1,6 +1,5 @@
 ﻿using ChatGPTCaller.DAL;
 using ChatGPTCaller.Models;
-
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 using System.Data;

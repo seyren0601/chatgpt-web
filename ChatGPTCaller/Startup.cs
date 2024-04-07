@@ -1,5 +1,6 @@
 using ChatGPTCaller.Services;
 using ChatGPTCaller.Services.Admin;
+using ChatGPTCaller.Services.MonHocMoi;
 using ChatGPTCaller.Services.SinhVien;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,6 +38,7 @@ namespace ChatGPTCaller
             services.AddSingleton<UpdateService>();
 			services.AddSingleton<DeleteService>();
 			services.AddSingleton<AdminService>();
+            services.AddSingleton<MonHocService>();
             services.AddSingleton<ConversationService>();
 			services.AddControllers();
         }
