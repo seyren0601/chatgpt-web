@@ -21,7 +21,7 @@ namespace ChatGPTCaller.Services.SinhVien
         public DataTable GetSinhViens()
         {
             DataTable resultTable = new DataTable();
-            string sql = $"SELECT * FROM user_info";
+            string sql = $"SELECT * FROM user_info where isdeleted=false";
             DataTable dt = _dbContext.ExecuteQueryCommand(sql);
             return dt;
         }
@@ -29,6 +29,13 @@ namespace ChatGPTCaller.Services.SinhVien
         {
             DataTable resultTable = new DataTable();
             string sql = $"SELECT * FROM user_info WHERE email = '{email}'";
+            DataTable dt = _dbContext.ExecuteQueryCommand(sql);
+            return dt;
+        }
+        public DataTable GetMotSinhVienID(int id)
+        {
+            DataTable resultTable = new DataTable();
+            string sql = $"SELECT * FROM user_info WHERE id = '{id}'";
             DataTable dt = _dbContext.ExecuteQueryCommand(sql);
             return dt;
         }

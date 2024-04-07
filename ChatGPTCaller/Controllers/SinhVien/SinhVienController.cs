@@ -28,5 +28,14 @@ namespace ChatGPTCaller.Controllers.SinhVien
             Response.ContentType = "application/json;charset=utf-8";
             Response.WriteAsync(json);
         }
+        [HttpGet("getSV/{id}")]
+        public void GetMotSinhVien(int id)
+        {
+            DataTable sinhviens = SV.GetMotSinhVienID(id);
+            string json = SV.DataTableToJSONWithJSONNet(sinhviens);
+            Response.Clear();
+            Response.ContentType = "application/json;charset=utf-8";
+            Response.WriteAsync(json);
+        }
     }
 }

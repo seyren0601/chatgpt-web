@@ -71,28 +71,25 @@ async function UpdateSinhVien() {
         return;
     }
 
-    try {
-        const response = await fetch('https://localhost:44345/sinhvien/update', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8'
-            },
-            body: JSON.stringify(request)
-        });
+    const response = await fetch('https://localhost:44345/sinhvien/update', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify(request)
+    });
 
-        if (response.ok) {
-            const data = await response.json();
-            if (data.updateResult) {
-                alert("Update successful");
-            } else {
-                alert("Update failed. Error message: " + data.errorMessage);
-            }
+    if (response.ok) {
+        const data = await response.json();
+        if (data.updateResult) {
+            alert("Update successful");
         } else {
-            throw new Error(`Network response was not ok: ${response.status}`);
+            alert("Update failed. Error message: " + data.errorMessage);
         }
-    } catch (error) {
-        alert('Error during the update request: ' + error.message);
+    } else {
+        throw new Error(`Network response was not ok: ${response.status}`);
     }
+   
 }
 
 // Gathers form data into a JSON object
