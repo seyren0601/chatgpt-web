@@ -10,10 +10,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Write Data</title>
-    <link rel="stylesheet" href="./css/bootstrap-3.4.1-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/Admin.css">
+    <link rel="stylesheet" href="~/css/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/Admin.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="./css/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    <script src="~/css/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/57ae888bd4.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -47,14 +47,14 @@
     </header>
     <!--Main-->
     <main>
-        <div id="container" class="container">
+        <div class="trangchu">
             <div class="card mt-1">
                 <div class="card-body">
-                    <h2>Fetch Json data into a html table using jQuery</h2>
-                    <p>Click the following button to fetch the data <a href="https://dummyjson.com/posts">https://dummyjson.com/posts</a></p>
-                    <button class="btn btn-primary" onclick="fetchPosts()">Fetch Data</button>
-                    <button class="btn btn-secondary" onclick="addProduct()">Add Product</button>
-                    <a href="main.html" class="btn btn-secondary">Go to Main</a>
+                    <h1>TRANG QUẢN LÝ THÔNG TIN</h1>
+                    <h4 style="color:red;">Các nội dung sau bảo mật nghiêm cấm các hành vi copy hay chỉnh sửa khi không được phép!</h4>
+                    <button class="btn btn-primary" onclick="fetchUsers()">Fetch Users Data</button>
+                    <button class="btn btn-primary" onclick="addProduct()">Fetch Books Data</button>
+                    <button class="btn btn-primary" onclick="addProduct()">Fetch Chapters Data</button>
                 </div>
                 <div class="row">
                     <div id="alert-success" class="alert alert-success d-none" role="alert">
@@ -68,8 +68,10 @@
 
                 </div>
             </div>
-            <!--where to add mor table-->
-            <table id="userTable" class="table table-striped table-hover"></table>
+            <!--where to add more tablerow-->
+            <table id="userTable" class="table table-striped table-hover">
+
+            </table>
             <!--popup to be show-->
             <!-- Detail Modal Placeholder -->
             <div id="detailModal" class="modal">
@@ -116,9 +118,8 @@
                     </form>
                 </div>
             </div>
-
         </div>
-
+            
     </main>
     <footer>
         <div class="copyright text-center">
@@ -127,5 +128,6 @@
     </footer>
 
     <!-- Javascript -->
-    <script type="text/javascript" src="./js/Admin.js"></script>
+    <script type="text/javascript" src="~/js/Admin.js"></script>
+    <script type="text/javascript" src="~/js/main.js"></script>
 </body>

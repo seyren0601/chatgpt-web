@@ -649,7 +649,7 @@ header.header {
 }
 
 .homepage {
-    background: url("../img/backgroundText.jpg") no-repeat center center fixed;
+    //background: url("../img/backgroundText.jpg") no-repeat center center fixed;
     background-size: cover;
     font-family: 'Raleway', sans-serif;
     height: 100%;
@@ -795,7 +795,7 @@ header.header {
 }
 
 .contactpage {
-    background: url("../img/background4.jpg") no-repeat center center fixed;
+    background: url("../img/backgroundText.jpg") no-repeat center center fixed;
     background-size: cover;
     font-family: 'Raleway', sans-serif;
     height: 100%
