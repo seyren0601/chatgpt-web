@@ -1,5 +1,5 @@
-﻿function fetchPosts() {
-    $.get("https://localhost:44345/sinhvien/getSv", function (data, status) {
+﻿function fetchUsers() {
+    $.get("https://localhost:44345/admin/getSv", function (data, status) {
         var jsonData = data;
 
         // Create the table element

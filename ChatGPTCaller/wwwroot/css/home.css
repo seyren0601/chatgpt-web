@@ -13,6 +13,8 @@
     margin-left: 10%;
 }
 
+
+
 h1 {
     font-family: Georgia, 'Times New Roman', Times, serif; /* Chọn font chữ */
     font-size: 50px; /* Cỡ chữ */
@@ -21,6 +23,18 @@ h1 {
     text-align: center; /* Căn giữa tiêu đề */
     text-transform: uppercase; /* Chuyển đổi chữ thành chữ in hoa */
     padding: 20px 0; /* Khoảng cách giữa tiêu đề và nội dung */
+}
+
+a.admin {
+    display: none;
+}
+
+.none {
+    display: none !important;
+}
+
+.block {
+    display: block !important;
 }
 
 h2 {

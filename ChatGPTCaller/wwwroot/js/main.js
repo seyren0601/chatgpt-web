@@ -303,9 +303,13 @@ function loginRequest() {
                
                 updateHeaderOnLogin(email,respond.full_name);
                 // Redirect to '/Home' after a successful login
-                setTimeout(function () {
+                if (data.userRole == "user") {
                     window.location.href = '/Home';
-                }, 1500);
+                }
+                else {
+                    window.location.href = '/Admin';
+                }
+                    ;
             } else {
                 showErrorToast("Login failed. Error message: " + data.errorMessage);
             }

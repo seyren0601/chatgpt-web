@@ -20,7 +20,7 @@ namespace ChatGPTCaller.Services.Admin
         public DataTable GetSinhVienAdmin()
         {
             DataTable resultTable = new DataTable();
-            string sql = $"SELECT * FROM user_info ";
+            string sql = $"SELECT * FROM user_info";
             DataTable dt = _dbContext.ExecuteQueryCommand(sql);
             return dt;
         }
