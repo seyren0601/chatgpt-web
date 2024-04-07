@@ -1,0 +1,95 @@
+'CTGT01','CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT','<div class="container">
+            <h1 class="heading1">
+                CHƯƠNG 1
+                TỔNG QUAN
+            </h1>
+            <h1 class="heading2">1. 1. VAI TRÒ CỦA THUẬT TOÁN VÀ CẤU TRÚC DỮ LIỆU</h1>
+            <p class="des">
+                Để giải một bài toán trong thực tế bằng chương trình máy tính ta
+                phải bắt đầu từ việc xác định bài toán. Cần nhiều thời gian và công
+                sức để xác định chính xác bài toán cần giải quyết, tức là phải trả lời rõ
+                ràng câu hỏi phải làm gì và như thế nào, vì thông thường hầu hết các
+                bài toán là chưa rõ ràng và có cảm giác phức tạp khi bắt đầu xem xét,
+                tìm hiểu. Để giảm bớt sự phức tạp của các bài toán thực tế, cũng như
+                làm rõ hơn các yêu cầu cần giải quyết, phải hình thức hóa hoặc mô
+                hình hóa bài toán, nghĩa là phát biểu lại bài toán thực tế thành một bài
+                toán hình thức. Khi một bài toán đã được hình thức hoá, ta có thể tìm
+                kiếm cách giải và xác định có hay không một lời giải có sẵn để giải
+                bài toán ấy. Trong trường hợp chưa có lời giải cho bài toán, vẫn có thể
+                dựa vào cách thức ta đã mô hình hóa và các thông tin có liên quan đến
+                bài toán để xây dựng một cách thức giải cho bài toán. Như thế, thông
+                qua thao tác mô hình hóa, sẽ dễ hơn trong việc tìm lời giải cho bài
+                toán ấy – đó chính là giải thuật
+            </p>
+            <p class="des">
+                Có thể thấy rằng, lời giải là tập hợp các bước hữu hạn nối tiếp
+                nhau để thực hiện các yêu cầu nào đó mà tập hợp của các kết quả
+                thông qua từng bước thực hiện giúp ta giải được bài toán. Có thể thấy
+                rằng các xử lý chi tiết trong từng bước phản ánh các thao tác trên các
+                đối tượng mang thông tin trong bài toán, đó chính là dữ liệu, bao gồm
+                các dữ liệu có sẵn, các dữ liệu nhập vào thêm cho bài toán và các dữ
+                liệu trung gian được tạo ra trong quá trình xử lý. Cách thức dữ liệu lưu
+                trữ và biểu diễn các thông tin cần thiết cho bài toán tạo thành các cấu
+                trúc lưu trữ thông tin – cấu trúc dữ liệu.
+
+            <p class="des">
+                Điều này cũng được Niklaus Wirth - một nhà khoa học uy tín
+                trong lĩnh vực công nghệ thông tin, khẳng định qua một công thức n i
+                tiếng hương trình (Program) = Cấu trúc dữ liệu (Data Structure) +
+                Giải thuật (Algorithm). Điều này nói lên bản chất của việc tìm lời giải
+                cho một bài toán trong tin học là đi tìm một cấu trúc dữ liệu phù hợp
+                để biểu diễn dữ liệu của bài toán và từ đó x y dựng giải thuật phù hợp
+                với cấu trúc dữ liệu đã chọn. Ngày nay, với sự phát triển của các k
+                thuật lập trình, công thức của Wirth không hẳn còn đúng tuyệt đối
+                nữa, nhưng nó vẫn phản ánh sự gắn kết và thể hiện tầm quan trọng của
+                các cấu trúc dữ liệu và giải thuật
+            </p>
+            <h2 class="heading2">
+                1.2. THUẬT TOÁN
+            </h2>
+            <h3 class="heading3">
+                1.2.1. Định nghĩa thuật toán
+            </h3>
+            <p class="des">
+                ó rất nhiều định nghĩa cũng như cách phát biểu khác nhau về
+                định nghĩa của thuật toán. Theo Thomas H . Cormen trong cuốn ách
+                n i tiếng viết về thuật toán ntroduction to lgorithm , thuật toán
+                được định nghĩa là một thủ tục tính toán xác định; nhận vào các giá
+                tri hoặc một tập các giá trị gọi là giá trị đầu vào và inh ra các giá
+                tri hoặc một tập giá trị mới được gọi là giá trị đầu ra. Nói một cách
+                khác, thuật toán giống như là quy trình để hoàn thành một công việc
+                cu thể xác định nào đó.
+            </p>
+            <h3 class="heading3">
+                1.2.3. diễn thuật
+            </h3>
+            <p class="des">
+                Thuật toán tính t ng tất cả các số nguyên dương nhỏ hơn N bằng ngôn ngữ tự nhiên, gồm các bước sau:
+            </p>
+            <h3 class="heading3">
+                Biểu diễn bằng ngôn ngữ tự nhiên
+            </h3>
+            <p class="des">
+                Ví dụ:
+                Thuật toán tính t ng tất cả các số nguyên dương nhỏ hơn N bằng ngôn ngữ tự nhiên, gồm các bước sau:
+            </p>
+            <pre>
+        - Bước 1: Khởi gán giá trị biến S = 0; Khởi gán giá trị biến i = 1;
+        - Bước 2: Nếu i< N thì
+        S = S + i;
+        Ngược lại:
+        Chuyển qua bước 4;
+        - Bước 3: Gán i = i + 1;
+        Quay lại bước 2;
+        - Bước 4: T ng cần tìm là S. 
+            </pre>
+            <p class="des --center">T = f(input)</p>
+
+            <h4 class="heading4">
+                1.2.5.2. Đệ qui quay lui
+            </h4>
+            <h3 class="heading3">
+                4 Độ phức tạp thuật toán
+            </h3>
+
+        </div>'

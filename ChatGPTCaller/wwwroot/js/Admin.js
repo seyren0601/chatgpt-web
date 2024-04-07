@@ -53,65 +53,31 @@
 }
 
 
-
-
-function addProduct() {
-    var newProduct = {
-        title: "He was an good man",
-        body: "He was a good man, always ready to lend a helping hand to those in need. His kindness knew no bounds, and his gentle demeanor touched the lives of everyone he met. Whether it was offering a listening ear or offering practical assistance, he never hesitated to support others. He believed in the power of compassion and lived by example, leaving behind a legacy of warmth and generosity that will be remembered for generations to come.",
-        userId: 10,
-        tags: [
-            "french",
-            "fiction",
-            "english"
-        ],
-        reactions: 3
-    };
-
-    $.post("https://dummyjson.com/posts/add", newProduct)
-        .done(function (jsonData) {
-            let tbody = $("#tbody");
-            let tr = $("<tr>");
-
-            // Dynamically create and append table cells for each product detail
-            $('<td>').text(jsonData['id']).appendTo(tr);
-            $('<td>').text(jsonData['title']).appendTo(tr);
-            $('<td>').text(jsonData['body']).appendTo(tr);
-            $('<td>').text(jsonData['userId']).appendTo(tr);
-            $('<td>').text(jsonData['tags']).appendTo(tr);
-            $('<td>').text(jsonData['reactions']).appendTo(tr);
-
-            tbody.append(tr);
-
-            // Create an alert to notify of the new product addition
-            let alert_success = $("#alert-success");
-            alert_success.text("A new product " + jsonData['id'] + " has been added to the table.");
-            alert_success.attr('class', "alert alert-success");
-
-            setTimeout(() => {
-                alert_success.attr('class', "d-none");
-            }, 2000);
-        });
-}
-
-
 // Using on with event delegation for dynamically created elements
 $(document).on('click', '.view-detail', function () {
     var productId = $(this).attr('data-id'); // Get the product id stored in data-id attribute
-    $.get("https://dummyjson.com/posts/" + productId, function (data) {
+    $.get("https://localhost:44345/admin/getSv/" + productId, function (data) {
         // Expanded detailHtml to include more details
         var detailHtml = `
-            <p><strong>Title:</strong> ${data.title} </p>
-            <p><strong>UserId:</strong> ${data.userId}</p>
-            <p><strong>Tags:</strong> ${data.tags}</p>
-            <p><strong>Reactions:</strong> ${data.reactions}</p>
-            <p><strong>Body:</strong> ${data.body}</p>`;
+            <p><strong>id:</strong> ${data[0].id} </p>
+            <p><strong>Full_Name:</strong> ${data[0].full_name}</p>
+            <p><strong>Mssv:</strong> ${data[0].mssv}</p>
+            <p><strong>Gender:</strong> ${data[0].gender}</p>
+            <p><strong>Birthday:</strong> ${data[0].birthday}</p>
+            <p><strong>Email:</strong> ${data[0].email}</p>
+            <p><strong>Phone:</strong> ${data[0].myphone}</p>
+            <p><strong>Address:</strong> ${data[0].address}</p>
+            <p><strong>Role:</strong> ${data[0].role}</p>
+            <p><strong>Is Deleted:</strong> ${data[0].isdeleted}</p>
+            <p><strong>Id Card:</strong> ${data[0].idcard}</p>
+            <p><strong>Date Of Issue:</strong> ${data[0].dateofissue}</p>
+            <p><strong>Faculty:</strong> ${data[0].faculty}</p>
+            <p><strong>Major:</strong> ${data[0].major}</p>`;
 
-        $('#productDetail').html(detailHtml);
+        $('#userDetail').html(detailHtml);
         $('#detailModal').show(); // Show the modal with the product details
     });
 });
-
 
 // Close modal functionality
 $(document).on('click', '.close-button', function () {
@@ -125,67 +91,82 @@ $(window).click(function (event) {
     }
 });
 
-//edit product.....
-// Function to open the edit modal and populate it with current product details
+// Edit product functionality
 $(document).on('click', '.edit', function () {
-    var productId = $(this).attr('data-id'); // Get the product id stored in data-id attribute
-    $.get("https://dummyjson.com/posts/" + productId, function (product) {
-        $('#edittitle').val(product.title);
-        $('#editbody').val(product.body);
-        $('#edituserid').val(product.userId);
-        $('#edittags').val(product.tags);
-        $('#editreations').val(product.reactions);
-        // Select the edit product form
-
+    var productId = $(this).attr('data-id');
+    $.get("https://localhost:44345/admin/getSv/" + productId, function (product) {
+        $('#editid').val(product[0].id);
+        $('#editfull_name').val(product[0].full_name);
+        $('#editmssv').val(product[0].mssv);
+        $('#editgender').val(product[0].gender);
+        $('#editbirthday').val(product[0].birthday);
+        $('#editemail').val(product[0].email);
+        $('#editmyphone').val(product[0].myphone);
+        $('#editaddress').val(product[0].address);
+        $('#editrole').val(product[0].role);
+        $('#editisdeleted').val(product[0].isdeleted);
+        $('#editidcard').val(product[0].idcard);
+        $('#editdateofissue').val(product[0].dateofissue);
+        $('#editfaculty').val(product[0].faculty);
+        $('#editmajor').val(product[0].major);
     });
-    var form = $("#editProductForm");
+    var form = $("#edituserForm");
 
     // Create and append the "Save Changes" button
-    var button = '<button class="saveEdit" type="button" id="saveEdit" data-id="' + productId + '">Save Changes</button>';
+    var button = '<button class="saveEdit btn btn-primary" type="button" id="saveEdit" data-id="' + productId + '">Save Changes</button>';
     form.append(button);
 
     // Show the edit product modal
-    $('#editProduct').show();
+    $('#editUser').show();
 });
-
 
 // Close modal functionality
 $(document).on('click', '.edit-botton', function () {
-    var button = $('#saveEdit')
-    // Remove any previously created buttons from
+    var button = $('#saveEdit');
     button.remove();
-    $('#editProduct').hide();
+    $('#editUser').hide();
 });
 
 // Hide the modal when clicking outside of it
 $(window).click(function (event) {
-    if (event.target.id === 'editProduct') {
-        var button = $('#saveEdit')
-        // Remove any previously created buttons from
+    if (event.target.id === 'editUser') {
+        var button = $('#saveEdit');
         button.remove();
-        $('#editProduct').hide();
+        $('#editUser').hide();
     }
 });
 
-
-
-// Saving changes
+// Save changes
 $(document).on('click', '.saveEdit', function () {
     var productId = $(this).attr('data-id');
-    var updatedProduct = {
-        title: $('#edittitle').val(),
-        body: $('#editbody').val(),
-        userId: $('#edituserid').val(),
-        tags: $('#edittags').val(),
-        reactions: $('#editreations').val(),
+    var updateduser = {
+        "id": $('#editid').val(),
+        "full_name": $('#editfull_name').val(),
+        "mssv": $('#editmssv').val(),
+        "gender": $('#editgender').val(),
+        "birthday": $('#editbirthday').val(),
+        "faculty": $('#editfaculty').val(),
+        "major": $('#editmajor').val(),
+        "nationality": "",
+        "religion": "",
+        "idcard": $('#editidcard').val(),
+        "dateofissue": $('#editdateofissue').val(),
+        "placeofissue": "",
+        "myphone": $('#editmyphone').val(),
+        "parentphone": "",
+        "email": $('#editemail').val(),
+        "address": $('#editaddress').val(),
+        "aboutstudent": "người tốt",
+        "isdeleted": $('#editisdeleted').val(),
+        "role": $('#editrole').val(),
     };
 
-    fetch('https://dummyjson.com/posts/' + productId, {
-        method: 'PUT',
+    fetch('https://localhost:44345/admin/update/' + productId, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(updatedProduct)
+        body: JSON.stringify(updateduser)
     })
         .then(response => {
             if (!response.ok) {
@@ -194,35 +175,23 @@ $(document).on('click', '.saveEdit', function () {
             return response.json();
         })
         .then(data => {
-            //get json data respon fron server
             let jsonData = data;
-            alert('Updated product details successfully!!');
-            $('#editProduct').hide();
-
-            // Update the corresponding row in the HTML table with the new product details
-            var rowToUpdate = $(`#tbody tr[data-id="${jsonData.id}"]`);
-            rowToUpdate.find('td:eq(1)').text(jsonData.title);
-            rowToUpdate.find('td:eq(2)').text(jsonData.body);
-            rowToUpdate.find('td:eq(3)').text(jsonData.userId);
-            rowToUpdate.find('td:eq(4)').text(jsonData.tags);
-            rowToUpdate.find('td:eq(5)').text(jsonData.reactions);
+            alert('Updated User details successfully!!');
+            $('#editUser').hide();
+            fetchUsers();
 
             // Remove the "Save Changes" button
             $(this).remove();
         })
         .catch(error => {
             console.error('There was a problem with your fetch operation:', error);
-            // Handle errors gracefully, display error message to the user, etc.
         });
 });
-
-//delete...
 
 // Delete product
 $(document).on('click', '.delete', function () {
     var productId = $(this).attr('data-id');
 
-    // Ask for confirmation before deleting
     if (confirm("Are you sure you want to delete this product?")) {
         fetch('https://localhost:44345/admin/delete/' + productId, {
             method: 'DELETE',
@@ -234,21 +203,14 @@ $(document).on('click', '.delete', function () {
                 return response.json();
             })
             .then(data => {
-
                 let jsonData = data;
                 if (jsonData.updateResult)
-
                     alert('Product deleted successfully!!');
-
                 else
                     alert('Product deleted Fail!!');
             })
             .catch(error => {
                 console.error('There was a problem with your fetch operation:', error);
-                // Handle errors gracefully, display error message to the user, etc.
             });
     }
 });
-
-
-

@@ -109,17 +109,6 @@ function createMessageElement(type, sender, message) {
     return messageElement;
 }
 
-document.getElementById("search_enter").addEventListener("keydown", function (event) {
-    // Check if the pressed key is Enter
-    if (event.key === "Enter") {
-// Prevent the default behavior of the Enter key 
-        event.preventDefault();
-        sendMessage();
-    }
-});
-
-// If you have a "Send" button, you can add an event listener to it as well
-// document.getElementById("sendMessageButton").addEventListener("click", sendMessage);
 
 //error show
 // Hàm toast nhận vào một đối tượng có các thuộc tính title, message, type, và duration.

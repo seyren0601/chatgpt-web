@@ -4,22 +4,21 @@
 @{
 }
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Write Data</title>
-    <link rel="stylesheet" href="~/css/bootstrap-3.4.1-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/css/Admin.css">
+    <link rel="stylesheet" href="./css/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/Admin.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="~/css/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/57ae888bd4.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header class="header">
         <nav class="navbar navbar-inverse">
-            <div div class="container-fluid">
+            <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="./Home">CHAT-DSA</a>
                 </div>
@@ -51,7 +50,7 @@
             <div class="card mt-1">
                 <div class="card-body">
                     <h1>TRANG QUẢN LÝ THÔNG TIN</h1>
-                    <h4 style="color:red;">Các nội dung sau bảo mật nghiêm cấm các hành vi copy hay chỉnh sửa khi không được phép!</h4>
+                    <h4 style="color:red">Các nội dung sau bảo mật nghiêm cấm các hành vi copy hay chỉnh sửa khi không được phép!</h4>
                     <button class="btn btn-primary" onclick="fetchUsers()">Fetch Users Data</button>
                     <button class="btn btn-primary" onclick="addProduct()">Fetch Books Data</button>
                     <button class="btn btn-primary" onclick="addProduct()">Fetch Chapters Data</button>
@@ -65,69 +64,94 @@
                             <span class="sr-only"></span>
                         </div>
                     </div>
-
                 </div>
             </div>
             <!--where to add more tablerow-->
-            <table id="userTable" class="table table-striped table-hover">
-
-            </table>
-            <!--popup to be show-->
+            <table id="userTable" class="table table-striped table-hover"></table>
+            <!--popup to be shown-->
             <!-- Detail Modal Placeholder -->
             <div id="detailModal" class="modal">
                 <div class="modal-content">
                     <div>
                         <span class="close-button" id="close-button">&times;</span>
                     </div>
-                    <h2>Product Detail</h2>
+                    <h2>User Detail</h2>
                     <!-- Product details will be injected here -->
-                    <div id="productDetail"></div>
+                    <div id="userDetail"></div>
                 </div>
             </div>
 
             <!-- Edit Product Modal -->
-            <div id="editProduct" class="editProduct">
+            <div id="editUser" class="editProduct">
                 <div class="item-content">
                     <div>
                         <span class="edit-botton" id="closeEdit">&times;</span>
                     </div>
-
-                    <h2>Edit Posts</h2>
-                    <form id="editProductForm" id="editProductForm">
+                    <h2>Edit User Information</h2>
+                    <form id="edituserForm">
                         <div class="input-group">
-                            <label for="edittitle">Title:</label>
-                            <input type="text" id="edittitle" placeholder="title">
+                            <label for="editfull_name">Full Name:</label>
+                            <input type="text" id="editfull_name">
                         </div>
                         <div class="input-group">
-                            <label for="edituserid">UserId:</label>
-                            <input type="number" id="edituserid">
+                            <label for="editmssv">Mssv:</label>
+                            <input type="text" id="editmssv" >
                         </div>
                         <div class="input-group">
-                            <label for="edittags">Tags:</label>
-                            <input type="text" id="edittags" placeholder="Tags">
+                            <label for="editgender">Gender:</label>
+                            <input type="text" id="editgender" >
                         </div>
                         <div class="input-group">
-                            <label for="editreations">Reations:</label>
-                            <input type="number" id="editreations">
+                            <label for="editbirthday">Birthday:</label>
+                            <input type="datetime" id="editbirthday" >
                         </div>
                         <div class="input-group">
-                            <label for="editbody">Body:</label>
-                            <textarea type="text" id="editbody"></textarea>
+                            <label for="editemail">Email:</label>
+                            <input type="email" id="editemail" >
                         </div>
-
+                        <div class="input-group">
+                            <label for="editmyphone">Phone:</label>
+                            <input type="tel" id="editmyphone" >
+                        </div>
+                        <div class="input-group">
+                            <label for="editaddress">Address:</label>
+                            <input type="text" id="editaddress" >
+                        </div>
+                        <div class="input-group">
+                            <label for="editrole">Role:</label>
+                            <input type="text" id="editrole" >
+                        </div>
+                        <div class="input-group">
+                            <label for="editisdeleted">Is Deleted:</label>
+                            <input type="text" id="editisdeleted" >
+                        </div>
+                        <div class="input-group">
+                            <label for="editidcard">Id Card:</label>
+                            <input type="text" id="editidcard" >
+                        </div>
+                        <div class="input-group">
+                            <label for="editdateofissue">Data Of Issue:</label>
+                            <input type="datetime" id="editdateofissue">
+                        </div>
+                        <div class="input-group">
+                            <label for="editfaculty">Faculty:</label>
+                            <input type="text" id="editfaculty" >
+                        </div>
+                        <div class="input-group">
+                            <label for="editmajor">Major:</label>
+                            <input type="text" id="editmajor" >
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
-            
     </main>
     <footer>
         <div class="copyright text-center">
             Copyright &copy; 2024 <span>Hiu-It Chat-DSA</span>
         </div>
     </footer>
-
-    <!-- Javascript -->
-    <script type="text/javascript" src="~/js/Admin.js"></script>
-    <script type="text/javascript" src="~/js/main.js"></script>
+    <script src="./js/Admin.js"></script>
+    <script src="./js/main.js"></script>
 </body>
+</html>
