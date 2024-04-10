@@ -42,11 +42,11 @@
             });
 
             // Add buttons for actions (View Detail, Edit, Delete) at the end of each row
-            var button1 = $('<button type="button" class="btn btn-primary view-detail" data-id="' + item['IdMonhoc'] + '">').text("View Detail");
+            var button1 = $('<button type="button" class="btn btn-primary view-detailmonhoc" data-id="' + item['IdMonhoc'] + '">').text("View Detail");
             var daucach1 = $('<br><br>'); // Add a space between buttons for better spacing
-            var button2 = $('<button type="button" class="btn btn-primary edit" data-id="' + item['IdMonhoc'] + '">').text("Edit");
+            var button2 = $('<button type="button" class="btn btn-primary editmonhoc" data-id="' + item['IdMonhoc'] + '">').text("Edit");
             var daucach2 = $('<br><br>'); // Add a space between buttons for better spacing
-            var button3 = $('<button type="button" class="btn btn-danger delete" data-id="' + item['IdMonhoc'] + '">').text("Delete");
+            var button3 = $('<button type="button" class="btn btn-danger deletemonhoc" data-id="' + item['IdMonhoc'] + '">').text("Delete");
             let tdAction = $("<td>").append(button1, daucach1, button2, daucach2, button3);
             tr.append(tdAction);
             tbody.append(tr);
@@ -57,7 +57,7 @@
 
 
 // Using on with event delegation for dynamically created elements
-$(document).on('click', '.view-detail', function () {
+$(document).on('click', '.view-detailmonhoc', function () {
     var productId = $(this).attr('data-id'); // Get the product id stored in data-id attribute
 
     $.get("https://localhost:44345/monhoc/getmonhoc/" + productId, function (data) {
@@ -67,89 +67,67 @@ $(document).on('click', '.view-detail', function () {
             <p><strong>Tên Môn Học:</strong> ${data[0].TitleMonhoc}</p>
             <p><strong>Nội Dung:</strong> ${data[0].ContentMonhoc}</p>`;
 
-        $('#userDetail').html(detailHtml);
-        $('#detailModal').show(); // Show the modal with the product details
+        $('#MONHOCDetail').html(detailHtml);
+        $('#detailMonhoc').show(); // Show the modal with the product details
     });
 });
 
 // Close modal functionality
 $(document).on('click', '.close-button', function () {
-    $('#detailModal').hide();
+    $('#detailMonhoc').hide();
 });
 
 // Hide the modal when clicking outside of it
 $(window).click(function (event) {
-    if (event.target.id === 'detailModal') {
-        $('#detailModal').hide();
+    if (event.target.id === 'detailMonhoc') {
+        $('#detailMonhoc').hide();
     }
 });
 
 // Edit product functionality
-$(document).on('click', '.edit', function () {
+$(document).on('click', '.editmonhoc', function () {
     var productId = $(this).attr('data-id');
-    $.get("https://localhost:44345/admin/getSv/" + productId, function (product) {
-        $('#editid').val(product[0].id);
-        $('#editfull_name').val(product[0].full_name);
-        $('#editmssv').val(product[0].mssv);
-        $('#editgender').val(product[0].gender);
-        $('#editbirthday').val(product[0].birthday);
-        $('#editemail').val(product[0].email);
-        $('#editmyphone').val(product[0].myphone);
-        $('#editaddress').val(product[0].address);
-        $('#editrole').val(product[0].role);
-        $('#editisdeleted').val(product[0].isdeleted);
-        $('#editidcard').val(product[0].idcard);
-        $('#editdateofissue').val(product[0].dateofissue);
-        $('#editfaculty').val(product[0].faculty);
-        $('#editmajor').val(product[0].major);
+    $.get("https://localhost:44345/monhoc/getmonhoc/" + productId, function (product) {
+        $('#editIdMonhoc').val(product[0].IdMonhoc);
+        $('#editTitleMonhoc').val(product[0].TitleMonhoc);
+        $('#editContentMonhoc').val(product[0].ContentMonhoc);
     });
-    var form = $("#edituserForm");
+    var form = $("#editMonhocForm");
 
     // Create and append the "Save Changes" button
-    var button = '<button class="saveEdit btn btn-primary" type="button" id="saveEdit" data-id="' + productId + '">Save Changes</button>';
+    var button = '<button class="saveChange btn btn-primary" type="button" id="saveChange" data-id="' + productId + '">Save Changes</button>';
     form.append(button);
 
     // Show the edit product modal
-    $('#editUser').show();
+    $('#editMonhoc').show();
 });
 
 // Close modal functionality
 $(document).on('click', '.edit-botton', function () {
-    var button = $('#saveEdit');
+    var button = $('#saveChange');
     button.remove();
-    $('#editUser').hide();
+    $('#editMonhoc').hide();
 });
 
 // Hide the modal when clicking outside of it
 $(window).click(function (event) {
-    if (event.target.id === 'editUser') {
-        var button = $('#saveEdit');
+    if (event.target.id === 'editMonhoc') {
+        var button = $('#saveChange');
         button.remove();
-        $('#editUser').hide();
+        $('#editMonhoc').hide();
     }
 });
 
 // Save changes
-$(document).on('click', '.saveEdit', function () {
+$(document).on('click', '.saveChange', function () {
     var productId = $(this).attr('data-id');
-    var isDeleted = $('#editisdeleted').val().toString();
     var updateduser = {
-        "full_name": $('#editfull_name').val(),
-        "mssv": $('#editmssv').val(),
-        "gender": $('#editgender').val(),
-        "birthday": $('#editbirthday').val(),
-        "faculty": $('#editfaculty').val(),
-        "major": $('#editmajor').val(),
-        "idcard": $('#editidcard').val(),
-        "dateofissue": $('#editdateofissue').val(),
-        "myphone": $('#editmyphone').val(),
-        "email": $('#editemail').val(),
-        "address": $('#editaddress').val(),
-        "isdeleted": isDeleted,
-        "role": $('#editrole').val(),
+        "IdMonhoc": $('#editIdMonhoc').val(),
+        "TitleMonhoc": $('#editTitleMonhoc').val(),
+        "ContentMonhoc": $('#editContentMonhoc').val(),
     };
 
-    fetch('https://localhost:44345/admin/update/' + productId, {
+    fetch('https://localhost:44345/monhoc/update/' + productId, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -165,8 +143,8 @@ $(document).on('click', '.saveEdit', function () {
         .then(data => {
             let jsonData = data;
             alert('Updated User details successfully!!');
-            $('#editUser').hide();
-            fetchUsers();
+            $('#editMonhoc').hide();
+            fetchmonhoc();
 
             // Remove the "Save Changes" button
             $(this).remove();
@@ -177,14 +155,14 @@ $(document).on('click', '.saveEdit', function () {
 });
 
 // Delete product
-$(document).on('click', '.delete', function () {
+$(document).on('click', '.deletemonhoc', function () {
     var productId = $(this).attr('data-id');
 
     var updateduser = {
         "isdeleted": true,
     };
     if (confirm("Are you sure you want to delete this product?")) {
-        fetch('https://localhost:44345/admin/delete/' + productId, {
+        fetch('https://localhost:44345/monhoc/delete/' + productId, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

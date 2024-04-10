@@ -57,8 +57,8 @@ namespace ChatGPTCaller.Services.MonHocMoi
             UpdateRespond response = new UpdateRespond();
             string sql = $"UPDATE MONHOC SET " +
               $"TitleMonhoc = '{monhoc.TitleMonhoc}', " +
-              $"ContentMonhoc = '{monhoc.ContentMonhoc} ', " +
-              $"WHERE IdMonhoc = '{id}'";
+              $"ContentMonhoc = '{monhoc.ContentMonhoc} ' " +
+              $" WHERE IdMonhoc = '{id}'";
 
             try
             {
@@ -110,8 +110,8 @@ namespace ChatGPTCaller.Services.MonHocMoi
             string sql = $"UPDATE CHUONG SET " +
               $"Title = '{chuong.Title}', " +
               $"IdMonhoc = '{chuong.IdMonhoc} ', " +
-              $"ParentId = '{chuong.ParentId} ', " +
-              $"WHERE Id = '{id}'";
+              $"ParentId = '{chuong.ParentId} ' " +
+              $" WHERE Id = '{id}'";
 
             try
             {

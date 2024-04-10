@@ -55,7 +55,7 @@ namespace ChatGPTCaller.Controllers.MonHocNay
         }
 
         [HttpPost("update/{id}")]
-        public ActionResult<UpdateRespond> PostupdateResult(string id)
+        public ActionResult<UpdateRespond> PostupdateResult([FromBody] MonHoc book, string id)
         {
             if (!ModelState.IsValid)
             {
@@ -63,7 +63,7 @@ namespace ChatGPTCaller.Controllers.MonHocNay
             }
             else
             {
-                response = _monHocService.XoaBook(id);
+                response = _monHocService.SuaBook(book, id);
                 return response;
             }
         }
