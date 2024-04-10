@@ -1,5 +1,5 @@
-﻿function fetchUsers() {
-    $.get("https://localhost:44345/admin/getSv", function (data, status) {
+﻿function fetchmonhoc() {
+    $.get("https://localhost:44345/monhoc/getmonhoc", function (data, status) {
         var jsonData = data;
 
         // Create the table element
@@ -17,13 +17,12 @@
 
         // Loop through the column names and create the header cells
         $.each(cols, function (i, item) {
-            if (item !== "salt" && item !== "hashed_pw") {
                 item = item[0].toUpperCase() + item.slice(1);
 
                 let th = $('<th scope="col">');
                 th.text(item);
                 tr.append(th);
-            }
+            
         });
         thead.append(tr);
         table.append(thead);
@@ -31,23 +30,23 @@
         // Populate table rows with user data
         $.each(jsonData, function (i, item) {
             let tr = $("<tr>");
-            tr.attr('data-id', item.id);
+            tr.attr('data-id', item.IdMonhoc);
 
             // Loop through the values and populate cells, excluding "salt" and "hashed_pw"
             $.each(item, function (key, val) {
-                if (key !== "salt" && key !== "hashed_pw") {
+               
                     let td = $("<td>");
                     td.text(val);
                     tr.append(td);
-                }
+                
             });
 
             // Add buttons for actions (View Detail, Edit, Delete) at the end of each row
-            var button1 = $('<button type="button" class="btn btn-primary view-detail" data-id="' + item['id'] + '">').text("View Detail");
+            var button1 = $('<button type="button" class="btn btn-primary view-detail" data-id="' + item['IdMonhoc'] + '">').text("View Detail");
             var daucach1 = $('<br><br>'); // Add a space between buttons for better spacing
-            var button2 = $('<button type="button" class="btn btn-primary edit" data-id="' + item['id'] + '">').text("Edit");
+            var button2 = $('<button type="button" class="btn btn-primary edit" data-id="' + item['IdMonhoc'] + '">').text("Edit");
             var daucach2 = $('<br><br>'); // Add a space between buttons for better spacing
-            var button3 = $('<button type="button" class="btn btn-danger delete" data-id="' + item['id'] + '">').text("Delete");
+            var button3 = $('<button type="button" class="btn btn-danger delete" data-id="' + item['IdMonhoc'] + '">').text("Delete");
             let tdAction = $("<td>").append(button1, daucach1, button2, daucach2, button3);
             tr.append(tdAction);
             tbody.append(tr);
@@ -60,23 +59,13 @@
 // Using on with event delegation for dynamically created elements
 $(document).on('click', '.view-detail', function () {
     var productId = $(this).attr('data-id'); // Get the product id stored in data-id attribute
-    $.get("https://localhost:44345/admin/getSv/" + productId, function (data) {
+
+    $.get("https://localhost:44345/monhoc/getmonhoc/" + productId, function (data) {
         // Expanded detailHtml to include more details
         var detailHtml = `
-            <p><strong>id:</strong> ${data[0].id} </p>
-            <p><strong>Full_Name:</strong> ${data[0].full_name}</p>
-            <p><strong>Mssv:</strong> ${data[0].mssv}</p>
-            <p><strong>Gender:</strong> ${data[0].gender}</p>
-            <p><strong>Birthday:</strong> ${data[0].birthday}</p>
-            <p><strong>Email:</strong> ${data[0].email}</p>
-            <p><strong>Phone:</strong> ${data[0].myphone}</p>
-            <p><strong>Address:</strong> ${data[0].address}</p>
-            <p><strong>Role:</strong> ${data[0].role}</p>
-            <p><strong>Is Deleted:</strong> ${data[0].isdeleted}</p>
-            <p><strong>Id Card:</strong> ${data[0].idcard}</p>
-            <p><strong>Date Of Issue:</strong> ${data[0].dateofissue}</p>
-            <p><strong>Faculty:</strong> ${data[0].faculty}</p>
-            <p><strong>Major:</strong> ${data[0].major}</p>`;
+            <p><strong>IdMonhoc:</strong> ${data[0].IdMonhoc} </p>
+            <p><strong>Tên Môn Học:</strong> ${data[0].TitleMonhoc}</p>
+            <p><strong>Nội Dung:</strong> ${data[0].ContentMonhoc}</p>`;
 
         $('#userDetail').html(detailHtml);
         $('#detailModal').show(); // Show the modal with the product details
@@ -210,8 +199,7 @@ $(document).on('click', '.delete', function () {
             })
             .then(data => {
                 let jsonData = data;
-                if (jsonData.updateResult)
-                {
+                if (jsonData.updateResult) {
                     alert('Product deleted successfully!!');
                     fetchUsers();
                 }

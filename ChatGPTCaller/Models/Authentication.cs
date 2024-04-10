@@ -92,22 +92,18 @@ namespace ChatGPTCaller.Models
         {
             this.isdeleted = isdeleted;
         }
-        public UserInfo(string mssv, string gender, string birthday, string faculty, string major, string nationality, string religion, string idcard, string dateofissue, string placeofissue, string myphone, string parentphone, string address, string aboutstudent,string isdeleted,string role)
+        public UserInfo(string mssv,string name, string gender, string birthday, string faculty, string major, string idcard, string dateofissue, string myphone, string address, string isdeleted,string role)
         {
             this.mssv = mssv;
+            this.full_name = name;
             this.gender = gender;
             this.birthday = birthday;
             this.faculty = faculty;
             this.major = major;
-            this.nationality = nationality;
-            this.religion = religion;
             this.idcard = idcard;
             this.dateofissue = dateofissue;
-            this.placeofissue = placeofissue;
             this.myphone = myphone;
-            this.parentphone = parentphone;
             this.address = address;
-            this.aboutstudent = aboutstudent;
             this.isdeleted = isdeleted;
             this.role = role;
         }

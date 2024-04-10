@@ -67,5 +67,43 @@ namespace ChatGPTCaller.Controllers.MonHocNay
                 return response;
             }
         }
+
+        [HttpGet("getChuong/{id}")]
+        public void GetChuong(string id)
+        {
+            DataTable CHUONG= _monHocService.GetChuong(id);
+            string json = _monHocService.DataTableToJSONWithJSONNet(CHUONG);
+            Response.Clear();
+            Response.ContentType = "application/json;charset=utf-8";
+            Response.WriteAsync(json);
+        }
+
+        [HttpPost("deleteChuong/{id}")]
+        public ActionResult<UpdateRespond> ChuongDeleteResult(string id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                response = _monHocService.XoaChuong(id);
+                return response;
+            }
+        }
+
+        [HttpPost("updatechuong/{id}")]
+        public ActionResult<UpdateRespond> ChuongupdateResult(string id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                response = _monHocService.XoaChuong(id);
+                return response;
+            }
+        }
     }
 }

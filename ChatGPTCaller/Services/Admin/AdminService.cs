@@ -48,6 +48,9 @@ namespace ChatGPTCaller.Services.Admin
         public UpdateRespond SuaUser(UserInfo user,int id)
         {
             UpdateRespond response = new UpdateRespond();
+            int isdeleted = 0;
+            if(user.isdeleted=="true")
+                isdeleted = 1;
             string sql = $"UPDATE user_info SET " +
               $"mssv = '{user.mssv}', " +
               $"gender = '{user.gender}', " +
@@ -63,6 +66,7 @@ namespace ChatGPTCaller.Services.Admin
               $"parentphone = '{user.parentphone}', " +
               $"address = '{user.address}', " +
               $"aboutstudent = '{user.aboutstudent}', " +
+              $"isdeleted = '{isdeleted}', " +
               $"role ='{user.role} '" +
               $"WHERE id = '{id}'";
 

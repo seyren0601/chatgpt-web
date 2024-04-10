@@ -79,6 +79,15 @@ function sendMessage() {
             showErrorToast(error.message);
         });
 }
+
+document.addEventListener('keydown', function (event) {
+    
+    if (event.key === 'Enter') {
+        // Execute your code here
+        sendMessage();
+    }
+});
+
 function displayErrorMessage(message) {
     // Update the UI to display the received message
     var messagesContainer = document.getElementById('messages');

@@ -76,40 +76,10 @@ namespace ChatGPTCaller.Services.MonHocMoi
 
         }
 
-        public DataTable GetChuong()
+        public DataTable GetChuong(string id)
         {
             DataTable resultTable = new DataTable();
-            string sql = $@"WITH RECURSIVE BookHierarchy AS (
-                      SELECT Id, Title, IdBook, ParentId, 1 AS Level
-                      FROM CHUONG
-                      WHERE ParentId IS NULL
-                      UNION ALL
-                      SELECT b.Id, b.Title, b.IdBook, b.ParentId, bh.Level + 1
-                      FROM CHUONG b
-                      INNER JOIN BookHierarchy bh ON b.ParentId = bh.Id
-                    )
-                    SELECT Id, Title, IdBook, ParentId, Level
-                    FROM BookHierarchy
-                    ORDER BY Id;";
-            DataTable dt = _dbContext.ExecuteQueryCommand(sql);
-            return dt;
-        }
-        public DataTable GetMotTapChuong(string id)
-        {
-            DataTable resultTable = new DataTable();
-            string sql = $@"WITH RECURSIVE BookHierarchy AS (
-                      SELECT Id, Title, IdBook, ParentId, 1 AS Level
-                      FROM CHUONG
-                      WHERE ParentId IS NULL
-                      UNION ALL
-                      SELECT b.Id, b.Title, b.IdBook, b.ParentId, bh.Level + 1
-                      FROM CHUONG b
-                      INNER JOIN BookHierarchy bh ON b.ParentId = bh.Id
-                    )
-                    SELECT Id, Title, IdBook, ParentId, Level
-                    FROM BookHierarchy
-                    WHERE IdBook='{id}'
-                    ORDER BY Id;";
+            string sql = $"SELECT * FROM CHUONG WHERE IdMonhoc='{id}'";
             DataTable dt = _dbContext.ExecuteQueryCommand(sql);
             return dt;
         }
@@ -117,7 +87,7 @@ namespace ChatGPTCaller.Services.MonHocMoi
         {
             UpdateRespond response = new UpdateRespond();
             string sql = $"DELETE FROM CHUONG" +
-              $" WHERE Id = '{id}'";
+              $" WHERE IdMonHoc = '{id}'";
 
             try
             {
