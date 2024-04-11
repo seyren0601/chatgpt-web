@@ -86,7 +86,7 @@ function displayAllSubChapters(chapterId, chapters) {
     const subChapterList = document.createElement('ul');
     subChapters.forEach(subChapter => {
         const listItem = document.createElement('li');
-        listItem.innerHTML = `<a href="#${subChapter.Id}" class="chapter-link-con">${subChapter.Id}: ${subChapter.Title}</a>`;
+        listItem.innerHTML = `<a href="#${subChapter.Id}" data-toggle="tab" class="chapter-link-con">${subChapter.Id}: ${subChapter.Title}</a>`;
         const nestedSubChapters = displayAllSubChapters(subChapter.Id, chapters); // Đệ quy để hiển thị các chương con của chương con
         if (nestedSubChapters) {
             listItem.appendChild(nestedSubChapters);
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const mainChapters = chapters.filter(chapter => chapter.ParentId === null);
         mainChapters.forEach(chapter => {
             const listItem = document.createElement('li');
-            listItem.innerHTML = `<a href="#${chapter.Id}" class="chapter-link">${chapter.Id}: ${chapter.Title}</a>`;
+            listItem.innerHTML = `<a href="#${chapter.Id}" data-toggle="tab" class="chapter-link">${chapter.Id}: ${chapter.Title}</a>`;
             listItem.addEventListener('click', function (event) {
                 event.preventDefault();
                 // Khi chương lớn được click, hiển thị tất cả các chương con
