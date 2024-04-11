@@ -50,7 +50,7 @@
             <div class="row col-sm-12">
                 <div class="heading">
                     <h1>Cấu Trúc Dữ Liệu Và Giải Thuật</h1>
-                    <p>Thêm bất kỳ nội dung nào bạn muốn giới thiệu ở đây.</p>
+                    <p>Khái niệm cơ bản trong lĩnh vực khoa học máy tính và công nghệ thông tin.</p>
                 </div>
             </div>
         </div>
@@ -60,9 +60,9 @@
         <div class="row">
             <!-- Đưa phần Table of Contents lên trước -->
             <div class="col-sm-4">
-
+                
                 <div class="sidebar">
-                    <h3>Table of Contents</h3>
+                    <h3>MỤC LỤC</h3>
                     <ul class="nav nav-pills nav-stacked" id="toc">
                         @* <li class="active"><a href="#chapter1" data-toggle="tab">CHƯƠNG 1. TỔNG QUAN</a></li>
                         <li><a href="#chapter2" data-toggle="tab">CHƯƠNG 2. SẮP XẾP VÀ TÌM KIẾM</a></li>
@@ -451,46 +451,8 @@
     <script src="./js/content.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
 
-
 </body>
-<script>
-    // Sample JSON data
-    const chaptersData = [
-        { "Id": "CHUONG1", "Title": "TỔNG QUAN", "IdMonhoc": "CTGT01", "ParentId": null },
-        { "Id": "CHUONG1.1", "Title": "Vai trò của thuật toán và cấu trúc dữ liệu", "IdMonhoc": "CTGT01", "ParentId": "CHUONG1" },
-        { "Id": "CHUONG1.2", "Title": "Thuật toán", "IdMonhoc": "CTGT01", "ParentId": "CHUONG1" },
-        // Add the rest of your chapters and subchapters here
-    ];
 
-    // Function to find children of a given chapter
-    function findChildren(parentId, data) {
-        return data.filter(item => item.ParentId === parentId);
-    }
-
-    // Recursive function to build the table of contents
-    function buildTOC(node, data) {
-        let ul = document.createElement('ul');
-        let children = findChildren(node ? node.Id : null, data);
-
-        children.forEach(child => {
-            let li = document.createElement('li');
-            li.textContent = child.Title;
-            let childUl = buildTOC(child, data);
-            if (childUl.childNodes.length > 0) {
-                li.appendChild(childUl);
-            }
-            ul.appendChild(li);
-        });
-
-        return ul;
-    }
-
-    // Initial call to build the TOC
-    document.addEventListener("DOMContentLoaded", () => {
-        let toc = document.getElementById('toc');
-        toc.appendChild(buildTOC(null, chaptersData)); // `null` as the initial node to indicate the root
-    });
-</script>
 
 
 </html>

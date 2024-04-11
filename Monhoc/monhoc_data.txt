@@ -1,4 +1,4 @@
-'CTGT01','CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT','<div class="container">
+'CTGT01','CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT','<div class="container1">
             <h1 class="heading1">
                 CHƯƠNG 1
                 TỔNG QUAN

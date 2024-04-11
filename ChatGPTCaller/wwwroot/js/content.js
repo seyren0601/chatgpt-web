@@ -1,4 +1,5 @@
 ﻿
+
 function updateHeaderOnLogin(username,name) {
     const usernameSpan = document.getElementById('usernameSpan');
     const logoutButton = document.getElementById('logoutButton');
@@ -76,5 +77,49 @@ function updateNavigationForUserRole(role) {
 
 document.addEventListener('DOMContentLoaded', loadUsernameFromStorage);
 
+// Hàm đệ quy để hiển thị tất cả các chương con của một chương mẹ
+function displayAllSubChapters(chapterId, chapters) {
+    const subChapters = chapters.filter(chapter => chapter.ParentId === chapterId);
+    if (subChapters.length === 0) {
+        return null; // Nếu không có chương con, trả về null để dừng đệ quy
+    }
+    const subChapterList = document.createElement('ul');
+    subChapters.forEach(subChapter => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `<a href="#${subChapter.Id}" class="chapter-link-con">${subChapter.Id}: ${subChapter.Title}</a>`;
+        const nestedSubChapters = displayAllSubChapters(subChapter.Id, chapters); // Đệ quy để hiển thị các chương con của chương con
+        if (nestedSubChapters) {
+            listItem.appendChild(nestedSubChapters);
+        }
+        subChapterList.appendChild(listItem);
+    });
+    return subChapterList;
+}
 
+// Tạo Chương mục
+document.addEventListener('DOMContentLoaded', function () {
+    $.get("https://localhost:44345/monhoc/getChuong/CTGT01", function (chapters) {
+        const toc = document.getElementById('toc');
 
+        // Chỉ hiển thị các chương lớn ban đầu
+        const mainChapters = chapters.filter(chapter => chapter.ParentId === null);
+        mainChapters.forEach(chapter => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `<a href="#${chapter.Id}" class="chapter-link">${chapter.Id}: ${chapter.Title}</a>`;
+            listItem.addEventListener('click', function (event) {
+                event.preventDefault();
+                // Khi chương lớn được click, hiển thị tất cả các chương con
+                const subChapterList = displayAllSubChapters(chapter.Id, chapters);
+                if (subChapterList) {
+                    if (!this.querySelector('ul')) {
+                        this.appendChild(subChapterList);
+                    } else {
+                        // Nếu đã có danh sách chương con, xóa nó đi để 'toggle' hiển thị
+                        this.removeChild(this.querySelector('ul'));
+                    }
+                }
+            });
+            toc.appendChild(listItem);
+        });
+    });
+});
