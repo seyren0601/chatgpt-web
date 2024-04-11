@@ -25,9 +25,7 @@ h1 {
     padding: 20px 0; /* Khoảng cách giữa tiêu đề và nội dung */
 }
 
-a.admin {
-    display: none;
-}
+
 
 .none {
     display: none !important;
@@ -169,3 +167,4 @@ footer {
         footer .copyright span {
             color: #4222b4;
         }
+

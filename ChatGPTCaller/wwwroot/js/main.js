@@ -254,6 +254,7 @@ function registerRequest() {
         });
 }
 
+
 function loginRequest() {
     // Get the email and password input elements
     const emailInput = document.getElementById("email_login");
@@ -298,14 +299,17 @@ function loginRequest() {
                 showSuccessToast("Login successful");
                 localStorage.setItem('username', email);
                 localStorage.setItem('name', respond.full_name);
+                localStorage.setItem('role', respond.userRole);
+
                
                 updateHeaderOnLogin(email,respond.full_name);
                 // Redirect to '/Home' after a successful login
                 if (data.userRole == "user") {
                     window.location.href = '/Home';
+                    
                 }
                 else {
-                    window.location.href = '/Admin';
+                    window.location.href = '/Home';
                 }
                     ;
             } else {
@@ -317,6 +321,7 @@ function loginRequest() {
             showErrorToast('Error during login request:', error);
         });
 }
+
 
 
 function updateHeaderOnLogin(username, name) {
@@ -347,6 +352,7 @@ function logout() {
         // Hide the username in the header
         localStorage.removeItem('username');
         localStorage.removeItem('name');
+        localStorage.removeItem('role');
         usernameSpan.textContent = 'Sign Up';
 
         // Change the link back to the original (Sign Up)
@@ -357,18 +363,40 @@ function logout() {
     }
 }
 
+
 function loadUsernameFromStorage() {
     const storedUsername = localStorage.getItem('username');
     const name = localStorage.getItem('name');
+    const role = localStorage.getItem('role');
     if (storedUsername) {
         // If the username is stored, update the header
         updateHeaderOnLogin(storedUsername, name);
+        updateNavigationForUserRole(role);
     } else {
         // If the username is not stored, check if the current URL is the specified one
         if (window.location.href === "https://localhost:44345/Home") {
             // Redirect to the Register page
             window.location.href = "./Register";
         }
+    }
+}
+function updateNavigationForUserRole(role) {
+    var administratorMenuItem = document.querySelector('.navbar-header.admin');
+
+    if (administratorMenuItem) {
+        // Check if the element exists before trying to access its properties
+        if (role === "user") {
+            // Hide Administrator link for regular users
+            administratorMenuItem.style.display = 'none';
+        } else if (role === "admin") {
+            // Show Administrator link for admins
+            administratorMenuItem.style.display = 'block';
+        } else {
+            // Hide Administrator link by default if the role is unknown
+            administratorMenuItem.style.display = 'none';
+        }
+    } else {
+        console.error("Error: Admin menu item not found.");
     }
 }
 
