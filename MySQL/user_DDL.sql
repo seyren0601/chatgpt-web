@@ -45,12 +45,13 @@ CREATE TABLE CHUONG(
     CONSTRAINT FK2 FOREIGN KEY (IdMonhoc) REFERENCES MONHOC(IdMonhoc)
     
 );
-insert into MONHOC values ('CTGT01','CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT','<div class="tab-pane active" id="CHƯƠNG_1">
+insert into MONHOC values ('CTGT01','CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT','<div class="container1 tab-content">
+                    <div class="tab-pane active" id="CHƯƠNG_1">
                         <h1 class="heading1">
                             CHƯƠNG 1.<br/>
                             TỔNG QUAN
                         </h1>
-                        
+                        <div class="tab-pane" id="1.1" >
                                 <h1 class="heading2" >1. 1. VAI TRÒ CỦA THUẬT TOÁN VÀ CẤU TRÚC DỮ LIỆU</h1>
                             <p class="des">
                                 Để giải một bài toán trong thực tế bằng chương trình máy tính ta
@@ -98,7 +99,8 @@ insert into MONHOC values ('CTGT01','CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT'
                                 nữa, nhưng nó vẫn phản ánh sự gắn kết và thể hiện tầm quan trọng của
                                 các cấu trúc dữ liệu và giải thuật.
                             </p>
- 
+                            </div>
+                            <div class="tab-pane" id="1.2">
                                 <h2 class="heading2" >
                                     1.2. THUẬT TOÁN
                                 </h2>
@@ -188,13 +190,13 @@ insert into MONHOC values ('CTGT01','CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT'
                                     Hệ thống các ký hiệu và chức n ng của các ký hiệu sử dụng để
                                     biểu diễn thuật toán :
                                 </p>
-                                <img src="./img/hinh1.jpg" alt="" srcset="">
+                                <img src="./img/monhoc/hinh1.jpg" alt="" srcset="">
                                 <p class="des">Ví dụ:</p>
                                 <p class="des">
                                     Thuật toán tìm phần tử giá trị lớn nhất trong mảng một chiều a
                                     gồm n phần tử được biểu diễn bằng lưu đồ như sau: 
                                 </p>
-                                <img src="./img/hinh2.jpg" alt="" class="">
+                                <img src="./img/monhoc/hinh2.jpg" alt="" class="">
                                 <p class="des"><i>Nhận Xét:</i></p>
                                 <p class="des">
                                     Với cách biểu diễn này, có ưu điểm là tăng tính trực quan, rõ
@@ -459,14 +461,15 @@ insert into MONHOC values ('CTGT01','CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT'
                                     1.2.5. Các chiến lược thiết kế thuật toán 
                                 </h3>
         
-                            
+                            </div>
                     </div>                      
                     <div class="tab-pane" id="CHƯƠNG_2">
                         <h1 class="heading1">
                             CHƯƠNG 2
                             SẮP XẾP VÀ TÌM KIẾM
                         </h1>
-                        <h2 class="heading2" id="2.1">2. 1. MỐI QUAN HỆ GIỮA NHU CẦU SẮP XẾP VÀ TÌM KIẾM
+                       <div id="2.1">
+                        <h2 class="heading2" >2. 1. MỐI QUAN HỆ GIỮA NHU CẦU SẮP XẾP VÀ TÌM KIẾM
                             DỮ LIỆU</h2>
                         <p class="des">
                             Ngày nay, với sự bùng n của dữ liệu, các công cụ tìm kiếm trên
@@ -499,7 +502,9 @@ insert into MONHOC values ('CTGT01','CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT'
                             và hai yếu tố này luôn có mối quan hệ tương h lẫn nhau trong các
                             hệ thống quản lý và lưu trữ dữ liệu.
                         </p>
-                        <h2 class="heading2" id="2.2">2.2. ĐỊNH NGHĨA BÀI TOÁN SẮP XẾP</h2>
+                       </div>
+                        <div id="2.2">
+                            <h2 class="heading2" id="2.2">2.2. ĐỊNH NGHĨA BÀI TOÁN SẮP XẾP</h2>
                         <p class="des">
                             Sắp xếp là quá trình xử lý một danh sách các phần tử để đặt
                             chúng theo một thứ tự thỏa mãn một tiêu chu n nào đó dựa trên dữ
@@ -513,6 +518,7 @@ insert into MONHOC values ('CTGT01','CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT'
                         </p>
                         <p class="des">Như thế, sau khi sắp xếp xong thứ tự các phần tử trong dãy sẽ
                             thay đ i vị trí sao cho thỏa mãn yêu cầu trên.</p>
+                        </div>
                         <h2 class="heading2" id="2.3">2.3. CÁC GIẢI THUẬT SẮP XẾP NỘI</h2>
                         <p class="des">
                             Khi xây dựng các thuật toán sắp xếp, ta cần chú ý tìm cách giảm
@@ -833,7 +839,7 @@ void Swap(int& a, int& b) {
                         <p class="des">Giả ử cho dãy ban đầu là A= {5, 6, 2, 2, 10, 12, 9, 10, 9, 3}. Hãy
                             ắp xếp dãy ố đã cho có thứ tự t ng dần</p>
                         <p class="des">Các bước của giải thuật được thực hiện như sau:</p>
-                        <img src="./img/table.PNG" alt="table" style="width: 100%; height: auto;"></img>
+                        <img src="./img/monhoc/table.jpg" alt="table" style="width: 100%; height: auto;"></img>
                         <p class="des-bold">Đánh giá giải thuật</p>
                         <p class="des">Giải thuật có đô phức tạp là O(N*(N - 1)/2) = O(N2), bằng ố lần
                             o ánh và ố lần đ i ch nhiều nhất của giải thuật (trong trường hợp
@@ -847,9 +853,9 @@ void Swap(int& a, int& b) {
                             CHƯƠNG 3
                             DANH SÁCH LIÊN KẾT
                         </h1>
-                        <h1 class = "heading2" id ="3.1">3.1. DANH SÁCH TUYẾN TÍNH
-                        </h1>
-                        <h1 class = "heading3" id ="3.1.1">3.1.1. ĐỊNH NGHĨA</h1>
+                        <h2 class = "heading2" id ="3.1">3.1. DANH SÁCH TUYẾN TÍNH
+                        </h2>
+                        <h3 class = "heading3" id ="3.1.1">3.1.1. ĐỊNH NGHĨA</h3>
                         <p class ="des">
                             Danh sách tuyến tính là dãy gồm 0 hoặc nhiều hơn các phần tử
                             cùng kiểu cho trước: (a1, a2, … aN), N ≥ 0.
@@ -876,7 +882,7 @@ void Swap(int& a, int& b) {
                             ngành đào tạo trong một trường đại học,…
 
                         </p>
-                        <img src="img/hinh3.1.png" alt="" srcset="">
+                        <img src="img/monhoc/hinh3.1.jpg" alt="" srcset="">
                         <h1 class ="heading4" id ="3.1.2">3.1.2. Các thao tác trên danh sách
                         </h1>
                         <h1 class ="heading5" id ="3.1.2.1">3.1.2.1. Tìm kiếm một phần tử trong danh sách
@@ -1023,18 +1029,18 @@ void Swap(int& a, int& b) {
                             - Danh sách liên kết đơn là danh  ách mà m i phần tử trong danh
                                 sách chỉ liên kết với phần tử đứng sau nó trong danh sách.
                         </p>
-                        <img src="img/hinhanh1.png" alt="" srcset="">
+                        <img src="img/monhoc/hinhanh1.jpg" alt="" srcset="">
                         <p class ="des">
                             - Danh sách liên kết kép là danh sách mà m i phần tử trong danh
                             sách liên kết với phần tử đứng trước và sau nó bằng hai mối liên kết.
                         </p>
-                        <img src="img/hinhanh2.png" alt="" srcset="">
+                        <img src="img/monhoc/hinhanh2.jpg" alt="" srcset="">
                         <p class ="des">
                             - Danh sách liên kết vòng là danh sách mà phần tử đứng cuối
                             danh sách lại liên kết với phần tử đầu danh sách theo dạng danh sách
                             liên kết đơn hoặc danh sác kép.
                         </p>
-                        <img src="./img/hinhanh3.png" alt="" srcset="">
+                        <img src="./img/monhoc/hinhanh3.jpg" alt="" srcset="">
                         <p class ="des">
                             Hình thức liên kết này cho phép các thao tác thêm, hủy trên danh
                             sách được thực hiện dễ dàng, phản ánh được bản chất linh động của danh sách.
@@ -1076,7 +1082,7 @@ void Swap(int& a, int& b) {
                         với hai thao tác Push và Pop trên ngăn xếp các phần tử là các số 
                         nguyên.
                         </p>
-                        <img src="./img/chuong4.1.png" alt="" srcset="">
+                        <img src="./img/monhoc/chuong4.1.jpg" alt="" srcset="">
                         <h3 class="heading3">
                             4.1.2 Các thao tác trên ngăn xếp 
                         </h3>
@@ -1137,7 +1143,7 @@ tác đã thực hiện trước đó
                     <p class="des">
                         -Cài đặt ngăn xếp dùng mảng  
                     </p>
-                    <img src="img/hinh4.1.4.1.png" alt="" srcset="">
+                    <img src="img/monhoc/hinh4.1.4.1.jpg" alt="" srcset="">
                     <p class="des">
                         Cách đơn giản nhất để cài đặt ng n xếp là dùng mảng. Ta nạp các 
 phần tử theo thứ tự từ trái sang phải. Có biến lưu giữ chỉ số của phần 
@@ -1315,7 +1321,7 @@ là dữ liệu được nạp vào hàng đợi trước sẽ được xử lý
                     </p>
 
                 </p>
-                <img src= "img/chuong4.2.png" alt="" srcset="">
+                <img src= "img/monhoc/chuong4.2.jpg" alt="" srcset="">
                 <p class="des">
                     Cấu trúc dữ liệu hàng đợi có nhiều ứng dụng giúp h  trợ giải 
 quyết các bài toán trong tin học như: khử đệ quy, lưu vết các quá 
@@ -1684,14 +1690,14 @@ b. Sử dụng hàng đợi
                         <p class="des">Hình bên dưới là cấu trúc t chức của c y, trong đó R là nút gốc,
                             R1, R2,..Rk là các nút con của nút gốc R, các nút T1, T2, T3 là các nút
                             lá. y trong hình bên dưới là cây bao gồm k nhánh.</p>
-                        <img style="width: 100%;" src="./img/pic1.png" alt="">
+                        <img style="width: 100%;" src="./img/monhoc/pic1.jpg" alt="">
                         <p class="des --center"><b>Hình 5.1.</b> Cấu trúc cây</p>
                         <p class="des">Một số ví dụ hình ảnh của cấu trúc cây trong thực tế:</p>
-                        <img style="width: 100%;" src="./img/pic2.png" alt="">
+                        <img style="width: 100%;" src="./img/monhoc/pic2.jpg" alt="">
                         <p class="des --center"><b>Hình 5.2.</b> Cây gia phả</p>
-                        <img style="width: 100%;" src="./img/pic3.png" alt="">
+                        <img style="width: 100%;" src="./img/monhoc/pic3.jpg" alt="">
                         <p class="des --center"><b>Hình 5.3.</b> Cây cấu trúc t chức trong một công ty</p>
-                        <img style="width: 100%;" src="./img/pic4.png" alt="">
+                        <img style="width: 100%;" src="./img/monhoc/pic4.jpg" alt="">
                         <p class="des --center"><b>Hình 5.4.</b> Cây cấu trúc t chức các chương mục trong một cuốn sách
                         </p>
                         <h3 class="heading3">5.1.2. Các khái niệm trên cây</h3>
@@ -1722,19 +1728,19 @@ b. Sử dụng hàng đợi
                             đi duy nhất từ gốc cộng thêm 1</p>
                         <p class="des">- Cây con (subtree) của một cây là một nút cùng với tất cả các
                             hậu duệ của nó.</p>
-                        <img style="width: 100%;" src="./img/pic5.png" alt="">
+                        <img style="width: 100%;" src="./img/monhoc/pic5.jpg" alt="">
                         <p class="des --center"><b>Hình 5.5.</b>Ví dụ một cây con b và các nút con của cây b: e, f, i, j
                         </p>
-                        <img style="width: 100%;" src="./img/pic6.png" alt="">
+                        <img style="width: 100%;" src="./img/monhoc/pic6.jpg" alt="">
                         <p class="des --center"><b>Hình 5.6.</b>Đường đi trên c y, đường đi 1: từ a qua b, qua f và đến
                             i</p>
-                        <img style="width: 100%;" src="./img/pic7.png" alt="">
+                        <img style="width: 100%;" src="./img/monhoc/pic7.jpg" alt="">
                         <p class="des --center"><b>Hình 5.7.</b>Chiều cao và độ sâu trên cây</p>
                         <h3 class="heading3">Hình 5.1.3 Cây có thứ tự</h3>
                         <p class="des">Trên cây, các nút được sắp xếp ở các vị trí khác nhau và từ đó
                             chúng ta có các cây khác nhau.Ví dụ dưới đây minh họa hai cây
                             khác nhau.</p>
-                        <img style="width: 100%;" src="./img/pic8.png" alt="">
+                        <img style="width: 100%;" src="./img/monhoc/pic8.jpg" alt="">
                         <p class="des --center"><b>Hình 5.8.</b>Ví dụ hai cây bố trí các nút ở vị trí khác nhau </p>
                         <p class="des">Cây với các nút được sắp xếp có thứ tự được gọi là cây có thứ tự, ta sẽ xét chủ
                             yếu là cây có thứ tự. Vì vậy, tiếp theo đây thuật ngữ cây
@@ -1796,7 +1802,7 @@ b. Sử dụng hàng đợi
                         <p class="des">Ví dụ:</p>
                         <p class="des">Giả sử cho cây, bao gồm các nút a, b, c, d, e, k, g, h, i, l như hình 
                             như sau :</p>
-                        <img style="width: 100%;" src="./img/pic9.png" alt="">
+                        <img style="width: 100%;" src="./img/monhoc/pic9.jpg" alt="">
                         <p class="des">Thứ tự duyệt cây theo thứ tự trước, giữa và sau sẽ được kết quả
                             như sau:</p>
 
@@ -1804,7 +1810,9 @@ b. Sử dụng hàng đợi
                     <div class="tab-pane" id="CHƯƠNG_6">
                     </div>
                     <div class="tab-pane" id="CHƯƠNG_7">
-                    </div>');
+                    </div>
+                </div>'),
+('CTGT02','CƠ SƠ DỮ LIỆU','thuong');
 
 INSERT INTO CHUONG VALUES ('CHƯƠNG_1', 'TỔNG QUAN', 'CTGT01', NULL);
 INSERT INTO CHUONG VALUES ('1.1', 'Vai trò của thuật toán và cấu trúc dữ liệu', 'CTGT01', 'CHƯƠNG_1');

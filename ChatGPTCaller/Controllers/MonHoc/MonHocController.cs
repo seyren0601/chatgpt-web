@@ -20,17 +20,17 @@ namespace ChatGPTCaller.Controllers.MonHocNay
         {
            _monHocService = monHocService;
         }
-        [HttpGet("getMonHoc")]
+        [HttpGet("getmonhoc")]
         public void GetAll()
         {
-            DataTable Monhoc = _monHocService.GetBook();
+            DataTable Monhoc = _monHocService.GetAllBook();
             string json = _monHocService.DataTableToJSONWithJSONNet(Monhoc);
             Response.Clear();
             Response.ContentType = "application/json;charset=utf-8";
             Response.WriteAsync(json);
         }
 
-        [HttpGet("getMonHoc/{id}")]
+        [HttpGet("getmotmh/{id}")]
         public void GetMotMonHoc(string id)
         {
             DataTable Monhoc = _monHocService.GetMotBook(id);
@@ -68,7 +68,9 @@ namespace ChatGPTCaller.Controllers.MonHocNay
             }
         }
 
-        [HttpGet("getChuong/{id}")]
+   
+
+        [HttpGet("getchuong/{id}")]
         public void GetChuong(string id)
         {
             DataTable CHUONG= _monHocService.GetChuong(id);
@@ -78,7 +80,17 @@ namespace ChatGPTCaller.Controllers.MonHocNay
             Response.WriteAsync(json);
         }
 
-        [HttpPost("deleteChuong/{id}")]
+        [HttpGet("getmotchuong/{id}")]
+        public void GetmoiChuong(string id)
+        {
+            DataTable CHUONG = _monHocService.GetmoiChuong(id);
+            string json = _monHocService.DataTableToJSONWithJSONNet(CHUONG);
+            Response.Clear();
+            Response.ContentType = "application/json;charset=utf-8";
+            Response.WriteAsync(json);
+        }
+
+        [HttpPost("deletechuong/{id}")]
         public ActionResult<UpdateRespond> ChuongDeleteResult(string id)
         {
             if (!ModelState.IsValid)
@@ -93,7 +105,7 @@ namespace ChatGPTCaller.Controllers.MonHocNay
         }
 
         [HttpPost("updatechuong/{id}")]
-        public ActionResult<UpdateRespond> ChuongupdateResult(string id)
+        public ActionResult<UpdateRespond> ChuongupdateResult([FromBody] Chuong chuong, string id)
         {
             if (!ModelState.IsValid)
             {
@@ -101,7 +113,7 @@ namespace ChatGPTCaller.Controllers.MonHocNay
             }
             else
             {
-                response = _monHocService.XoaChuong(id);
+                response = _monHocService.SuaChuong(chuong,id);
                 return response;
             }
         }

@@ -18,7 +18,7 @@ namespace ChatGPTCaller.Services.MonHocMoi
             _dbContext = new DbContext(_configuration);
         }
 
-        public DataTable GetBook()
+        public DataTable GetAllBook()
         {
             DataTable resultTable = new DataTable();
             string sql = $"SELECT * FROM MONHOC";
@@ -77,12 +77,27 @@ namespace ChatGPTCaller.Services.MonHocMoi
 
         }
 
+        public DataTable GetAllChuong()
+        {
+            DataTable resultTable = new DataTable();
+            string sql = $"SELECT * FROM CHUONG ";
+            resultTable = _dbContext.ExecuteQueryCommand(sql);
+            return resultTable;
+        }
+
         public DataTable GetChuong(string id)
         {
             DataTable resultTable = new DataTable();
             string sql = $"SELECT * FROM CHUONG WHERE IdMonhoc='{id}'";
-            DataTable dt = _dbContext.ExecuteQueryCommand(sql);
-            return dt;
+            resultTable = _dbContext.ExecuteQueryCommand(sql);
+            return resultTable;
+        }
+        public DataTable GetmoiChuong(string id)
+        {
+            DataTable resultTable = new DataTable();
+            string sql = $"SELECT * FROM CHUONG WHERE Id='{id}'";
+            resultTable = _dbContext.ExecuteQueryCommand(sql);
+            return resultTable;
         }
         public UpdateRespond XoaChuong(string id)
         {

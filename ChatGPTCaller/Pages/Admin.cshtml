@@ -12,8 +12,7 @@
     <title>CHAT-DSA</title>
     <link rel="stylesheet" href="./css/bootstrap-3.4.1-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/Admin.css">
-    <script src="./js/jquery-3.6.0.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="./js/jquery-3.7.1.min.js"></script>
     <script src="https://kit.fontawesome.com/57ae888bd4.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -57,7 +56,7 @@
                     <h4 style="color:red">Các nội dung sau bảo mật nghiêm cấm các hành vi copy hay chỉnh sửa khi không được phép!</h4>
                     <button class="btn btn-primary" onclick="fetchUsers()">Fetch Users Data</button>
                     <button class="btn btn-primary" onclick="fetchmonhoc() ">Fetch Books Data</button>
-                    <button class="btn btn-primary" onclick="addProduct()">Fetch Chapters Data</button>
+                    <button class="btn btn-primary" onclick="fetchchapters()">Fetch Chapters Data</button>
                 </div>
                 <div class="row">
                     <div id="alert-success" class="alert alert-success d-none" role="alert">
@@ -94,6 +93,19 @@
                     <h2>Book Detail</h2>
                     <!-- Product details will be injected here -->
                     <div class="MONHOCDetail" id="MONHOCDetail"></div>
+                </div>
+            </div>
+
+
+            <!-- Detail Chuong Placeholder -->
+            <div id="detailChuong" class="modal">
+                <div class="modal-content">
+                    <div>
+                        <span class="close-button" id="close-button">&times;</span>
+                    </div>
+                    <h2>Book Detail</h2>
+                    <!-- Product details will be injected here -->
+                    <div class="ChuongDetail" id="ChuongDetail"></div>
                 </div>
             </div>
 
@@ -185,6 +197,37 @@
                     </form>
                 </div>
             </div>
+
+
+            <!-- Edit Chuong Modal -->
+            <div id="editChuong" class="editChuong">
+                <div class="item-content2">
+                    <div>
+                        <span class="edit-botton" id="closeEdit">&times;</span>
+                    </div>
+                    <h2>Edit Chapter Information</h2>
+                    <form id="editChuongForm">
+                        <div class="input-group">
+                            <label for="editfull_name">Id:</label>
+                            <input type="text" id="editId">
+                        </div>
+                        <div class="input-group">
+                            <label for="editmssv">Title:</label>
+                            <input type="text" id="editTitle">
+                        </div>
+                        <div class="input-group">
+                            <label for="editfull_name">IdMonhoc:</label>
+                            <input type="text" id="editIdMonhoc1">
+                        </div>
+                        <div class="input-group">
+                            <label for="editgender">ParentId:</label>
+                            <input type="text" id="editParentId">
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
         </div>
     </main>
     <footer>
