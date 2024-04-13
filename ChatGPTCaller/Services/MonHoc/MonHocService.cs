@@ -3,6 +3,7 @@ using ChatGPTCaller.Models;
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 using Newtonsoft.Json;
+using System;
 using System.Data;
 
 namespace ChatGPTCaller.Services.MonHocMoi

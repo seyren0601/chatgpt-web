@@ -1,6 +1,4 @@
-﻿
-
-function updateHeaderOnLogin(username,name) {
+﻿function updateHeaderOnLogin(username, name) {
     const usernameSpan = document.getElementById('usernameSpan');
     const logoutButton = document.getElementById('logoutButton');
 
@@ -10,7 +8,7 @@ function updateHeaderOnLogin(username,name) {
 
         // Store the username in localStorage
         localStorage.setItem('username', username);
-        localStorage.setItem('name',name);
+        localStorage.setItem('name', name);
 
         // Display the logout button
         logoutButton.style.display = 'inline';
@@ -75,19 +73,17 @@ function updateNavigationForUserRole(role) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', loadUsernameFromStorage);
-
-// Hàm đệ quy để hiển thị tất cả các chương con của một chương mẹ
+// Function to display sub-chapters
 function displayAllSubChapters(chapterId, chapters) {
     const subChapters = chapters.filter(chapter => chapter.ParentId === chapterId);
     if (subChapters.length === 0) {
-        return null; // Nếu không có chương con, trả về null để dừng đệ quy
+        return null; // If there are no sub-chapters, return null to stop the recursion
     }
     const subChapterList = document.createElement('ul');
     subChapters.forEach(subChapter => {
         const listItem = document.createElement('li');
-        listItem.innerHTML = `<a href="#${subChapter.Id}" data-toggle="tab" class="chapter-link-con">${subChapter.Id}: ${subChapter.Title}</a>`;
-        const nestedSubChapters = displayAllSubChapters(subChapter.Id, chapters); // Đệ quy để hiển thị các chương con của chương con
+        listItem.innerHTML = `<a href="#${subChapter.Id}" data-toggle="tab" class="chapter-link">${subChapter.Id}: ${subChapter.Title}</a>`;
+        const nestedSubChapters = displayAllSubChapters(subChapter.Id, chapters); // Recursively display sub-chapters of sub-chapters
         if (nestedSubChapters) {
             listItem.appendChild(nestedSubChapters);
         }
@@ -96,30 +92,63 @@ function displayAllSubChapters(chapterId, chapters) {
     return subChapterList;
 }
 
-// Tạo Chương mục
 document.addEventListener('DOMContentLoaded', function () {
-    $.get("https://localhost:44345/monhoc/getChuong/CTGT01", function (chapters) {
-        const toc = document.getElementById('toc');
+    // Fetch chapters
+    $.get("https://localhost:44345/monhoc/getChuong/CTGT01")
+        .done(function (chapters) {
+            const toc = document.getElementById('toc');
+            if (!toc) return;
 
-        // Chỉ hiển thị các chương lớn ban đầu
-        const mainChapters = chapters.filter(chapter => chapter.ParentId === null);
-        mainChapters.forEach(chapter => {
-            const listItem = document.createElement('li');
-            listItem.innerHTML = `<a href="#${chapter.Id}" data-toggle="tab" class="chapter-link">${chapter.Id}: ${chapter.Title}</a>`;
-            listItem.addEventListener('click', function (event) {
-                event.preventDefault();
-                // Khi chương lớn được click, hiển thị tất cả các chương con
-                const subChapterList = displayAllSubChapters(chapter.Id, chapters);
-                if (subChapterList) {
-                    if (!this.querySelector('ul')) {
-                        this.appendChild(subChapterList);
-                    } else {
-                        // Nếu đã có danh sách chương con, xóa nó đi để 'toggle' hiển thị
-                        this.removeChild(this.querySelector('ul'));
+            const mainChapters = chapters.filter(chapter => chapter.ParentId === null);
+            mainChapters.forEach(chapter => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<a href="#${chapter.Id}" data-toggle="tab" class="chapter-link">${chapter.Id}: ${chapter.Title}</a>`;
+                listItem.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    const subChapterList = displayAllSubChapters(chapter.Id, chapters);
+                    if (subChapterList) {
+                        if (!this.querySelector('ul')) {
+                            this.appendChild(subChapterList);
+                        } else {
+                            this.removeChild(this.querySelector('ul'));
+                        }
                     }
-                }
+                });
+                toc.appendChild(listItem);
             });
-            toc.appendChild(listItem);
+        })
+        .fail(function (xhr, status, error) {
+            console.error('Failed to fetch chapters:', status, error);
         });
-    });
 });
+/*
+document.addEventListener('DOMContentLoaded', function () {
+    function fetchAndDisplayContent() {
+        $.get("https://localhost:44345/monhoc/getmonhoc/CTGT01", function (data) {
+            displayContent(data);
+        })
+            .fail(function (xhr, status, error) {
+                console.error('Failed to fetch content:', status, error);
+            });
+    }
+
+    function displayContent(data) {
+        const monhoc = document.getElementById('monhoc');
+        if (!monhoc) return;
+
+        if (data && data.length > 0) {
+            const detailDiv = document.createElement('div');
+            detailDiv.className = "container1 tab-content";
+            detailDiv.innerHTML = data[0].ContentMonhoc;
+            monhoc.appendChild(detailDiv);
+        } else {
+            console.error('No data received or data format is incorrect');
+        }
+    }
+
+    fetchAndDisplayContent();
+});*/
+
+
+
+document.addEventListener('DOMContentLoaded', loadUsernameFromStorage);

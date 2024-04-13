@@ -400,5 +400,9 @@ function updateNavigationForUserRole(role) {
     }
 }
 
+
+
+
+
 document.addEventListener('DOMContentLoaded', loadUsernameFromStorage);
 
