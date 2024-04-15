@@ -21,7 +21,6 @@ async function getSinhVien() {
         console.error('Failed to fetch data:', error);
     }
 }
-
 function StudentData(data) {
     // It's a good practice to check if data is not null or undefined.
     if (!data) return;
@@ -69,7 +68,17 @@ function StudentData(data) {
     document.querySelector("#parentMobNo").textContent = data.parentphone || '';
     document.querySelector("#address").textContent = data.address || '';
     document.querySelector("#thongtin").textContent = data.aboutstudent || '';
+
+    // Update image source
+    const imageElement = document.getElementById("student-image");
+    if (data.picture) {
+        imageElement.src = data.picture;
+    } else {
+        alert("Image source is not available.");
+        imageElement.src = "/img/thuong.jpg"; // Use default image
+    }
 }
+
 
 
 

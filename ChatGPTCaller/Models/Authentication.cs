@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -62,6 +63,8 @@ namespace ChatGPTCaller.Models
         public string? aboutstudent { get; set; }
         public string? isdeleted { get; set; }
         public string? role { get; set; }
+        public string? picture { get; set; }
+        public IFormFile Avatar { get; set; }
 
 
         public UserInfo() { }
@@ -92,7 +95,7 @@ namespace ChatGPTCaller.Models
         {
             this.isdeleted = isdeleted;
         }
-        public UserInfo(string mssv,string name, string gender, string birthday, string faculty, string major, string idcard, string dateofissue, string myphone, string address, string isdeleted,string role)
+        public UserInfo(string mssv,string name, string gender, string birthday, string faculty, string major, string idcard, string dateofissue, string myphone, string address, string isdeleted,string role,string picture)
         {
             this.mssv = mssv;
             this.full_name = name;
@@ -106,6 +109,8 @@ namespace ChatGPTCaller.Models
             this.address = address;
             this.isdeleted = isdeleted;
             this.role = role;
+            this.picture = picture;
+
         }
         public string GetHashValue()
         {

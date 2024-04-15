@@ -67,7 +67,8 @@ namespace ChatGPTCaller.Services.Admin
               $"address = '{user.address}', " +
               $"aboutstudent = '{user.aboutstudent}', " +
               $"isdeleted = '{isdeleted}', " +
-              $"role ='{user.role} '" +
+              $"role ='{user.role}'," +
+              $"picture ='{user.picture}' " +
               $"WHERE id = '{id}'";
 
             try

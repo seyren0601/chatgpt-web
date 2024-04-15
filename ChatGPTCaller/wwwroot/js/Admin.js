@@ -76,7 +76,8 @@ $(document).on('click', '.view-detail', function () {
             <p><strong>Id Card:</strong> ${data[0].idcard}</p>
             <p><strong>Date Of Issue:</strong> ${data[0].dateofissue}</p>
             <p><strong>Faculty:</strong> ${data[0].faculty}</p>
-            <p><strong>Major:</strong> ${data[0].major}</p>`;
+            <p><strong>Major:</strong> ${data[0].major}</p>
+            <p><strong>Picture:</strong> ${data[0].picture}</p>`;
 
         $('#userDetail').html(detailHtml);
         $('#detailModal').show(); // Show the modal with the product details
@@ -113,6 +114,7 @@ $(document).on('click', '.edit', function () {
         $('#editdateofissue').val(product[0].dateofissue);
         $('#editfaculty').val(product[0].faculty);
         $('#editmajor').val(product[0].major);
+        $('#editpicture').val(product[0].picture);
     });
     var form = $("#edituserForm");
 
@@ -158,6 +160,7 @@ $(document).on('click', '.saveEdit', function () {
         "address": $('#editaddress').val(),
         "isdeleted": isDeleted,
         "role": $('#editrole').val(),
+        "picture": $('#editpicture').val(),
     };
 
     fetch('https://localhost:44345/admin/update/' + productId, {

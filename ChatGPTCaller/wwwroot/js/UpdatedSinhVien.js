@@ -60,59 +60,50 @@ function setDateInInput(elementId, dateString) {
         document.getElementById(elementId).value = '';
     }
 }
+function UpdateSinhVien() {
+    const formData = new FormData($('#updateForm')[0]); // Select the form element
 
-
-// Update student information
-async function UpdateSinhVien() {
     const request = gatherFormData();
+    formData.append('json', JSON.stringify(request));
 
-    if (!request.email || !request.mssv || !request.birthday) {
-        alert("Email, mssv, and birthday are required");
-        return;
-    }
-
-    const response = await fetch('https://localhost:44345/sinhvien/update', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=UTF-8'
+    $.ajax({
+        url: 'https://localhost:44345/sinhvien/update',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            if (data.updateResult) {
+                alert("Update successful");
+            } else {
+                alert("Update failed. Error message: " + data.errorMessage);
+            }
         },
-        body: JSON.stringify(request)
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        if (data.updateResult) {
-            alert("Update successful");
-        } else {
-            alert("Update failed. Error message: " + data.errorMessage);
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
         }
-    } else {
-        throw new Error(`Network response was not ok: ${response.status}`);
-    }
-   
+    });
 }
 
-// Gathers form data into a JSON object
 function gatherFormData() {
     return {
-        email: document.getElementById("email").value.trim(),
-        mssv: document.getElementById("student-number").value.trim(),
-        gender: document.getElementById("gender").value.trim(),
-        birthday: document.getElementById("dob").value.trim(),
-        faculty: document.getElementById("khoa").value.trim(),
-        major: document.getElementById("major").value.trim(),
-        nationality: document.getElementById("nationality").value.trim(),
-        religion: document.getElementById("religion").value.trim(),
-        idcard: document.getElementById("id-card-number").value.trim(),
-        dateofissue: document.getElementById("dou").value.trim(),
-        placeofissue: document.getElementById("Place").value.trim(),
-        myphone: document.getElementById("mobNo").value.trim(),
-        parentphone: document.getElementById("parentMobNo").value.trim(),
-        address: document.getElementById("address").value.trim(),
-        aboutstudent: document.getElementById("note").value.trim(),
+        email: $("#email").val().trim(),
+        mssv: $("#student-number").val().trim(),
+        gender: $("#gender").val().trim(),
+        birthday: $("#dob").val().trim(),
+        faculty: $("#khoa").val().trim(),
+        major: $("#major").val().trim(),
+        nationality: $("#nationality").val().trim(),
+        religion: $("#religion").val().trim(),
+        idcard: $("#id-card-number").val().trim(),
+        dateofissue: $("#dou").val().trim(),
+        placeofissue: $("#Place").val().trim(),
+        myphone: $("#mobNo").val().trim(),
+        parentphone: $("#parentMobNo").val().trim(),
+        address: $("#address").val().trim(),
+        aboutstudent: $("#note").val().trim(),
     };
 }
-
 
 
 window.onload = function () {

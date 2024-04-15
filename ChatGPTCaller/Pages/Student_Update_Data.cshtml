@@ -37,13 +37,13 @@
     <section class="main">
         <div class="container">
             <div class="form-wrapper">
-                <form class="form">
+                <form class="form" id="updateForm" enctype="multipart/form-data">
                     <div class="row student-details">
                         <div class="col-sm-4 student-details-left">
                             <label class="fname-label" for="fname">Full Name: </label>
                             <input class="fname" type="text" name="firstName" id="fname" placeholder="Full Name">
                             <label class="Student-Number-label" for="student-number">Student Number </label>
-                            <input class="student-number" class="student-number" type="text" name="student-number" id="student-number" placeholder="Student Number" min="1" max="9999999999"><br>
+                            <input class="student-number"  type="text" name="student-number" id="student-number" placeholder="Student Number" min="1" max="9999999999"><br>
                             <label class="gender-label" for="gender">Gender: </label>
                             <select class="gender" name="gender" id="gender">
                                 <option value="male">Male</option>
@@ -94,8 +94,9 @@
 
                         <div class="col-sm-4 student-details-right">
                             <div class="student-image-holder"><p class="text-grey md-heading">Upload Image</p></div>
-                            <div class="student-image-holder-hover"></div>
-                            <!-- <label class="image-label" for="avatar">Image : </label> -->
+                            <div class="student-image-holder-hover">
+
+                            </div>
                             <input class="image" type="file" name="avatar" id="avatar" accept="image/jpg, image/jpeg, image/png">
                         </div>
                     </div>
@@ -167,4 +168,5 @@
     <script type="text/javascript" src="./js/UpdatedSinhVien.js"></script>
     <script type="text/javascript" src="./js/main.js"></script>
     <script src="./js/jquery-3.7.1.min.js"></script>
+     <script src="./css/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
 </html>
