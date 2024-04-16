@@ -193,7 +193,8 @@ $(document).on('click', '.deletemonhoc', function () {
 
 //Chapters data
 function fetchchapters() {
-    $.get("https://localhost:44345/monhoc/getchuong/CTGT01", function (data, status) {
+    var productId = $(this).attr('data-id');
+    $.get("https://localhost:44345/monhoc/getchuong/" + productId, function (data) {
         var jsonData = data;
 
         // Create the table element
@@ -236,11 +237,11 @@ function fetchchapters() {
             });
 
             // Add buttons for actions (View Detail, Edit, Delete) at the end of each row
-            var button1 = $('<button type="button" class="btn btn-primary view-detailchuong" data-id="' + item['Id'] + '">').text("View Detail");
+            var button1 = $('<button type="button" class="btn btn-primary view-detailchuong" data-id1="' + item['Id'] + '">').text("View Detail");
             var daucach1 = $('<br><br>'); // Add a space between buttons for better spacing
-            var button2 = $('<button type="button" class="btn btn-primary editchuong" data-id="' + item['Id'] + '">').text("Edit");
+            var button2 = $('<button type="button" class="btn btn-primary editchuong" data-id1="' + item['Id'] + '">').text("Edit");
             var daucach2 = $('<br><br>'); // Add a space between buttons for better spacing
-            var button3 = $('<button type="button" class="btn btn-danger deletechuong" data-id="' + item['Id'] + '">').text("Delete");
+            var button3 = $('<button type="button" class="btn btn-danger deletechuong" data-id1="' + item['Id'] + '">').text("Delete");
             let tdAction = $("<td>").append(button1, daucach1, button2, daucach2, button3);
             tr.append(tdAction);
             tbody.append(tr);
@@ -252,7 +253,7 @@ function fetchchapters() {
 
 // Using on with event delegation for dynamically created elements
 $(document).on('click', '.view-detailchuong', function () {
-    var productId = $(this).attr('data-id'); // Get the product id stored in data-id attribute
+    var productId = $(this).attr('data-id1'); // Get the product id stored in data-id attribute
 
     $.get("https://localhost:44345/monhoc/getmotchuong/" + productId, function (data) {
         // Expanded detailHtml to include more details
@@ -281,7 +282,7 @@ $(window).click(function (event) {
 
 // Edit product functionality
 $(document).on('click', '.editchuong', function () {
-    var productId = $(this).attr('data-id');
+    var productId = $(this).attr('data-id1');
     $.get("https://localhost:44345/monhoc/getmotchuong/" + productId, function (product) {
         $('#editId').val(product[0].Id);
         $('#editTitle').val(product[0].Title);
@@ -291,7 +292,7 @@ $(document).on('click', '.editchuong', function () {
     var form = $("#editChuongForm");
 
     // Create and append the "Save Changes" button
-    var button = '<button class="saveChange1 btn btn-primary" type="button" id="saveChange1" data-id="' + productId + '">Save Changes</button>';
+    var button = '<button class="saveChange1 btn btn-primary" type="button" id="saveChange1" data-id1="' + productId + '">Save Changes</button>';
     form.append(button);
 
     // Show the edit product modal
@@ -316,7 +317,7 @@ $(window).click(function (event) {
 
 // Save changes
 $(document).on('click', '.saveChange1', function () {
-    var productId = $(this).attr('data-id');
+    var productId = $(this).attr('data-id1');
     var updateduser = {
         "Id": $('#editId').val(),
         "Title": $('#editTitle').val(),
@@ -353,7 +354,7 @@ $(document).on('click', '.saveChange1', function () {
 
 // Delete product
 $(document).on('click', '.deletechuong', function () {
-    var productId = $(this).attr('data-id');
+    var productId = $(this).attr('data-id1');
 
     var updateduser = {
         "isdeleted": true,
@@ -387,3 +388,31 @@ $(document).on('click', '.deletechuong', function () {
     }
 });
 
+/*document.addEventListener('DOMContentLoaded', function () {
+
+    fetch("https://localhost:44345/monhoc/getmotmh/CTGT01")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const monhoc = document.getElementById('monhoc');
+            if (monhoc) {
+                if (data && data.length > 0) {
+                    const detailDiv = document.createElement('div');
+                    detailDiv.className = "container1 tab-content";
+                    detailDiv.innerHTML = data[0].ContentMonhoc;
+                    monhoc.appendChild(detailDiv);
+                } else {
+                    console.error('No data received or data format is incorrect');
+                }
+            } else {
+                console.error("Error: Monhoc element not found.");
+            }
+        })
+        .catch(error => {
+            console.error('Failed to fetch content:', error.message);
+        });
+});*/

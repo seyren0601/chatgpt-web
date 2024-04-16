@@ -122,33 +122,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 });
 
-/*document.addEventListener('DOMContentLoaded', function () {
-    fetch("https://localhost:44345/monhoc/getmotmh/CTGT01")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            const monhoc = document.getElementById('monhoc');
-            if (monhoc) {
-                if (data && data.length > 0) {
-                    const detailDiv = document.createElement('div');
-                    detailDiv.className = "container1 tab-content";
-                    detailDiv.innerHTML = data[0].ContentMonhoc;
-                    monhoc.appendChild(detailDiv);
-                } else {
-                    console.error('No data received or data format is incorrect');
-                }
-            } else {
-                console.error("Error: Monhoc element not found.");
-            }
-        })
-        .catch(error => {
-            console.error('Failed to fetch content:', error.message);
-        });
-});*/
 
 
 document.addEventListener('DOMContentLoaded', loadUsernameFromStorage);

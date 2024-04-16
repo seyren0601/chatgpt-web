@@ -46,6 +46,9 @@ function updateFormWithStudentData(data) {
     setDateInInput("dob", data.birthday);
     setDateInInput("dou", data.dateofissue);
     document.getElementById("Place").value = data.placeofissue || '';
+    var image = data.picture.split("_")[1];
+    document.getElementById("avatar").value = image || '';
+
 }
 
 // Helper function to set dates in input fields
