@@ -22,10 +22,10 @@ async function getSinhVien() {
     }
 }
 function StudentData(data) {
-    // It's a good practice to check if data is not null or undefined.
+    //check data is not null
     if (!data) return;
 
-    // Update text content of labels safely
+    // Update text content of labels
     document.querySelector("#name").textContent = data.full_name || '';
     document.querySelector("#mssv").textContent = data.mssv || '';
 

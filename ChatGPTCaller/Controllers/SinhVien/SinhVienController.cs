@@ -37,5 +37,14 @@ namespace ChatGPTCaller.Controllers.SinhVien
             Response.ContentType = "application/json;charset=utf-8";
             Response.WriteAsync(json);
         }
+        [HttpGet("getByEmail/{email}")]
+        public void GetMotSinhVienEmail(string email)
+        {
+            DataTable sinhviens = SV.GetMotSinhVien(email);
+            string json = SV.DataTableToJSONWithJSONNet(sinhviens);
+            Response.Clear();
+            Response.ContentType = "application/json;charset=utf-8";
+            Response.WriteAsync(json);
+        }
     }
 }

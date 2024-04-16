@@ -5,8 +5,25 @@
     var ampm = now.getHours() >= 12 ? 'PM' : 'AM';
     return hours + ':' + minutes + ' ' + ampm;
 }
+async function getsinhvienbyemail(email) {
 
-function sendMessage() {
+    const url = 'https://localhost:44345/sinhvien/getByEmail/' + email;
+
+    try {
+        const response = await fetch(url);
+        // Check if the request was successful
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data[0].id;
+    } catch (error) {
+        console.error('Failed to fetch data:', error);
+    }
+}
+
+async function sendMessage() {
     var userInput = document.getElementById("searchInput");
     var messages = document.getElementById("messages");
     var loadingIndicator = document.getElementById("loading");
@@ -25,13 +42,15 @@ function sendMessage() {
 
     // Clear the user input field after sending the message
     userInput.value = "";
+    const email = localStorage.getItem('username');
+    var ID = await getsinhvienbyemail(email); // Added await to ensure ID is received before proceeding
 
     // Show the loading indicator
     loadingIndicator.style.display = "block";
 
     // Create the JSON payload
     var requestBody = {
-        "ConversationID": 1,
+        "ConversationID": ID,
         "message": {
             "role": "user",
             "content": userMessage
@@ -79,6 +98,7 @@ function sendMessage() {
             showErrorToast(error.message);
         });
 }
+
 
 document.addEventListener('keydown', function (event) {
     

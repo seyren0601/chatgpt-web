@@ -1,6 +1,7 @@
 ﻿using ChatGPTCaller.Models;
 using ChatGPTCaller.Services;
 using ChatGPTCaller.Services.Admin;
+using ChatGPTCaller.Services.MonHocMoi;
 using ChatGPTCaller.Services.SinhVien;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,13 @@ namespace ChatGPTCaller.Controllers.Admin
         UserInfo SinhVien;
         GetService SV;
         AdminService AdminService;
+        MonHocService _monHocService;
         UpdateRespond response;
-        public AdminContraller(GetService getService,AdminService adminService)
+        public AdminContraller(GetService getService,AdminService adminService, MonHocService monHocService)
         {
             SV = getService;
             AdminService = adminService;
+            _monHocService = monHocService;
         }
         [HttpGet("getSV")]
         public void GetAll()
@@ -52,6 +55,15 @@ namespace ChatGPTCaller.Controllers.Admin
                 response = AdminService.XoaUser(id);
                 return response;
             }
+        }
+        [HttpGet("getmotmh/{id}")]
+        public void GetMotMonHoc(string id)
+        {
+            DataTable Monhoc = _monHocService.GetMotBook(id);
+            string json = _monHocService.DataTableToJSONWithJSONNet(Monhoc);
+            Response.Clear();
+            Response.ContentType = "application/json;charset=utf-8";
+            Response.WriteAsync(json);
         }
         [HttpPost("update/{id}")]
         public ActionResult<UpdateRespond> PostupdateResult([FromBody] UserInfo user,int id)

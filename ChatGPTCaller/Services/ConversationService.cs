@@ -4,13 +4,14 @@ using ChatGPTCaller.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks.Dataflow;
 using System.Collections;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ChatGPTCaller.Services
 {
     public class ConversationService
     {
         ArrayList thread;
-        public ConversationService() 
+        public ConversationService()
         {
             thread = new ArrayList();
         }
@@ -32,11 +33,19 @@ namespace ChatGPTCaller.Services
 
         public void RecordConversation(PromptRequest request, ChatGPT_API_Response.APIResponse response)
         {
-            string fileName = request.ConversationID.ToString() + ".json";
-            
-            if(File.Exists(fileName))
+
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "Conversations");
+            if (!Directory.Exists(uploadsFolder))
             {
-                using(StreamReader sr = new StreamReader(fileName))
+                Directory.CreateDirectory(uploadsFolder);  // Create the directory if it doesn't exist
+            }
+            string fileName = request.ConversationID.ToString() + ".json";
+            var filePath = Path.Combine(uploadsFolder, fileName);
+
+
+            if (File.Exists(filePath))
+            {
+                using(StreamReader sr = new StreamReader(filePath))
                 {
                     string jsonContent = sr.ReadToEnd();
                     thread = JsonConvert.DeserializeObject<ArrayList>(jsonContent);
@@ -51,7 +60,7 @@ namespace ChatGPTCaller.Services
                         content = response.choices[0].message.content
                     });
                 }
-                using(StreamWriter sw = new StreamWriter(fileName, false))
+                using(StreamWriter sw = new StreamWriter(filePath, false))
                 {
                     string jsonContent = JsonConvert.SerializeObject(thread, Formatting.Indented);
                     sw.Write(jsonContent);
@@ -59,7 +68,8 @@ namespace ChatGPTCaller.Services
             }
             else
             {
-                FileStream f = File.Create(fileName);
+
+                FileStream f = File.Create(filePath);
                 using (StreamWriter sw = new StreamWriter(f))
                 {
                     thread.Add(new
