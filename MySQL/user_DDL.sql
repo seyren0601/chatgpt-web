@@ -26,6 +26,7 @@ CREATE TABLE user_info(
     salt nvarchar(50),
     isdeleted bool default false,
     role nvarchar(10) default "user",
+    picture text,
     PRIMARY KEY (id)
 );
 CREATE TABLE MONHOC(
