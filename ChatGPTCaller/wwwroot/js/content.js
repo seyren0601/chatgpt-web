@@ -91,64 +91,92 @@ function displayAllSubChapters(chapterId, chapters) {
     });
     return subChapterList;
 }
-
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     // Fetch chapters
-    $.get("https://localhost:44345/monhoc/getChuong/CTGT01")
-        .done(function (chapters) {
-            const toc = document.getElementById('toc');
-            if (!toc) return;
+    try {
+        const chaptersResponse = await fetch("https://localhost:44345/monhoc/getChuong/CTGT01");
+        if (!chaptersResponse.ok) {
+            throw new Error('Failed to fetch chapters');
+        }
+        const chapters = await chaptersResponse.json();
 
-            const mainChapters = chapters.filter(chapter => chapter.ParentId === null);
-            mainChapters.forEach(chapter => {
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `<a href="#${chapter.Id}" data-toggle="tab" class="chapter-link">${chapter.Id}: ${chapter.Title}</a>`;
-                listItem.addEventListener('click', function (event) {
-                    event.preventDefault();
-                    const subChapterList = displayAllSubChapters(chapter.Id, chapters);
-                    if (subChapterList) {
-                        if (!this.querySelector('ul')) {
-                            this.appendChild(subChapterList);
-                        } else {
-                            this.removeChild(this.querySelector('ul'));
-                        }
+        const toc = document.getElementById('toc');
+        if (!toc) return;
+
+        const mainChapters = chapters.filter(chapter => chapter.ParentId === null);
+        mainChapters.forEach(chapter => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `<a href="#${chapter.Id}" data-toggle="tab" class="chapter-link">${chapter.Id}: ${chapter.Title}</a>`;
+            listItem.addEventListener('click', function (event) {
+                event.preventDefault();
+                const subChapterList = displayAllSubChapters(chapter.Id, chapters);
+                if (subChapterList) {
+                    const existingList = this.querySelector('ul');
+                    if (!existingList) {
+                        this.appendChild(subChapterList);
+                    } else {
+                        this.removeChild(existingList);
                     }
-                });
-                toc.appendChild(listItem);
-            });
-        })
-        .fail(function (xhr, status, error) {
-            console.error('Failed to fetch chapters:', status, error);
-        });
-});
-
-/*document.addEventListener('DOMContentLoaded', function () {
-    fetch("https://localhost:44345/monhoc/getmotmh/CTGT01")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            const monhoc = document.getElementById('monhoc');
-            if (monhoc) {
-                if (data && data.length > 0) {
-                    const detailDiv = document.createElement('div');
-                    detailDiv.className = "container1 tab-content";
-                    detailDiv.innerHTML = data[0].ContentMonhoc;
-                    monhoc.appendChild(detailDiv);
-                } else {
-                    console.error('No data received or data format is incorrect');
                 }
-            } else {
-                console.error("Error: Monhoc element not found.");
-            }
-        })
-        .catch(error => {
-            console.error('Failed to fetch content:', error.message);
+            });
+            toc.appendChild(listItem);
         });
-});*/
+    } catch (error) {
+        console.error('Failed to fetch chapters:', error);
+    }
 
+    try {
+        const contentResponse = await fetch("https://localhost:44345/admin/getmotmh/CTGT01");
+        if (!contentResponse.ok) {
+            throw new Error('Failed to fetch course details');
+        }
+        const data = await contentResponse.json();
+
+        const monhoc = document.getElementById('monhoc');
+        if (!monhoc) {
+            console.error("Error: Monhoc element not found.");
+            return;
+        }
+
+        if (data && data.length > 0) {
+            const detailDiv = document.createElement('div');
+            detailDiv.className = "container1 tab-content";
+            detailDiv.innerHTML = data[0].ContentMonhoc;
+            monhoc.appendChild(detailDiv);
+        } else {
+            console.error('No data received or data format is incorrect');
+        }
+    } catch (error) {
+        console.error('Failed to fetch content:', error);
+    }
+});
+/*document.addEventListener('DOMContentLoaded', async function () {
+    const url = "https://localhost:44345/admin/getmotmh/CTGT01";
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+
+        const monhoc = document.getElementById('monhoc');
+        if (!monhoc) {
+            console.error("Error: Monhoc element not found.");
+            return;
+        }
+
+        if (data && data.length > 0) {
+            const detailDiv = document.createElement('div');
+            detailDiv.className = "container1 tab-content";
+            detailDiv.innerHTML = data[0].ContentMonhoc;
+            monhoc.appendChild(detailDiv);
+        } else {
+            console.error('No data received or data format is incorrect');
+        }
+    } catch (error) {
+        console.error('Failed to fetch content:', error);
+    }
+});*/
 
 document.addEventListener('DOMContentLoaded', loadUsernameFromStorage);

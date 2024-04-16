@@ -1,0 +1,34 @@
+[
+  {
+    "role": "user",
+    "content": "hi"
+  },
+  {
+    "role": "assistant",
+    "content": "Xin chào! Tôi là trợ lý ảo của bạn. Tôi có thể giúp gì cho bạn?"
+  },
+  {
+    "role": "user",
+    "content": "Nhà văn Nguyễn Quang Sáng là ai?"
+  },
+  {
+    "role": "assistant",
+    "content": "Nhà văn Nguyễn Quang Sáng là một nhà văn nổi tiếng của Việt Nam. Ông sinh ngày 1 tháng 1 năm 1939 tại Hà Nội và mất ngày 20 tháng 11 năm 2016 tại Sài Gòn. Ông là một trong những nhà văn tiêu biểu của thế hệ 8X, được biết đến qua các tác phẩm văn học đa dạng như truyện ngắn, tiểu thuyết, kịch, phê bình văn học. Ông đã để lại dấu ấn sâu đậm trong văn học Việt Nam thông qua việc khám phá và tái hiện cuộc sống, tâm lý con người trong thời kỳ lịch sử đầy biến động."
+  },
+  {
+    "role": "user",
+    "content": "tính đến nay là bao nhiêu tuổi"
+  },
+  {
+    "role": "assistant",
+    "content": "Hiện tại, nếu tính từ năm 1939 đến năm nay (2022), nhà văn Nguyễn Quang Sáng sẽ đã 83 tuổi."
+  },
+  {
+    "role": "user",
+    "content": "hi"
+  },
+  {
+    "role": "assistant",
+    "content": "Xin chào! Tôi có thể giúp gì cho bạn?"
+  }
+]
