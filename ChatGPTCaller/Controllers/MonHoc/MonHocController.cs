@@ -67,8 +67,21 @@ namespace ChatGPTCaller.Controllers.MonHocNay
                 return response;
             }
         }
+        [HttpPost("addmonhoc")]
+        public ActionResult<UpdateRespond> PostaddResult([FromBody] MonHoc book)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                response = _monHocService.ThemBook(book);
+                return response;
+            }
+        }
 
-   
+
 
         [HttpGet("getchuong/{id}")]
         public void GetChuong(string id)
@@ -114,6 +127,19 @@ namespace ChatGPTCaller.Controllers.MonHocNay
             else
             {
                 response = _monHocService.SuaChuong(chuong,id);
+                return response;
+            }
+        }
+        [HttpPost("addchuong")]
+        public ActionResult<UpdateRespond> PostchuongResult([FromBody] Chuong chuong)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                response = _monHocService.ThemChuong(chuong);
                 return response;
             }
         }

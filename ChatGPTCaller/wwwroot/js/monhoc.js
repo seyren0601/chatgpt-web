@@ -54,6 +54,71 @@
         table.append(tbody);
     });
 }
+//add mon hoc
+function AddBook() {
+    $('#addBook').show();
+}
+
+$(document).on('click', '.addBook', function () {
+    // Use jQuery to get the value and trim spaces
+    var IdMonHoc = $('#IdMonhoc').val().trim();
+    var TitleMonhoc = $('#TitleMonhoc').val().trim();
+    var ContentMonhoc = $('#ContentMonhoc').val().trim();
+
+    // Check if email and password are not empty
+    if (!IdMonHoc || !TitleMonhoc) {
+        alert("IdMonHoc and TitleMonhoc are required");
+        return;
+    }
+
+    // Create the JSON payload
+    var request = {
+        IdMonHoc: IdMonHoc,
+        TitleMonhoc: TitleMonhoc,
+        ContentMonhoc: ContentMonhoc
+    };
+
+    // Make an AJAX request using the Fetch API
+    fetch('https://localhost:44345/monhoc/addmonhoc', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify(request)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.updateResult) {
+                alert("Add mon Hoc successful");
+                fetchmonhoc();
+            } else {
+                alert("Add mon hoc failed. Error message: " + data.errorMessage);
+            }
+            $('#addBook').hide();
+        })
+        .catch(error => {
+            alert('Error during add mon hoc request: ' + error.message);
+            $('#addBook').hide();
+        });
+
+});
+
+// Close modal functionality
+$(document).on('click', '.edit-botton', function () {
+    $('#addBook').hide();
+});
+
+// Hide the modal when clicking outside of it
+$(window).click(function (event) {
+    if (event.target.id === 'addBook') {
+        $('#addBook').hide();
+    }
+});
 
 
 
@@ -249,6 +314,74 @@ function fetchchapters() {
     });
 }
 
+//add Chuong
+function AddChapter() {
+    $('#addChapter').show();
+}
+
+$(document).on('click', '.addChapter', function () {
+    // Use jQuery to get the value and trim spaces
+    var Id = $('#Id').val().trim();
+    var Title = $('#Title').val().trim();
+    var IdMonhoc = $('#IdMonhoc1').val().trim();
+    var ParentId = $('#ParentId').val().trim();
+
+    // Check if Id, ParentId, and IdMonhoc are required
+    if (!Id || !ParentId || !IdMonhoc) {
+        alert("Id, ParentId, and IdMonhoc are required");
+        return;
+    }
+
+    // Create the JSON payload
+    var request = {
+        Id: Id,
+        Title: Title,
+        IdMonhoc: IdMonhoc,
+        ParentId: ParentId
+    };
+
+    // Make an AJAX request using the Fetch API
+    fetch('https://localhost:44345/monhoc/addchuong', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify(request)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.updateResult) {
+                alert("Add Chapter successful");
+                fetchchapters();
+            } else {
+                alert("Add Chapter failed. Error message: " + data.errorMessage);
+            }
+            $('#addChapter').hide();
+        })
+        .catch(error => {
+            alert('Error during add mon hoc request: ' + error.message);
+            $('#addChapter').hide();
+        });
+
+});
+
+
+// Close modal functionality
+$(document).on('click', '.edit-botton', function () {
+    $('#addChapter').hide();
+});
+
+// Hide the modal when clicking outside of it
+$(window).click(function (event) {
+    if (event.target.id === 'addChapter') {
+        $('#addChapter').hide();
+    }
+});
 
 // Using on with event delegation for dynamically created elements
 $(document).on('click', '.view-detailchuong', function () {
