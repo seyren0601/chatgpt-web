@@ -17,7 +17,7 @@
 
         // Loop through the column names and create the header cells
         $.each(cols, function (i, item) {
-            if (item !== "salt" && item !== "hashed_pw") {
+            if (item !== "salt" && item !== "hashed_pw" && item !== "picture") {
                 item = item[0].toUpperCase() + item.slice(1);
 
                 let th = $('<th scope="col">');
@@ -35,7 +35,7 @@
 
             // Loop through the values and populate cells, excluding "salt" and "hashed_pw"
             $.each(item, function (key, val) {
-                if (key !== "salt" && key !== "hashed_pw") {
+                if (key !== "salt" && key !== "hashed_pw" && key !== "picture") {
                     let td = $("<td>");
                     td.text(val);
                     tr.append(td);
@@ -56,6 +56,70 @@
     });
 }
 
+function AddUser() {
+    $('#addUser').show();
+}
+
+$(document).on('click', '.addUser', function () {
+    // Use jQuery to get the value and trim spaces
+    var email = $('#email').val().trim();
+    var password = $('#password').val().trim();
+    var fullname = $('#fullname').val().trim();
+
+    // Check if email and password are not empty
+    if (!email || !password) {
+        alert("Email and password are required");
+        return;
+    }
+
+    // Create the JSON payload
+    var request = {
+        full_name: fullname,
+        email: email,
+        password: password
+    };
+
+    // Make an AJAX request using the Fetch API
+    fetch('https://localhost:44345/register/request', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify(request)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.registerResult) {
+                alert("Registration successful");
+                fetchUsers();
+            } else {
+                alert("Registration failed. Error message: " + data.errorMessage);
+            }
+            $('#addUser').hide();
+        })
+        .catch(error => {
+            alert('Error during registration request: ' + error.message);
+            $('#addUser').hide();
+        });
+    
+});
+
+// Close modal functionality
+$(document).on('click', '.edit-botton', function () {
+    $('#addUser').hide();
+});
+
+// Hide the modal when clicking outside of it
+$(window).click(function (event) {
+    if (event.target.id === 'addUser') {
+        $('#addUser').hide();
+    }
+});
 
 // Using on with event delegation for dynamically created elements
 $(document).on('click', '.view-detail', function () {

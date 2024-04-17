@@ -76,7 +76,29 @@ namespace ChatGPTCaller.Services.MonHocMoi
             }
 
         }
+        public UpdateRespond ThemBook(MonHoc monhoc)
+        {
+            UpdateRespond response = new UpdateRespond();
+            string sql = $"INSERT INTO MONHOC VALUES (" +
+                         $"'{monhoc.IdMonhoc}', " +
+                         $"'{monhoc.TitleMonhoc}', " +
+                         $"'{monhoc.ContentMonhoc}')";
 
+            try
+            {
+                int affected = _dbContext.ExecuteNonQueryCommand(sql);
+                response.ErrorMessage = "";
+                response.UpdateResult = true;
+                return response;
+            }
+            catch (MySqlException e)
+            {
+                response.ErrorMessage = e.Message;
+                response.UpdateResult = false;
+                return response;
+            }
+
+        }
         public DataTable GetAllChuong()
         {
             DataTable resultTable = new DataTable();
@@ -103,7 +125,7 @@ namespace ChatGPTCaller.Services.MonHocMoi
         {
             UpdateRespond response = new UpdateRespond();
             string sql = $"DELETE FROM CHUONG" +
-              $" WHERE IdMonHoc = '{id}'";
+              $" WHERE Id = '{id}'";
 
             try
             {
@@ -128,6 +150,30 @@ namespace ChatGPTCaller.Services.MonHocMoi
               $"IdMonhoc = '{chuong.IdMonhoc} ', " +
               $"ParentId = '{chuong.ParentId} ' " +
               $" WHERE Id = '{id}'";
+
+            try
+            {
+                int affected = _dbContext.ExecuteNonQueryCommand(sql);
+                response.ErrorMessage = "";
+                response.UpdateResult = true;
+                return response;
+            }
+            catch (MySqlException e)
+            {
+                response.ErrorMessage = e.Message;
+                response.UpdateResult = false;
+                return response;
+            }
+
+        }
+        public UpdateRespond ThemChuong(Chuong chuong)
+        {
+            UpdateRespond response = new UpdateRespond();
+            string sql = $"INSERT INTO CHUONG (Id,Title,IdMonhoc,ParentId) VALUES (" +
+                         $"'{chuong.Id}', " +
+                         $"'{chuong.Title}', " +
+                         $"'{chuong.IdMonhoc}', " +
+                         $"'{chuong.ParentId}')";
 
             try
             {

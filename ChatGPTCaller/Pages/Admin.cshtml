@@ -53,8 +53,11 @@
                     <h1>TRANG QUẢN LÝ THÔNG TIN</h1>
                     <h4 style="color:red">Các nội dung sau bảo mật nghiêm cấm các hành vi copy hay chỉnh sửa khi không được phép!</h4>
                     <button class="btn btn-primary" onclick="fetchUsers()">Fetch Users Data</button>
+                    <button class="btn btn-secondary" onclick="AddUser()">Add Users Data</button>
                     <button class="btn btn-primary" onclick="fetchmonhoc() ">Fetch Books Data</button>
+                    <button class="btn btn-secondary" onclick="AddBook()">Add Book Data</button>
                     <button class="btn btn-primary" onclick="fetchchapters()">Fetch Chapters Data</button>
+                    <button class="btn btn-secondary" onclick="AddChapter()">Add Chapter Data</button>
                 </div>
                 <div class="row">
                     <div id="alert-success" class="alert alert-success d-none" role="alert">
@@ -107,6 +110,88 @@
                 </div>
             </div>
 
+             <!-- Add User Modal -->
+            <div id="addUser" class="editProduct">
+                <div class="item-content">
+                    <div>
+                        <span class="edit-botton" id="closeadd">&times;</span>
+                    </div>
+                    <h2>Add User Information</h2>
+                    <form id="adduserForm">
+                        <div class="input-group">
+                            <label for="editfull_name">Full Name:</label>
+                            <input type="text" id="fullname">
+                        </div>
+                        <div class="input-group">
+                            <label for="editemail">Email:</label>
+                            <input type="email" id="email" >
+                        </div>
+                        <div class="input-group">
+                            <label for="editmssv">Password:</label>
+                            <input type="password" id="password">
+                        </div>
+                        <div class="input-group">
+                            <label for="editmssv">Confirm Password:</label>
+                            <input type="password" id="confirm_password">
+                        </div>
+                        <button class="addUser btn btn-primary" type="button" id="addUser">Add User</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Add MonHoc Modal -->
+            <div id="addBook" class="editMonhoc">
+                <div class="item-content2">
+                    <div>
+                        <span class="edit-botton" id="closeBook">&times;</span>
+                    </div>
+                    <h2>Add Mon Hoc Information</h2>
+                    <form id="addBookForm">
+                        <div class="input-group">
+                            <label for="editfull_name">IdMonhoc:</label>
+                            <input type="text" id="IdMonhoc">
+                        </div>
+                        <div class="input-group">
+                            <label for="editemail">TitleMonHoc:</label>
+                            <input type="text" id="TitleMonhoc">
+                        </div>
+                        <div class="input-group">
+                            <label for="editmssv">ContentMonHoc:</label>
+                            <textarea id="ContentMonhoc"></textarea>
+                        </div>
+                        <button class="addBook btn btn-primary" type="button" id="addBook">Add Mon Hoc</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Add Chuong Modal -->
+            <div id="addChapter" class="editMonhoc">
+                <div class="item-content">
+                    <div>
+                        <span class="edit-botton" id="closeChapter">&times;</span>
+                    </div>
+                    <h2>Add Mon Hoc Information</h2>
+                    <form id="addChapterForm">
+                        <div class="input-group">
+                            <label for="editfull_name">Id:</label>
+                            <input type="text" id="Id">
+                        </div>
+                        <div class="input-group">
+                            <label for="editemail">Title:</label>
+                            <input type="text" id="Title">
+                        </div>
+                        <div class="input-group">
+                            <label for="editfull_name">IdMonhoc:</label>
+                            <input type="text" id="IdMonhoc1">
+                        </div>
+                        <div class="input-group">
+                            <label for="editmssv">ParentId:</label>
+                            <input type="text" id="ParentId">
+                        </div>
+                        <button class="addChapter btn btn-primary" type="button" id="addChapter">Add Mon Hoc</button>
+                    </form>
+                </div>
+            </div>
             <!-- Edit User Modal -->
             <div id="editUser" class="editProduct">
                 <div class="item-content">
