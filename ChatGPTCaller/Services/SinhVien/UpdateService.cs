@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MySqlConnector;
 using System;
+using System.Data;
 using System.IO;
 namespace ChatGPTCaller.Services.SinhVien
 {
@@ -32,7 +33,7 @@ namespace ChatGPTCaller.Services.SinhVien
                     Directory.CreateDirectory(uploadsFolder);  // Create the directory if it doesn't exist
                 }
                 var uniqueFileName = user.email + "_" + Path.GetFileName(user.Avatar.FileName);
-               var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
                 var filePath1 = Path.Combine("/avatars/", uniqueFileName);
 
@@ -44,6 +45,11 @@ namespace ChatGPTCaller.Services.SinhVien
 
                 // Store the file path in the user object
                 user.picture = filePath1;
+            }
+            else
+            {
+                // Restore previous avatar file path
+                user.picture = GetUserAvatarPathFromDatabase(user.email);
             }
 
             // Update user information in the database
@@ -61,7 +67,7 @@ namespace ChatGPTCaller.Services.SinhVien
                 $"myphone = '{user.myphone}', " +
                 $"parentphone = '{user.parentphone}', " +
                 $"address = '{user.address}', " +
-                $"picture = '{user.picture}', " + 
+                $"picture = '{user.picture}', " +
                 $"aboutstudent = '{user.aboutstudent}' " +
                 $"WHERE email = '{user.email}'";
 
@@ -79,6 +85,33 @@ namespace ChatGPTCaller.Services.SinhVien
                 return response;
             }
         }
+        private string GetUserAvatarPathFromDatabase(string userEmail)
+        {
+
+            string sql = $"SELECT picture FROM user_info WHERE email = '{userEmail}'";
+
+
+            string previousAvatarPath = null;
+            try
+            {
+                DataTable dt = _dbContext.ExecuteQueryCommand(sql);
+
+                // Check if the query returned any rows
+                if (dt.Rows.Count > 0)
+                {
+
+                    previousAvatarPath = dt.Rows[0]["picture"].ToString();
+                }
+            }
+            catch (MySqlException e)
+            {
+
+                Console.WriteLine("Error fetching previous avatar path: " + e.Message);
+            }
+
+            return previousAvatarPath;
+        }
+
 
 
     }

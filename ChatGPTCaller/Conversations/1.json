@@ -5,54 +5,6 @@
   },
   {
     "role": "assistant",
-    "content": "Xin chào! Tôi là trợ lý ảo của bạn. Tôi có thể giúp gì cho bạn?"
-  },
-  {
-    "role": "user",
-    "content": "Nhà văn Nguyễn Quang Sáng là ai?"
-  },
-  {
-    "role": "assistant",
-    "content": "Nhà văn Nguyễn Quang Sáng là một nhà văn nổi tiếng của Việt Nam. Ông sinh ngày 1 tháng 1 năm 1939 tại Hà Nội và mất ngày 20 tháng 11 năm 2016 tại Sài Gòn. Ông là một trong những nhà văn tiêu biểu của thế hệ 8X, được biết đến qua các tác phẩm văn học đa dạng như truyện ngắn, tiểu thuyết, kịch, phê bình văn học. Ông đã để lại dấu ấn sâu đậm trong văn học Việt Nam thông qua việc khám phá và tái hiện cuộc sống, tâm lý con người trong thời kỳ lịch sử đầy biến động."
-  },
-  {
-    "role": "user",
-    "content": "tính đến nay là bao nhiêu tuổi"
-  },
-  {
-    "role": "assistant",
-    "content": "Hiện tại, nếu tính từ năm 1939 đến năm nay (2022), nhà văn Nguyễn Quang Sáng sẽ đã 83 tuổi."
-  },
-  {
-    "role": "user",
-    "content": "hi"
-  },
-  {
-    "role": "assistant",
     "content": "Xin chào! Tôi có thể giúp gì cho bạn?"
-  },
-  {
-    "role": "user",
-    "content": "khai niem sort?"
-  },
-  {
-    "role": "assistant",
-    "content": "Merge sort là một thuật toán sắp xếp đơn giản nhưng hiệu quả. Ý tưởng cơ bản của nó là chia mảng ban đầu thành các mảng con, tiếp tục chia đến khi chỉ còn một phần tử trong mỗi mảng con. Sau đó, ghép các mảng con lại theo thứ tự để có một mảng đã được sắp xếp.\n\nĐể giải thích rõ hơn, tôi đã tìm thấy một video trên YouTube mô tả quá trình của merge sort. Bạn có thể xem video tại đây để hiểu rõ hơn về thuật toán này: [Merge Sort](https://www.youtube.com/watch?v=4VqmGXwpLqc&pp=ygUKbWVyZ2Ugc29ydA%3D%3D)\n\nNếu bạn muốn xem mã nguồn C++ của merge sort, hãy để tôi biết!"
-  },
-  {
-    "role": "user",
-    "content": "Nhà văn Nguyễn Quang Sáng là ai?"
-  },
-  {
-    "role": "assistant",
-    "content": "Nguyễn Quang Sáng (1939-2016) là một nhà văn nổi tiếng của Việt Nam. Ông sinh và lớn lên tại Hà Nội và là một trong những tác giả tiêu biểu của thế hệ nhà văn 8X.\n\nNguyễn Quang Sáng đã để lại nhiều tác phẩm văn học đa dạng, bao gồm tiểu thuyết, truyện ngắn, kịch, và phê bình văn học. Ông nổi tiếng với việc khám phá và tái hiện cuộc sống, tâm lý con người trong thời kỳ lịch sử phức tạp và biến động của Việt Nam.\n\nMột số tác phẩm nổi tiếng của Nguyễn Quang Sáng bao gồm tiểu thuyết \"Những ngọn nến trong đêm\", \"Bến xưa\", \"Mùa cỏ cháy\", và truyện ngắn \"Hồn Ma Trên Đồi Cỏ\" và \"Ngọn Đèn Đom Đóm\". Ông đã đạt nhiều giải thưởng văn học quan trọng trong sự nghiệp của mình và được coi là một trong những nhà văn tài năng và ảnh hưởng của Việt Nam."
-  },
-  {
-    "role": "user",
-    "content": "hi"
-  },
-  {
-    "role": "assistant",
-    "content": "Xin chào! Tôi là trợ lý ảo của bạn. Tôi có thể giúp gì cho bạn?"
   }
 ]
