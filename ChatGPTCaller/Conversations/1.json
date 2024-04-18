@@ -6,5 +6,13 @@
   {
     "role": "assistant",
     "content": "Xin chào! Tôi có thể giúp gì cho bạn?"
+  },
+  {
+    "role": "user",
+    "content": "khai niem va vi du ve binary tree?"
+  },
+  {
+    "role": "assistant",
+    "content": "Binary tree là một cấu trúc dữ liệu cây mà mỗi nút trong cây có tối đa hai con gọi là con trái và con phải. Mỗi con trái là nút con bên trái của nút cha và mỗi con phải là nút con bên phải của nút cha.\n\nVí dụ, một binary tree có thể được biểu diễn như sau:\n\n```\n         7\n       /   \\\n      4     9\n     / \\   / \\\n    2   5 8   11\n```\n\nĐây là một ví dụ về binary tree gồm 7 nút, mỗi nút chứa một giá trị. Các con trái và con phải được xác định bởi mối quan hệ cha-con.\n\nĐể triển khai một binary tree trong C++, bạn có thể sử dụng các lớp hoặc cấu trúc. Dưới đây là một ví dụ về cách triển khai một lớp đơn giản để biểu diễn một binary tree:\n\n```cpp\nclass TreeNode {\npublic:\n    int data;\n    TreeNode* left;\n    TreeNode* right;\n\n    TreeNode(int value) {\n        data = value;\n        left = nullptr;\n        right = nullptr;\n    }\n};\n```\n\nTrong ví dụ này, lớp TreeNode đại diện cho mỗi nút trong cây. Nó chứa một trường dữ liệu (data) để lưu giá trị của nút và hai con trỏ (left và right) để trỏ tới các nút con bên trái và bên phải.\n\nĐây chỉ là một cách triển khai và có thể có nhiều cách khác nhau để biểu diễn các binary tree trong C++."
   }
 ]

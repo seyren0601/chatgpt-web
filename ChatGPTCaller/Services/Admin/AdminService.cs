@@ -45,6 +45,27 @@ namespace ChatGPTCaller.Services.Admin
             }
 
         }
+        public UpdateRespond XoaUserPermanent(int id)
+        {
+            UpdateRespond response = new UpdateRespond();
+            string sql = $"DELETE FROM user_info" +
+              $" WHERE Id = '{id}'";
+
+            try
+            {
+                int affected = _dbContext.ExecuteNonQueryCommand(sql);
+                response.ErrorMessage = "";
+                response.UpdateResult = true;
+                return response;
+            }
+            catch (MySqlException e)
+            {
+                response.ErrorMessage = e.Message;
+                response.UpdateResult = false;
+                return response;
+            }
+
+        }
         public UpdateRespond SuaUser(UserInfo user,int id)
         {
             UpdateRespond response = new UpdateRespond();

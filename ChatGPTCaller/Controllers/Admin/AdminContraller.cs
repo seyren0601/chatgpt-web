@@ -56,6 +56,19 @@ namespace ChatGPTCaller.Controllers.Admin
                 return response;
             }
         }
+        [HttpPost("deletepermanent/{id}")]
+        public ActionResult<UpdateRespond> PerDeleteResult(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                response = AdminService.XoaUserPermanent(id);
+                return response;
+            }
+        }
         [HttpGet("getmotmh/{id}")]
         public void GetMotMonHoc(string id)
         {

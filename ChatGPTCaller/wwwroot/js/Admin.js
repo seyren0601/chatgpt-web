@@ -48,7 +48,9 @@
             var button2 = $('<button type="button" class="btn btn-primary edit" data-id="' + item['id'] + '">').text("Edit");
             var daucach2 = $('<br><br>'); // Add a space between buttons for better spacing
             var button3 = $('<button type="button" class="btn btn-danger delete" data-id="' + item['id'] + '">').text("Delete");
-            let tdAction = $("<td>").append(button1, daucach1, button2, daucach2, button3);
+            var daucach3 = $('<br><br>');
+            var button4 = $('<button type="button" class="btn btn-danger deletepermanent" data-id="' + item['id'] + '">').text("Delete Permanent");
+            let tdAction = $("<td>").append(button1, daucach1, button2, daucach2, button3, daucach3, button4);
             tr.append(tdAction);
             tbody.append(tr);
         });
@@ -280,6 +282,43 @@ $(document).on('click', '.delete', function () {
                 if (jsonData.updateResult)
                 {
                     alert('Product deleted successfully!!');
+                    fetchUsers();
+                }
+                else
+                    alert('Product deleted Fail!!');
+            })
+            .catch(error => {
+                console.error('There was a problem with your fetch operation:', error);
+            });
+    }
+});
+
+
+// Delete product
+$(document).on('click', '.deletepermanent', function () {
+    var productId = $(this).attr('data-id');
+
+    var updateduser = {
+        "isdeleted": true,
+    };
+    if (confirm("Are you sure you want to delete this product permanently?")) {
+        fetch('https://localhost:44345/admin/deletepermanent/' + productId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updateduser)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                let jsonData = data;
+                if (jsonData.updateResult) {
+                    alert('Product  deleted permanently successfully!!');
                     fetchUsers();
                 }
                 else
