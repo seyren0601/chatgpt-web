@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 using System.Text.Json;
@@ -64,6 +66,7 @@ namespace ChatGPTCaller.Models
         public string? isdeleted { get; set; }
         public string? role { get; set; }
         public string? picture { get; set; }
+        [NotMapped]
         public IFormFile Avatar { get; set; }
 
 
