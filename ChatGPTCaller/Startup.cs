@@ -1,10 +1,13 @@
+
 using ChatGPTCaller.Services;
 using ChatGPTCaller.Services.Admin;
 using ChatGPTCaller.Services.MonHocMoi;
 using ChatGPTCaller.Services.SinhVien;
+using ChatGPTCaller.Services.ThongKe;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -40,7 +43,8 @@ namespace ChatGPTCaller
 			services.AddSingleton<AdminService>();
             services.AddSingleton<MonHocService>();
             services.AddSingleton<ConversationService>();
-			services.AddControllers();
+            services.AddSingleton<ThongKeService>();
+            services.AddControllers();
         }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,8 +57,8 @@ namespace ChatGPTCaller
 
 			app.UseRouting();
 			app.UseStaticFiles();
-
-			app.UseEndpoints(endpoints =>
+            app.UseHttpsRedirection();
+            app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapRazorPages();
 				endpoints.MapControllers();

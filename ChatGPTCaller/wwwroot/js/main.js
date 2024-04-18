@@ -24,80 +24,115 @@ async function getsinhvienbyemail(email) {
 }
 
 async function sendMessage() {
-    var userInput = document.getElementById("searchInput");
-    var messages = document.getElementById("messages");
-    var loadingIndicator = document.getElementById("loading");
-    // Disable the user input field during loading
+    const userInput = document.getElementById("searchInput");
+    const messages = document.getElementById("messages");
+    const loadingIndicator = document.getElementById("loading");
+
+    // Disable user input field during loading
     userInput.disabled = true;
 
-    var userMessage = userInput.value.trim();
+    const userMessage = userInput.value.trim();
     if (userMessage === "") {
-        // Enable the user input field if the message is empty
+        // Enable user input field if message is empty
         userInput.disabled = false;
         return;
     }
-    // Create the user message element
-    var userMessageElement = createSendMessage("sent", "User", userMessage);
+
+    // Create user message element
+    const userMessageElement = createMessageElement("sent", "User", userMessage);
     messages.appendChild(userMessageElement);
 
-    // Clear the user input field after sending the message
+    // Clear user input field after sending the message
     userInput.value = "";
-    const email = localStorage.getItem('username');
-    var ID = await getsinhvienbyemail(email); // Added await to ensure ID is received before proceeding
 
-    // Show the loading indicator
-    loadingIndicator.style.display = "block";
-
-    // Create the JSON payload
-    var requestBody = {
-        "ConversationID": ID,
-        "message": {
-            "role": "user",
-            "content": userMessage
-        }
-    };
-
-    // Make an AJAX request using the Fetch API
-    fetch('https://localhost:44345/api/completion', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-
-            // Hide the loading indicator when the response is received
-            loadingIndicator.style.display = "none";
-            userInput.disabled = false;
-
-            // Handle successful response data
-            var choices = data.choices;
-            if (choices && choices.length > 0) {
-                var botMessageContent = choices[0].message.content;
-                if (botMessageContent !== "") {
-                    // Create the bot message element
-                    var botMessageElement = createMessageElement("received", "Bot_Assistant", botMessageContent);
-                    messages.appendChild(botMessageElement);
-                }
+    try {
+        const email = localStorage.getItem('username');
+        const ID = await getsinhvienbyemail(email);
+        const requestBody = {
+            "ConversationID": ID,
+            "message": {
+                "role": "user",
+                "content": userMessage
             }
-            else {
-                // If the response status is not OK, throw an error
-                throw new Error(`HTTP error! Status: ${data.status} Title: ${data.title}`);
-            }
-        })
-        .catch(error => {
-            // Hide the loading indicator in case of an error
-            loadingIndicator.style.display = "none";
-            userInput.disabled = false;
+        };
 
-            // Handle errors
-            showErrorToast(error.message);
+        // Show loading indicator
+        loadingIndicator.style.display = "block";
+
+        // Make AJAX request using Fetch API
+        const response = await fetch('https://localhost:44345/api/completion', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+            },
+            body: JSON.stringify(requestBody),
         });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const choices = data.choices;
+
+        if (choices && choices.length > 0) {
+            const botMessageContent = choices[0].message.content;
+            if (botMessageContent !== "") {
+                // Create bot message element
+                const botMessageElement = createMessageElement("received", "Bot_Assistant", botMessageContent);
+                messages.appendChild(botMessageElement);
+
+                // Create new ThongKeTruyVan entry
+                const newThongKeTruyVan = {
+                    "Id": ID,
+                    "TruyVanText": userMessage,
+                    "TraLoiText": botMessageContent
+                };
+                await createThongKeTruyVan(newThongKeTruyVan);
+            }
+        } else {
+            throw new Error(`No choices received from server.`);
+        }
+    } catch (error) {
+        showErrorToast(error.message);
+    } finally {
+        // Hide loading indicator
+        loadingIndicator.style.display = "none";
+        // Enable user input field
+        userInput.disabled = false;
+    }
 }
+
+async function createThongKeTruyVan(newThongKeTruyVan) {
+    try {
+        const response = await fetch('https://localhost:44345/admin/themtruyvan', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify(newThongKeTruyVan)
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+
+        if (data.updateResult) {
+            alert("Add thong ke truy van successful");
+        } else {
+            alert("Add thong ke truy van failed. Error message: " + data.errorMessage);
+        }
+    } catch (error) {
+        if (error instanceof TypeError) {
+            alert('Error: Could not connect to the server.');
+        } else {
+            alert('Error during add thong ke truy van request: ' + error.message);
+        }
+    }
+}
+
 
 
 document.addEventListener('keydown', function (event) {

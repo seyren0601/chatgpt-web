@@ -129,10 +129,18 @@
   },
   {
     "role": "user",
-    "content": "Độ phức tạp là gì?"
+    "content": "hi"
   },
   {
     "role": "assistant",
-    "content": "Độ phức tạp là một khái niệm trong khoa học máy tính để đo lường hiệu suất của một thuật toán hoặc một phần của chương trình dựa trên kích thước đầu vào. Nó giúp chúng ta hiểu và so sánh sự tăng tốc và tốn tài nguyên của các thuật toán khác nhau khi xử lý các tình huống khác nhau.\n\nĐộ phức tạp thường được chia thành hai loại chính: độ phức tạp thời gian và độ phức tạp không gian.\n\n- Độ phức tạp thời gian: Đo lường thời gian thực hiện của một thuật toán hoặc một phần của chương trình. Thông thường, chúng ta quan tâm đến độ phức tạp trong trường hợp xấu nhất (worst-case complexity) và trường hợp trung bình (average-case complexity). Độ phức tạp thời gian thường được biểu diễn bằng ký hiệu Big O (O notation), ví dụ như O(1), O(n), O(n^2), O(log n),...\n\n- Độ phức tạp không gian: Đo lường lượng bộ nhớ mà một thuật toán hoặc một phần của chương trình sử dụng để thực hiện. Độ phức tạp không gian thường được đo bằng số lượng ô nhớ hoặc bộ nhớ cần thiết để lưu trữ dữ liệu và biến trong quá trình thực hiện thuật toán.\n\nViệc hiểu và phân tích độ phức tạp của một thuật toán giúp chúng ta đánh giá hiệu suất của nó, dự đoán tài nguyên cần thiết và lựa chọn thuật toán phù hợp cho các vấn đề cụ thể."
+    "content": "Hello! How can I assist you today?"
+  },
+  {
+    "role": "user",
+    "content": "hi"
+  },
+  {
+    "role": "assistant",
+    "content": "Hello! How can I assist you today?"
   }
 ]

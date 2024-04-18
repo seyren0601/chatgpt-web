@@ -29,6 +29,21 @@ CREATE TABLE user_info(
     picture text,
     PRIMARY KEY (id)
 );
+CREATE TABLE THONGKETRUYVAN (
+    TruyVanId INT AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL,
+    TruyVanText TEXT,
+    TraLoiText longtext,
+    ThoiGian DATETIME,
+    FOREIGN KEY (id) REFERENCES user_info(id)
+);
+CREATE TABLE THONGKEDANGNHAP (
+    DangNhapId INT AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL,
+    LoginTime DATETIME,
+    LogoutTime DATETIME NULL,
+     FOREIGN KEY (id) REFERENCES user_info(id)
+);
 CREATE TABLE CONVERSATION(
 	idConversation int auto_increment,
 	id int,
@@ -149,16 +164,9 @@ INSERT INTO CHUONG VALUES ('6.4', 'Hạn chế của bảng băm', 'CTGT01', 'CH
 INSERT INTO CHUONG VALUES ('Bài tập chương 6', '', 'CTGT01', 'CHƯƠNG_6');
 
 
-
-
-
-
-
-
-
-
 -- Query kiểm tra
 SELECT * FROM user_info;
+SELECT * FROM THONGKETRUYVAN;
 select * from MONHOC;
 WITH RECURSIVE BookHierarchy AS (
   SELECT Id, Title, IdMonhoc, ParentId, 1 AS Level
