@@ -27,16 +27,15 @@ namespace ChatGPTCaller.Services.ThongKe
         public DataTable GetTruyVanTheoNgay(string Ngay)
         {
             DataTable resultTable = new DataTable();
-            string sql = $"SELECT T.TruyVanId,T.id,U.full_name,T.TruyVanText,T.TraLoiText,T.ThoiGian FROM THONGKETRUYVAN as T inner join user_info as U on T.id=U.id WHERE ThoiGian='{Ngay}'";
+            string sql = $"SELECT T.TruyVanId,U.full_name,U.email,T.TruyVanText,T.TraLoiText,T.ThoiGian FROM THONGKETRUYVAN as T inner join user_info as U on T.id=U.id WHERE ThoiGian='{Ngay}'";
             DataTable dt = _dbContext.ExecuteQueryCommand(sql);
             return dt;
         }
         public UpdateRespond XoaTruyVan(int id)
         {
             UpdateRespond response = new UpdateRespond();
-            string sql = $"UPDATE user_info SET " +
-              $"isdeleted = true" +
-              $" WHERE id = '{id}'";
+            string sql = $"DELETE FROM THONGKETRUYVAN" +
+              $" WHERE TruyVanId = '{id}'";
 
             try
             {
@@ -61,6 +60,64 @@ namespace ChatGPTCaller.Services.ThongKe
                          $"'{thongKeTruyVan.TruyVanText}', " +
                          $"'{thongKeTruyVan.TraLoiText}', " +
                          $"'{thongKeTruyVan.ThoiGian}')";
+
+            try
+            {
+                int affected = _dbContext.ExecuteNonQueryCommand(sql);
+                response.ErrorMessage = "";
+                response.UpdateResult = true;
+                return response;
+            }
+            catch (MySqlException e)
+            {
+                response.ErrorMessage = e.Message;
+                response.UpdateResult = false;
+                return response;
+            }
+
+        }
+        //thong ke dang nhap
+        public DataTable GetDangNhap()
+        {
+            DataTable resultTable = new DataTable();
+            string sql = $"SELECT T.DangNhapId,U.full_name,U.email,T.LoginTime FROM THONGKEDANGNHAP as T inner join user_info as U on T.id=U.id;";
+            DataTable dt = _dbContext.ExecuteQueryCommand(sql);
+            return dt;
+        }
+        public DataTable GetDangNhapTheoNgay(string Ngay)
+        {
+            DataTable resultTable = new DataTable();
+            string sql = $"SELECT U.full_name, U.email, COUNT(T.DangNhapId) AS login_count, MIN(T.LoginTime) AS login_day FROM THONGKEDANGNHAP AS T INNER JOIN user_info AS U ON T.id = U.id  WHERE LoginTime='{Ngay}' GROUP BY U.full_name, U.email";
+            DataTable dt = _dbContext.ExecuteQueryCommand(sql);
+            return dt;
+        }
+        public UpdateRespond XoaDangNhap(int id)
+        {
+            UpdateRespond response = new UpdateRespond();
+            string sql = $"DELETE FROM THONGKEDANGNHAP" +
+              $" WHERE DangNhapId = '{id}'";
+
+            try
+            {
+                int affected = _dbContext.ExecuteNonQueryCommand(sql);
+                response.ErrorMessage = "";
+                response.UpdateResult = true;
+                return response;
+            }
+            catch (MySqlException e)
+            {
+                response.ErrorMessage = e.Message;
+                response.UpdateResult = false;
+                return response;
+            }
+
+        }
+        public UpdateRespond ThemDangNhap(ThongKeDangNhap thongKeDangNhap)
+        {
+            UpdateRespond response = new UpdateRespond();
+            string sql = $"INSERT INTO THONGKEDANGNHAP (id,LoginTime) VALUES (" +
+                         $"'{thongKeDangNhap.Id}', " +
+                         $"'{thongKeDangNhap.LoginTime}')";
 
             try
             {

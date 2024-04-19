@@ -1,4 +1,5 @@
 ﻿using ChatGPTCaller.Models;
+using ChatGPTCaller.Services.Admin;
 using ChatGPTCaller.Services.MonHocMoi;
 using ChatGPTCaller.Services.ThongKe;
 using Microsoft.AspNetCore.Http;
@@ -21,7 +22,7 @@ namespace ChatGPTCaller.Controllers.ThongKe
             _thongKeService = thongKeService;
         }
         [HttpGet("gettruyvan")]
-        public void Getalltruyvan(string ngay)
+        public void Getalltruyvan()
         {
             DataTable truyvan = _thongKeService.GetTruyVan();
             string json = _thongKeService.DataTableToJSONWithJSONNet(truyvan);
@@ -53,7 +54,68 @@ namespace ChatGPTCaller.Controllers.ThongKe
                 return response;
             }
         }
-       
+        [HttpPost("deletetruyvan/{id}")]
+        public ActionResult<UpdateRespond> PostDeleteResult(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                response = _thongKeService.XoaTruyVan(id);
+                return response;
+            }
+        }
+        //thong ke dang nhap
+
+        [HttpGet("getdangnhap")]
+        public void Getalldangnhap()
+        {
+            DataTable truyvan = _thongKeService.GetDangNhap();
+            string json = _thongKeService.DataTableToJSONWithJSONNet(truyvan);
+            Response.Clear();
+            Response.ContentType = "application/json;charset=utf-8";
+            Response.WriteAsync(json);
+        }
+        [HttpGet("getdangnhap/{ngay}")]
+        public void Getmotdangnhap(string ngay)
+        {
+            DataTable truyvan = _thongKeService.GetDangNhapTheoNgay(ngay);
+            string json = _thongKeService.DataTableToJSONWithJSONNet(truyvan);
+            Response.Clear();
+            Response.ContentType = "application/json;charset=utf-8";
+            Response.WriteAsync(json);
+        }
+
+        [HttpPost("themdangNhap")]
+        public ActionResult<UpdateRespond> PostdangnhapResult([FromBody] ThongKeDangNhap thongKeDangNhap)
+        {
+            thongKeDangNhap.LoginTime = DateTime.Now.ToString("yyyy-MM-dd");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                response = _thongKeService.ThemDangNhap(thongKeDangNhap);
+                return response;
+            }
+        }
+        [HttpPost("deletedangnhap/{id}")]
+        public ActionResult<UpdateRespond> DangNhapDeleteResult(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                response = _thongKeService.XoaDangNhap(id);
+                return response;
+            }
+        }
+
 
     }
 }

@@ -120,7 +120,7 @@ async function createThongKeTruyVan(newThongKeTruyVan) {
         const data = await response.json();
 
         if (data.updateResult) {
-            alert("Add thong ke truy van successful");
+            console.log("Add thong ke truy van successful");
         } else {
             console.error("Add thong ke truy van failed. Error message: " + data.errorMessage);
         }
@@ -310,7 +310,7 @@ function registerRequest() {
 }
 
 
-function loginRequest() {
+async function loginRequest() {
     // Get the email and password input elements
     const emailInput = document.getElementById("email_login");
     const passwordInput = document.getElementById("password_login");
@@ -324,6 +324,7 @@ function loginRequest() {
         showErrorToast("Email and password are required");
         return;
     }
+    const ID = await getsinhvienbyemail(email);
 
     // Create the JSON payload
     const request = {
@@ -351,6 +352,10 @@ function loginRequest() {
             // Check if login was successful
             if (data.logInResult) {
                 var respond = data;
+                const newThongKeDangNhap = {
+                    "id": ID
+                };
+                createThongKeDangNhap(newThongKeDangNhap);
                 showSuccessToast("Login successful");
                 localStorage.setItem('username', email);
                 localStorage.setItem('name', respond.full_name);
@@ -375,6 +380,37 @@ function loginRequest() {
             // Handle errors that occur during the fetch
             showErrorToast('Error during login request:', error);
         });
+}
+
+//then thong ke dang nhap
+async function createThongKeDangNhap(newThongKeDangNhap) {
+    try {
+        const response = await fetch('https://localhost:44345/admin/themdangnhap', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify(newThongKeDangNhap)
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+
+        if (data.updateResult) {
+            console.log("Add thong ke dang nhap successful");
+        } else {
+            console.error("Add thong ke truy van failed. Error message: " + data.errorMessage);
+        }
+    } catch (error) {
+        if (error instanceof TypeError) {
+            console.error('Error: Could not connect to the server.');
+        } else {
+            console.error('Error during add thong ke truy van request: ' + error.message);
+        }
+    }
 }
 
 

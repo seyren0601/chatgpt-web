@@ -98,11 +98,15 @@ p span {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 .item-content-thongke {
+    margin:10px!important;
     background-color: #fefefe;
     margin: 0% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 30%; /* Could be more or less, depending on screen size */
+    width: 90%; /* Could be more or less, depending on screen size */
+}
+.ThongKeContent{
+    margin-top:30px;
 }
 .item-content {
     background-color: #fefefe;

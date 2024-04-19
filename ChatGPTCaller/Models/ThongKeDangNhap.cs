@@ -7,7 +7,6 @@ namespace ChatGPTCaller.Models
     public class ThongKeDangNhap
     {
         public int Id { get; set; }
-        public string Email { get; set; }
         public string LoginTime { get; set; }
         public string? LogoutTime { get; set; }
     }
