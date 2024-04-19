@@ -329,3 +329,4 @@ $(document).on('click', '.deletepermanent', function () {
             });
     }
 });
+

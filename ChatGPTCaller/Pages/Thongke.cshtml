@@ -1,0 +1,101 @@
+﻿@page
+@model ChatGPTCaller.Pages.ThongkeModel
+@{
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAT-DSA</title>
+    <link rel="stylesheet" href="./css/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/Admin.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="./Home">CHAT-DSA</a>
+                </div>
+                <div class="navbar-header admin" id="admin">
+                    <a class="navbar-brand" href="./Admin">Administrator</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class=""><a href="./Home">Home</a></li>
+                    <li><a href="./Content">Content</a></li>
+                    <li><a href="./Assistant">Assistant</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href=""><span id="usernameSpan"></span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="./Student_infor" onclick="getSinhVien()">Information</a></li>
+                            <li><a href="./Student_Update_Data">Updating</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Help</a></li>
+                        </ul>
+                    </li>
+                    <li onclick="logout()"><a href=""><span class="glyphicon glyphicon-log-out" id="logoutButton" onclick="logout()"></span>Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!--Main-->
+    <main>
+        <div class="trangchu">
+            <div class="card mt-1">
+                <div class="card-body">
+                    <h1>TRANG THỐNG KÊ</h1>
+                    <h4 style="color:red">Các nội dung sau bảo mật nghiêm cấm các hành vi copy hay chỉnh sửa khi không được phép!</h4>
+                    <button class="btn btn-primary" onclick="fetchtruyvan()">Fetch truy van</button>
+                    <button class="btn btn-secondary" onclick=" ">Add Users Data</button>
+                    <button class="btn btn-primary" onclick=" ">Fetch Books Data</button>
+                    <button class="btn btn-secondary" onclick=" ">Add Book Data</button>
+                </div>
+            </div>
+
+            <!-- Add User Modal -->
+            <div id="addUser" class="">
+                <div class="item-content-thongke">
+                    <h2>Thống kê truy Vấn Theo Ngày</h2>
+                    <form id="adduserForm">
+                        <div class="input-group">
+                            <label for="editfull_name">Nhập Ngày:</label>
+                            <input type="date" id="ngay">
+                        </div>
+                        <button class="thongketruyvan btn btn-primary" type="button" id="thongketruyvan">Tìm Kiếm</button>
+                    </form>
+                </div>
+            </div>
+
+            <!--where to add more tablerow-->
+            <table id="userTable" class="table table-striped table-hover"></table>
+
+            <!--popup to be shown-->
+            <!-- Detail User Placeholder -->
+            <div id="detailModal" class="modal">
+                <div class="modal-content">
+                    <div>
+                        <span class="close-button" id="close-button">&times;</span>
+                    </div>
+                    <h2>User Detail</h2>
+                    <!-- Product details will be injected here -->
+                    <div id="userDetail"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="copyright text-center">
+            Copyright &copy; 2024 <span>Hiu-It Chat-DSA</span>
+        </div>
+    </footer>
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/57ae888bd4.js" crossorigin="anonymous"></script>
+    <script src="./js/thongke.js"></script>
+</body>
+</html>

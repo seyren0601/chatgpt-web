@@ -399,5 +399,8 @@ FodyWeavers.xsd
 ChatGPTCaller/Bearer Token.txt
 ChatGPTCaller/1.json
 ChatGPTCaller/appsettings.json
-ChatGPTCaller/Conversations/
+ChatGPTCaller/Conversations/1.json
+ChatGPTCaller/Conversations/2.json
+ChatGPTCaller/Conversations/3.json
+
 

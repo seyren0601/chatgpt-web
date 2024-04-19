@@ -84,7 +84,7 @@ async function sendMessage() {
 
                 // Create new ThongKeTruyVan entry
                 const newThongKeTruyVan = {
-                    "Id": ID,
+                    "id": ID,
                     "TruyVanText": userMessage,
                     "TraLoiText": botMessageContent
                 };
@@ -122,13 +122,13 @@ async function createThongKeTruyVan(newThongKeTruyVan) {
         if (data.updateResult) {
             alert("Add thong ke truy van successful");
         } else {
-            alert("Add thong ke truy van failed. Error message: " + data.errorMessage);
+            console.error("Add thong ke truy van failed. Error message: " + data.errorMessage);
         }
     } catch (error) {
         if (error instanceof TypeError) {
-            alert('Error: Could not connect to the server.');
+            console.error('Error: Could not connect to the server.');
         } else {
-            alert('Error during add thong ke truy van request: ' + error.message);
+            console.error('Error during add thong ke truy van request: ' + error.message);
         }
     }
 }

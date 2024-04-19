@@ -2,6 +2,7 @@
 using ChatGPTCaller.Models;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using System.Data;
 
 namespace ChatGPTCaller.Services.ThongKe
@@ -20,6 +21,13 @@ namespace ChatGPTCaller.Services.ThongKe
         {
             DataTable resultTable = new DataTable();
             string sql = $"SELECT * FROM THONGKETRUYVAN";
+            DataTable dt = _dbContext.ExecuteQueryCommand(sql);
+            return dt;
+        }
+        public DataTable GetTruyVanTheoNgay(string Ngay)
+        {
+            DataTable resultTable = new DataTable();
+            string sql = $"SELECT T.TruyVanId,T.id,U.full_name,T.TruyVanText,T.TraLoiText,T.ThoiGian FROM THONGKETRUYVAN as T inner join user_info as U on T.id=U.id WHERE ThoiGian='{Ngay}'";
             DataTable dt = _dbContext.ExecuteQueryCommand(sql);
             return dt;
         }
@@ -68,6 +76,12 @@ namespace ChatGPTCaller.Services.ThongKe
                 return response;
             }
 
+        }
+        public string DataTableToJSONWithJSONNet(DataTable table)
+        {
+            string JSONString = string.Empty;
+            JSONString = JsonConvert.SerializeObject(table);
+            return JSONString;
         }
     }
 }

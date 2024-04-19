@@ -9,8 +9,8 @@ namespace ChatGPTCaller.Models
         public int Id { get; set; } 
         public string TruyVanText { get; set; }
         public string TraLoiText { get; set; }
-        public DateTime ThoiGian { get; set; }
+        public string ThoiGian { get; set; }
 
-        public UserInfo UserInfo { get; set; }
+       
     }
 }

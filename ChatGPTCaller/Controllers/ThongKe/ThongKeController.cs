@@ -20,11 +20,29 @@ namespace ChatGPTCaller.Controllers.ThongKe
         {
             _thongKeService = thongKeService;
         }
-      
+        [HttpGet("gettruyvan")]
+        public void Getalltruyvan(string ngay)
+        {
+            DataTable truyvan = _thongKeService.GetTruyVan();
+            string json = _thongKeService.DataTableToJSONWithJSONNet(truyvan);
+            Response.Clear();
+            Response.ContentType = "application/json;charset=utf-8";
+            Response.WriteAsync(json);
+        }
+        [HttpGet("gettruyvan/{ngay}")]
+        public void Getmottruyvan(string ngay)
+        {
+            DataTable truyvan = _thongKeService.GetTruyVanTheoNgay(ngay);
+            string json = _thongKeService.DataTableToJSONWithJSONNet(truyvan);
+            Response.Clear();
+            Response.ContentType = "application/json;charset=utf-8";
+            Response.WriteAsync(json);
+        }
+
         [HttpPost("themtruyvan")]
         public ActionResult<UpdateRespond> PostchuongResult([FromBody] ThongKeTruyVan thongKeTruyVan)
         {
-            thongKeTruyVan.ThoiGian=DateTime.Now;
+            thongKeTruyVan.ThoiGian = DateTime.Now.ToString("yyyy-MM-dd");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -35,6 +53,7 @@ namespace ChatGPTCaller.Controllers.ThongKe
                 return response;
             }
         }
-        
+       
+
     }
 }
