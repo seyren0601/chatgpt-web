@@ -24,6 +24,14 @@ namespace ChatGPTCaller.Services.ThongKe
             DataTable dt = _dbContext.ExecuteQueryCommand(sql);
             return dt;
         }
+        public DataTable GetTruyVanCauHoi()
+        {
+            DataTable resultTable = new DataTable();
+            string sql = $"SELECT TruyVanText, COUNT(*) AS TotalCount\r\nFROM THONGKETRUYVAN\r\nGROUP BY TruyVanText\r\nORDER BY TruyVanText;";
+            DataTable dt = _dbContext.ExecuteQueryCommand(sql);
+            return dt;
+        }
+
         public DataTable GetTruyVanTheoNgay(string Ngay)
         {
             DataTable resultTable = new DataTable();

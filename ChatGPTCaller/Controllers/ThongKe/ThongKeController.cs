@@ -30,6 +30,15 @@ namespace ChatGPTCaller.Controllers.ThongKe
             Response.ContentType = "application/json;charset=utf-8";
             Response.WriteAsync(json);
         }
+        [HttpGet("gettruyvancauhoi")]
+        public void Getalltruyvancauhoi()
+        {
+            DataTable truyvan = _thongKeService.GetTruyVanCauHoi();
+            string json = _thongKeService.DataTableToJSONWithJSONNet(truyvan);
+            Response.Clear();
+            Response.ContentType = "application/json;charset=utf-8";
+            Response.WriteAsync(json);
+        }
         [HttpGet("gettruyvan/{ngay}")]
         public void Getmottruyvan(string ngay)
         {

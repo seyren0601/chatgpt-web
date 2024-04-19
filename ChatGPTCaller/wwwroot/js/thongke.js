@@ -1,15 +1,72 @@
-﻿
-function fetchtruyvan() {
+﻿function fetchtruyvan() {
+    // Fetch data for the first table
     $.get("https://localhost:44345/admin/gettruyvan", function (data, status) {
+        if (status !== "success") {
+            console.error("Failed to fetch data for the first table");
+            return;
+        }
+
+        // Extract JSON data
         var jsonData = data;
 
+        // Create or clear the first table element
+        let table1 = $("#userTable");
+        table1.empty();
+
+        // If no data is returned, display a message or handle it as needed
+        if (jsonData.length === 0) {
+            table1.append("<p>No data available</p>");
+            return;
+        }
+
+        // Get the keys (column names) and add an "Action" column
+        let cols = Object.keys(jsonData[0]);
+        cols.push("Action");
+
+        // Create the header for the first table
+        let thead = $("<thead>");
+        let tr = $("<tr>");
+        $.each(cols, function (i, item) {
+            item = item[0].toUpperCase() + item.slice(1);
+            let th = $('<th scope="col">').text(item);
+            tr.append(th);
+        });
+        thead.append(tr);
+        table1.append(thead);
+
+        // Create the body for the first table
+        let tbody = $('<tbody id="tbody">');
+        $.each(jsonData, function (i, item) {
+            let tr = $("<tr>").attr('data-id', item.TruyVanId);
+            // Populate cells
+            $.each(item, function (key, val) {
+                let td = $("<td>").text(val);
+                tr.append(td);
+            });
+            // Add buttons for actions at the end of each row
+            var deleteButton = $('<button type="button" class="btn btn-danger delete" data-id="' + item['TruyVanId'] + '">').text("Delete");
+            let tdAction = $("<td>").append(deleteButton);
+            tr.append(tdAction);
+            tbody.append(tr);
+        });
+        table1.append(tbody);
+    }).fail(function () {
+        console.error("Failed to fetch data for the first table");
+    });
+    $.get("https://localhost:44345/admin/gettruyvancauhoi", function (data1, status) {
+        if (status !== "success") {
+            console.error("Failed to fetch data for the second table");
+            return;
+        }
+
+        // Extract JSON data
+        var jsonData1 = data1;
         // Create the table element
-        let table = $("#userTable");
+        let table = $("#cauhoiTable");
         table.empty();
 
         // Get the keys names
-        let cols = Object.keys(jsonData[0]);
-        cols.push("Action");
+        let cols = Object.keys(jsonData1[0]);
 
         // Create the header
         let thead = $("<thead>");
@@ -23,35 +80,25 @@ function fetchtruyvan() {
             let th = $('<th scope="col">');
             th.text(item);
             tr.append(th);
-
         });
         thead.append(tr);
         table.append(thead);
 
         // Populate table rows with user data
-        $.each(jsonData, function (i, item) {
+        $.each(jsonData1, function (i, item) {
             let tr = $("<tr>");
-            tr.attr('data-id', item.TruyVanId);
-
-            // Loop through the values and populate cells, excluding "salt" and "hashed_pw"
             $.each(item, function (key, val) {
-
                 let td = $("<td>");
                 td.text(val);
                 tr.append(td);
-
             });
-            // Add buttons for actions (View Detail, Edit, Delete) at the end of each row
-            
-            var button4 = $('<button type="button" class="btn btn-danger delete" data-id="' + item['TruyVanId'] + '">').text("Delete");
-            let tdAction = $("<td>").append(button4);
-            tr.append(tdAction);
             tbody.append(tr);
-           
         });
         table.append(tbody);
     });
 }
+
+
 
 // Delete product
 $(document).on('click', '.delete', function () {
