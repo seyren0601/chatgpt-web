@@ -39,7 +39,7 @@ async function sendMessage() {
     }
 
     // Create user message element
-    const userMessageElement = createMessageElement("sent", "User", userMessage);
+    const userMessageElement = createSendMessage("sent", "User", userMessage);
     messages.appendChild(userMessageElement);
 
     // Clear user input field after sending the message

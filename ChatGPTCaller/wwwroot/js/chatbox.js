@@ -48,7 +48,7 @@ async function fetchchatbox() {
         jsonData.forEach(function (item) {
             if (item.id === ID) {
                 // Create user message element
-                const userMessageElement = createMessageElement("sent", "User", item.TruyVanText);
+                const userMessageElement = createSendMessage("sent", "User", item.TruyVanText);
                 messages.appendChild(userMessageElement);
                 // Create bot message element
                 const botMessageElement = createMessageElement("received", "Bot_Assistant", item.TraLoiText);

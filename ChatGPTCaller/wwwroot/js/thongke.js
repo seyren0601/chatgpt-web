@@ -203,6 +203,8 @@ function fetchdangnhap() {
         // Create the table element
         let table = $("#userTable");
         table.empty();
+        let table1 = $("#cauhoiTable");
+        table1.empty();
 
         // Get the keys names
         let cols = Object.keys(jsonData[0]);
@@ -296,6 +298,8 @@ $(document).on('click', '.thongkedangnhap', function () {
         // Create the table element
         let table = $("#userTable");
         table.empty();
+        let table1 = $("#cauhoiTable");
+        table1.empty();
 
         // Get the keys names
         let cols = Object.keys(jsonData[0]);
