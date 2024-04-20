@@ -53,6 +53,9 @@
     }).fail(function () {
         console.error("Failed to fetch data for the first table");
     });
+    
+}
+function fetchtruyvancauhoi() {
     $.get("https://localhost:44345/admin/gettruyvancauhoi", function (data1, status) {
         if (status !== "success") {
             console.error("Failed to fetch data for the second table");
@@ -62,7 +65,7 @@
         // Extract JSON data
         var jsonData1 = data1;
         // Create the table element
-        let table = $("#cauhoiTable");
+        let table = $("#userTable");
         table.empty();
 
         // Get the keys names
@@ -97,7 +100,6 @@
         table.append(tbody);
     });
 }
-
 
 
 // Delete product
@@ -192,6 +194,63 @@ $(document).on('click', '.thongketruyvan', function () {
     });
 });
 
+//theo thang
+
+$(document).on('click', '.thongketruyvanthang', function () {
+    var month = $('#month').val().trim();
+    var year = $('#year').val().trim();
+    $.get("https://localhost:44345/admin/gettruyvan/"+ year+"/"+month, function (data, status) {
+        var jsonData = data;
+
+        // Create the table element
+        let table = $("#userTable");
+        table.empty();
+
+        // Get the keys names
+        let cols = Object.keys(jsonData[0]);
+
+        // Create the header
+        let thead = $("<thead>");
+        let tbody = $('<tbody id="tbody">');
+        let tr = $("<tr>");
+
+        // Loop through the column names and create the header cells
+        $.each(cols, function (i, item) {
+            item = item[0].toUpperCase() + item.slice(1);
+            let th = $('<th scope="col">');
+            th.text(item);
+            tr.append(th);
+        });
+        thead.append(tr);
+        table.append(thead);
+
+        // Populate table rows with user data
+        $.each(jsonData, function (i, item) {
+            let tr = $("<tr>");
+            tr.attr('data-id', item.TruyVanId);
+
+            // Loop through the values and populate cells, excluding "salt" and "hashed_pw"
+            $.each(item, function (key, val) {
+                let td = $("<td>");
+                if (key === "ThoiGian") {
+                    // Check if val needs to be converted to a Date object
+                    if (typeof val === 'string') {
+                        val = new Date(val).toISOString().split('T')[0];
+                    } else if (val instanceof Date) {
+                        val = val.toISOString().split('T')[0];
+                    }
+                    td.text(val);
+                } else {
+                    td.text(val);
+                }
+                tr.append(td);
+            });
+            tbody.append(tr);
+        });
+        table.append(tbody);
+    });
+});
+
 
 //thong ke dang nhap
 
@@ -203,8 +262,7 @@ function fetchdangnhap() {
         // Create the table element
         let table = $("#userTable");
         table.empty();
-        let table1 = $("#cauhoiTable");
-        table1.empty();
+        
 
         // Get the keys names
         let cols = Object.keys(jsonData[0]);
@@ -298,8 +356,65 @@ $(document).on('click', '.thongkedangnhap', function () {
         // Create the table element
         let table = $("#userTable");
         table.empty();
-        let table1 = $("#cauhoiTable");
-        table1.empty();
+        
+
+        // Get the keys names
+        let cols = Object.keys(jsonData[0]);
+
+        // Create the header
+        let thead = $("<thead>");
+        let tbody = $('<tbody id="tbody">');
+        let tr = $("<tr>");
+
+        // Loop through the column names and create the header cells
+        $.each(cols, function (i, item) {
+            item = item[0].toUpperCase() + item.slice(1);
+            let th = $('<th scope="col">');
+            th.text(item);
+            tr.append(th);
+        });
+        thead.append(tr);
+        table.append(thead);
+
+        // Populate table rows with user data
+        $.each(jsonData, function (i, item) {
+            let tr = $("<tr>");
+            tr.attr('data-id', item.DangNhapId);
+
+            // Loop through the values and populate cells, excluding "salt" and "hashed_pw"
+            $.each(item, function (key, val) {
+                let td = $("<td>");
+                if (key === "login_day") {
+                    // Check if val needs to be converted to a Date object
+                    if (typeof val === 'string') {
+                        val = new Date(val).toISOString().split('T')[0];
+                    } else if (val instanceof Date) {
+                        val = val.toISOString().split('T')[0];
+                    }
+                    td.text(val);
+                } else {
+                    td.text(val);
+                }
+                tr.append(td);
+            });
+            tbody.append(tr);
+        });
+        table.append(tbody);
+    });
+});
+
+//theo thang
+
+$(document).on('click', '.thongkedangnhapthang', function () {
+    var year = $('#year1').val().trim();
+    var month = $('#month1').val().trim();
+    $.get("https://localhost:44345/admin/getdangnhap/" + year + "/" + month, function (data, status) {
+        var jsonData = data;
+
+        // Create the table element
+        let table = $("#userTable");
+        table.empty();
+
 
         // Get the keys names
         let cols = Object.keys(jsonData[0]);

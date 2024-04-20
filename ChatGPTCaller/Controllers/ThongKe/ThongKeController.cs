@@ -48,6 +48,16 @@ namespace ChatGPTCaller.Controllers.ThongKe
             Response.ContentType = "application/json;charset=utf-8";
             Response.WriteAsync(json);
         }
+        [HttpGet("gettruyvan/{year}/{month}")]
+        public void GetTruyVanTheoThang(int year, int month)
+        {
+            DataTable truyvan = _thongKeService.GetTruyVanTheoThang(year, month);
+            string json = _thongKeService.DataTableToJSONWithJSONNet(truyvan);
+
+            Response.Clear();
+            Response.ContentType = "application/json;charset=utf-8";
+            Response.WriteAsync(json);
+        }
 
         [HttpPost("themtruyvan")]
         public ActionResult<UpdateRespond> PostchuongResult([FromBody] ThongKeTruyVan thongKeTruyVan)
@@ -91,6 +101,15 @@ namespace ChatGPTCaller.Controllers.ThongKe
         public void Getmotdangnhap(string ngay)
         {
             DataTable truyvan = _thongKeService.GetDangNhapTheoNgay(ngay);
+            string json = _thongKeService.DataTableToJSONWithJSONNet(truyvan);
+            Response.Clear();
+            Response.ContentType = "application/json;charset=utf-8";
+            Response.WriteAsync(json);
+        }
+        [HttpGet("getdangnhap/{year}/{month}")]
+        public void Getmotdangthang(int year,int month)
+        {
+            DataTable truyvan = _thongKeService.GetDangNhapTheoThang(year,month);
             string json = _thongKeService.DataTableToJSONWithJSONNet(truyvan);
             Response.Clear();
             Response.ContentType = "application/json;charset=utf-8";

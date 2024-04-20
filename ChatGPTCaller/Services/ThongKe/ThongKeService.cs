@@ -39,6 +39,13 @@ namespace ChatGPTCaller.Services.ThongKe
             DataTable dt = _dbContext.ExecuteQueryCommand(sql);
             return dt;
         }
+        public DataTable GetTruyVanTheoThang(int year, int month)
+        {
+            DataTable resultTable = new DataTable();
+            string sql = $"SELECT T.TruyVanId,U.full_name,U.email,T.TruyVanText,T.TraLoiText,T.ThoiGian FROM THONGKETRUYVAN as T inner join user_info as U on T.id=U.id WHERE YEAR(T.ThoiGian) ='{year}' AND MONTH(T.ThoiGian) ='{month}'";
+            DataTable dt = _dbContext.ExecuteQueryCommand(sql);
+            return dt;
+        }
         public UpdateRespond XoaTruyVan(int id)
         {
             UpdateRespond response = new UpdateRespond();
@@ -95,7 +102,14 @@ namespace ChatGPTCaller.Services.ThongKe
         public DataTable GetDangNhapTheoNgay(string Ngay)
         {
             DataTable resultTable = new DataTable();
-            string sql = $"SELECT U.full_name, U.email, COUNT(T.DangNhapId) AS login_count, MIN(T.LoginTime) AS login_day FROM THONGKEDANGNHAP AS T INNER JOIN user_info AS U ON T.id = U.id  WHERE LoginTime='{Ngay}' GROUP BY U.full_name, U.email";
+            string sql = $"SELECT U.full_name, U.email, COUNT(T.DangNhapId) AS login_count, MIN(T.LoginTime) AS login_day FROM THONGKEDANGNHAP AS T INNER JOIN user_info AS U ON T.id = U.id  WHERE T.LoginTime='{Ngay}' GROUP BY U.full_name, U.email";
+            DataTable dt = _dbContext.ExecuteQueryCommand(sql);
+            return dt;
+        }
+        public DataTable GetDangNhapTheoThang(int year, int month)
+        {
+            DataTable resultTable = new DataTable();
+            string sql = $"SELECT U.full_name, U.email, COUNT(T.DangNhapId) AS login_count, MIN(T.LoginTime) AS login_day FROM THONGKEDANGNHAP AS T INNER JOIN user_info AS U ON T.id = U.id  WHERE YEAR(T.LoginTime) ='{year}' AND MONTH(T.LoginTime) ='{month}' GROUP BY U.full_name, U.email";
             DataTable dt = _dbContext.ExecuteQueryCommand(sql);
             return dt;
         }
