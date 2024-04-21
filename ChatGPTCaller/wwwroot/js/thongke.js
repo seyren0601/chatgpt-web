@@ -1,4 +1,9 @@
-﻿function fetchtruyvan() {
+﻿function toAdjustedLocalISODate(date) {
+    const offset = date.getTimezoneOffset() * 60000; // Convert date
+    const localDate = new Date(date.getTime() - offset); // Adjust to  local time 
+    return localDate.toISOString().split('T')[0];
+}
+function fetchtruyvan() {
     // Fetch data for the first table
     $.get("https://localhost:44345/admin/gettruyvan", function (data, status) {
         if (status !== "success") {
@@ -178,9 +183,10 @@ $(document).on('click', '.thongketruyvan', function () {
                 if (key === "ThoiGian") {
                     // Check if val needs to be converted to a Date object
                     if (typeof val === 'string') {
-                        val = new Date(val).toISOString().split('T')[0];
+                        const date = new Date(val);
+                        val = toAdjustedLocalISODate(date);
                     } else if (val instanceof Date) {
-                        val = val.toISOString().split('T')[0];
+                        val = toAdjustedLocalISODate(val);
                     }
                     td.text(val);
                 } else {
@@ -235,9 +241,10 @@ $(document).on('click', '.thongketruyvanthang', function () {
                 if (key === "ThoiGian") {
                     // Check if val needs to be converted to a Date object
                     if (typeof val === 'string') {
-                        val = new Date(val).toISOString().split('T')[0];
+                        const date = new Date(val);
+                        val = toAdjustedLocalISODate(date);
                     } else if (val instanceof Date) {
-                        val = val.toISOString().split('T')[0];
+                        val = toAdjustedLocalISODate(val);
                     }
                     td.text(val);
                 } else {
@@ -387,9 +394,10 @@ $(document).on('click', '.thongkedangnhap', function () {
                 if (key === "login_day") {
                     // Check if val needs to be converted to a Date object
                     if (typeof val === 'string') {
-                        val = new Date(val).toISOString().split('T')[0];
+                        const date = new Date(val);
+                        val = toAdjustedLocalISODate(date);
                     } else if (val instanceof Date) {
-                        val = val.toISOString().split('T')[0];
+                        val = toAdjustedLocalISODate(val);
                     }
                     td.text(val);
                 } else {
@@ -445,9 +453,10 @@ $(document).on('click', '.thongkedangnhapthang', function () {
                 if (key === "login_day") {
                     // Check if val needs to be converted to a Date object
                     if (typeof val === 'string') {
-                        val = new Date(val).toISOString().split('T')[0];
+                        const date = new Date(val);
+                        val = toAdjustedLocalISODate(date);
                     } else if (val instanceof Date) {
-                        val = val.toISOString().split('T')[0];
+                        val = toAdjustedLocalISODate(val);
                     }
                     td.text(val);
                 } else {

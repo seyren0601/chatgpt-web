@@ -158,5 +158,21 @@
   {
     "role": "assistant",
     "content": "Có rất nhiều khái niệm trong cấu trúc dữ liệu và giải thuật. Dưới đây là một số khái niệm phổ biến:\n\n1. Mảng (Array): Một cấu trúc dữ liệu lưu trữ một tập hợp các phần tử có cùng kiểu dữ liệu, được truy cập thông qua chỉ số.\n\n2. Danh sách liên kết (Linked List): Một cấu trúc dữ liệu gồm các nút (node) liên kết với nhau thông qua các con trỏ. Có hai loại danh sách liên kết phổ biến là danh sách liên kết đơn (single linked list) và danh sách liên kết kép (double linked list).\n\n3. Ngăn xếp (Stack): Một cấu trúc dữ liệu tuân theo nguyên tắc LIFO (Last In, First Out), nghĩa là phần tử cuối cùng được thêm vào là phần tử đầu tiên được lấy ra.\n\n4. Hàng đợi (Queue): Một cấu trúc dữ liệu tuân theo nguyên tắc FIFO (First In, First Out), nghĩa là phần tử đầu tiên được thêm vào là phần tử đầu tiên được lấy ra.\n\n5. Cây (Tree): Một cấu trúc dữ liệu phân cấp gồm các nút liên kết với nhau theo mối quan hệ cha-con.\n\n6. Đồ thị (Graph): Một cấu trúc dữ liệu biểu diễn mối quan hệ giữa các đối tượng thông qua các cạnh.\n\n7. Thuật toán tìm kiếm nhị phân (Binary Search Algorithm): Một thuật toán tìm kiếm hiệu quả trong một mảng đã được sắp xếp, thực hiện so sánh giá trị cần tìm với giá trị ở giữa mảng và loại bỏ nửa mảng không cần xem xét.\n\nĐây chỉ là một số khái niệm cơ bản, trong cấu trúc dữ liệu và giải thuật còn rất nhiều khái niệm khác nữa. Bạn có thể chọn một khái niệm cụ thể để tìm hiểu thêm."
+  },
+  {
+    "role": "user",
+    "content": "Độ Phức tạp là gì?"
+  },
+  {
+    "role": "assistant",
+    "content": "<concept>\nĐộ phức tạp là một khái niệm trong khoa học máy tính để đo lường mức độ tăng của tài nguyên (thời gian và không gian) mà một thuật toán sử dụng khi kích thước của dữ liệu đầu vào tăng lên.\n\nCó hai loại độ phức tạp chính:\n1. Độ phức tạp thời gian: Đo lường thời gian thực hiện của thuật toán khi xử lý dữ liệu đầu vào. Thường được đo bằng số lần thực hiện các phép toán cơ bản (so sánh, gán, thao tác mảng, v.v.) hoặc số bước lặp trong vòng lặp.\n2. Độ phức tạp không gian: Đo lường lượng bộ nhớ mà thuật toán sử dụng để thực hiện quá trình xử lý dữ liệu đầu vào. Thường được đo bằng lượng bộ nhớ cần thiết để lưu trữ các biến, mảng, cấu trúc dữ liệu, v.v.\n\nĐộ phức tạp giúp chúng ta đánh giá hiệu suất của thuật toán và so sánh các thuật toán khác nhau dựa trên khả năng xử lý dữ liệu lớn."
+  },
+  {
+    "role": "user",
+    "content": "Độ Phức Tạp là gì?"
+  },
+  {
+    "role": "assistant",
+    "content": "Độ phức tạp là một khái niệm trong khoa học máy tính để đo lường mức độ tăng của thời gian thực thi hoặc tài nguyên (như bộ nhớ) mà một thuật toán hoặc một chương trình sử dụng khi kích thước đầu vào tăng lên.\n\nCó hai loại độ phức tạp chính là độ phức tạp thời gian và độ phức tạp không gian.\n\n- Độ phức tạp thời gian: Đo lường thời gian thực thi của một thuật toán khi xử lý dữ liệu đầu vào. Thường được đo bằng số lần thực hiện các phép toán cơ bản (như so sánh, gán, cộng, trừ...) hoặc số lần lặp qua các phần tử của dữ liệu đầu vào.\n\n- Độ phức tạp không gian: Đo lường lượng bộ nhớ mà một thuật toán sử dụng khi xử lý dữ liệu đầu vào. Thường được đo bằng số lượng biến, mảng và cấu trúc dữ liệu khác mà thuật toán sử dụng.\n\nĐộ phức tạp giúp chúng ta hiểu rõ hơn về hiệu suất của một thuật toán và đánh giá khả năng xử lý của nó khi đối mặt với các kích thước dữ liệu lớn."
   }
 ]

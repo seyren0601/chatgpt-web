@@ -44,13 +44,7 @@ CREATE TABLE THONGKEDANGNHAP (
     LogoutTime DATETIME NULL,
      FOREIGN KEY (id) REFERENCES user_info(id)
 );
-CREATE TABLE CONVERSATION(
-	idConversation int auto_increment,
-	id int,
-    Conversation text,
-    CONSTRAINT PK_CID PRIMARY KEY  (IdConversation ASC),
-    CONSTRAINT FK_CID FOREIGN KEY (id) REFERENCES user_info(id)
-);
+
 
 CREATE TABLE MONHOC(
 	IdMonhoc nvarchar(50),
