@@ -24,56 +24,62 @@ namespace ChatGPTCaller.Services
             string sql = $"SELECT * FROM user_info WHERE email = '{email}'";
             try
             {
-                LoginResponse response;
                 DataTable dt = _dbContext.ExecuteQueryCommand(sql);
                 if (dt.Rows.Count == 0)
                 {
-                    response = new LoginResponse()
+                    return new LoginResponse()
                     {
                         LogInResult = false,
                         ErrorMessage = "Không tìm thấy user"
                     };
-                    return response;
+                }
+
+                DataRow user_row = dt.Rows[0];
+                object db_h_pass_obj = user_row["hashed_pw"];
+                object salt_obj = user_row["salt"];
+
+                if (db_h_pass_obj == DBNull.Value || salt_obj == DBNull.Value)
+                {
+                    return new LoginResponse()
+                    {
+                        LogInResult = false,
+                        ErrorMessage = "Invalid password data in database"
+                    };
+                }
+
+                string db_h_pass = (string)db_h_pass_obj;
+                byte[] salt = Convert.FromBase64String((string)salt_obj);
+                string h_pass = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                                    password: password!,
+                                    salt: salt,
+                                    prf: KeyDerivationPrf.HMACSHA256,
+                                    iterationCount: 100000,
+                                    numBytesRequested: 256 / 8));
+                if (h_pass == db_h_pass)
+                {
+                    return new LoginResponse()
+                    {
+                        LogInResult = true,
+                        UserID = Convert.ToInt32(user_row["id"]),
+                        UserRole = Convert.ToInt32(user_row["id"]) == 1 ? "admin" : "user"
+                    };
                 }
                 else
                 {
-                    DataRow user_row = dt.Rows[0];
-                    string db_h_pass = (string)user_row[13];
-                    byte[] salt = Convert.FromBase64String((string)user_row[14]);
-                    string h_pass = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                                        password: password!,
-                                        salt: salt,
-                                        prf: KeyDerivationPrf.HMACSHA256,
-                                        iterationCount: 100000,
-                                        numBytesRequested: 256 / 8));
-                    if(h_pass == db_h_pass)
+                    return new LoginResponse()
                     {
-                        response = new LoginResponse()
-                        {
-                            LogInResult = true,
-                            UserID = (int)user_row[0],
-                            UserRole = (int)user_row[0] == 1?"admin":"user"
-                        };
-                    }
-                    else
-                    {
-                        response = new LoginResponse()
-                        {
-                            LogInResult = false,
-                            ErrorMessage = "Sai mật khẩu"
-                        };
-                    }
-                    return response!;
+                        LogInResult = false,
+                        ErrorMessage = "Sai mật khẩu"
+                    };
                 }
             }
             catch (Exception ex)
             {
-                LoginResponse response = new LoginResponse()
+                return new LoginResponse()
                 {
                     LogInResult = false,
                     ErrorMessage = ex.Message
                 };
-                return response;
             }
         }
     }
