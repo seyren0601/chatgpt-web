@@ -35,10 +35,11 @@ namespace ChatGPTCaller.Services
             {
                 role = "system",
                 content = "Bạn là một giảng viên đại học giải thích về thuật toán được người dùng nhập vào trong môn học cấu trúc dữ liệu và giải thuật cho người mới học lập trình." +
-                            "Dựa trên thông tin người dùng nhập vào, bạn sẽ trả lời theo một trong 3 cách sau:\n" +
-                            "-Người dùng hỏi về khái niệm của thuật toán hoặc cấu trúc dữ liệu nào đó:bạn sẽ trả về khái niệm và ví dụ của thuật toán hoặc cấu trúc dữ liệu đó. NHƯNG KHÔNG được trả về source code.\n" + 
-                            "* Lưu ý, phần khái niệm sẽ nằm trong thẻ <concept>, phần ví dụ sẽ nằm trong thẻ <example>\n" +
-                            "-Người dùng hỏi về thao tác xử lý đối với cấu trúc dữ liệu nào đó:bạn trả về kết quả như sau \"3 đến 4 dòng đầu sẽ giải thích về cách thức hoạt động và quy trình xử lý của thao tác đó, đồng thời trả về mã nguồn C++\"\n"
+                            "Dựa trên thông tin người dùng nhập vào, bạn sẽ trả lời theo một trong 2 cách sau:\n" +
+                            "-Người dùng hỏi về khái niệm của thuật toán hoặc cấu trúc dữ liệu và giải thuật nào đó:bạn sẽ trả về khái niệm, ví dụ và đường dẫn youtube của thuật toán hoặc cấu trúc dữ liệu đó mà tôi đã đưa cho bạn trong Tool Call.\n" +
+                            
+                            "-Người dùng hỏi về thao tác xử lý đối với cấu trúc dữ liệu và giải thuật nào đó:bạn trả về kết quả như sau \"3 đến 4 dòng đầu sẽ giải thích về cách thức hoạt động và quy trình xử lý của thao tác đó, đồng thời trả về mã nguồn C++\"\n"
+
                 //"Lưu ý khi trả về kết quả, ," +
                 //"ví dụ:\n<concept>\nViết phần khái niệm của bạn trong đây\n</concept>\n<example>\nViết phần ví dụ của bạn trong đây\n</example>"
             });
@@ -71,7 +72,13 @@ namespace ChatGPTCaller.Services
                 {
                     { "get_link_about_sort", Functions.get_link_about_sort },
                     { "get_link_about_search", Functions.get_link_about_search },
-                    { "get_link_about_linkedlist", Functions.get_link_about_linkedlist }
+                    { "get_link_about_linkedlist", Functions.get_link_about_linkedlist },
+                    { "get_link_about_stack", Functions.get_link_about_stack },
+                    { "get_link_about_queue", Functions.get_link_about_queue },
+                    { "get_link_about_hash", Functions.get_link_about_hash },
+                    { "get_link_about_DFS", Functions.get_link_about_DFS },
+                    { "get_link_about_BFS", Functions.get_link_about_BFS },
+                    { "get_link_about_binary_tree", Functions.get_link_about_binary_tree },
                 };
                 Messages.Add(response_message);
                 foreach(var tool_call in tool_calls)
@@ -98,6 +105,96 @@ namespace ChatGPTCaller.Services
                         var function_args = JsonConvert.DeserializeObject<Dictionary<string, string>>(tool_call.function.arguments);
                         var search_type = function_args["search_type"];
                         var function_response = function_to_call(search_type);
+                        Messages.Add(new
+                        {
+                            content = function_response,
+                            role = "tool",
+                            tool_call_id = tool_call.id,
+                            name = function_name,
+                        });
+                    }
+                    else if(tool_call.function.name =="get_link_about_queue")
+                    {
+                        var function_name = tool_call.function.name;
+                        var function_to_call = available_functions[function_name];
+                        var function_args = JsonConvert.DeserializeObject<Dictionary<string, string>>(tool_call.function.arguments);
+                        var queue_type = function_args["queue_type"];
+                        var function_response = function_to_call(queue_type);
+                        Messages.Add(new
+                        {
+                            content = function_response,
+                            role = "tool",
+                            tool_call_id = tool_call.id,
+                            name = function_name,
+                        });
+                    }
+                    else if(tool_call.function.name == "get_link_about_stack")
+                    {
+                        var function_name = tool_call.function.name;
+                        var function_to_call = available_functions[function_name];
+                        var function_args = JsonConvert.DeserializeObject<Dictionary<string, string>>(tool_call.function.arguments);
+                        var stack_type = function_args["stack_type"];
+                        var function_response = function_to_call(stack_type);
+                        Messages.Add(new
+                        {
+                            content = function_response,
+                            role = "tool",
+                            tool_call_id = tool_call.id,
+                            name = function_name,
+                        });
+                    }
+                    else if(tool_call.function.name == "get_link_about_hash")
+                    {
+                        var function_name = tool_call.function.name;
+                        var function_to_call = available_functions[function_name];
+                        var function_args = JsonConvert.DeserializeObject<Dictionary<string, string>>(tool_call.function.arguments);
+                        var hash_process = function_args["hash_process"];
+                        var function_response = function_to_call(hash_process);
+                        Messages.Add(new
+                        {
+                            content = function_response,
+                            role = "tool",
+                            tool_call_id =tool_call.id,
+                            name = function_name,
+                        });
+                    }
+                    else if (tool_call.function.name == "get_link_about_DFS")
+                    {
+                        var function_name = tool_call.function.name;
+                        var function_to_call = available_functions[function_name];
+                        var function_args = JsonConvert.DeserializeObject<Dictionary<string, string>>(tool_call.function.arguments);
+                        var DFS_process = function_args["DFS_process"];
+                        var function_response = function_to_call(DFS_process);
+                        Messages.Add(new
+                        {
+                            content = function_response,
+                            role = "tool",
+                            tool_call_id = tool_call.id,
+                            name = function_name,
+                        });
+                    }
+                    else if (tool_call.function.name == "get_link_about_BFS")
+                    {
+                        var function_name = tool_call.function.name;
+                        var function_to_call = available_functions[function_name];
+                        var function_args = JsonConvert.DeserializeObject<Dictionary<string, string>>(tool_call.function.arguments);
+                        var BFS_process = function_args["BFS_process"];
+                        var function_response = function_to_call(BFS_process);
+                        Messages.Add(new
+                        {
+                            content = function_response,
+                            role = "tool",
+                            tool_call_id = tool_call.id,
+                            name = function_name,
+                        });
+                    }
+                    else if (tool_call.function.name == "get_link_about_binary_tree")
+                    {
+                        var function_name = tool_call.function.name;
+                        var function_to_call = available_functions[function_name];
+                        var function_args = JsonConvert.DeserializeObject<Dictionary<string, string>>(tool_call.function.arguments);
+                        var BinaryTree_process = function_args["BinaryTree_process"];
+                        var function_response = function_to_call(BinaryTree_process);
                         Messages.Add(new
                         {
                             content = function_response,
@@ -207,7 +304,7 @@ namespace ChatGPTCaller.Services
                                         {
                                             type = "string",
                                             @enum = new [] {"binary search", "linear search" },
-                                            description = "Kiểu thuật giải tìm kiếm"
+                                            description = "The search algorithm, eg. Binary search, Linear search"
                                         }
                                     },
                                     required = new[] { "search_type" }
@@ -229,14 +326,152 @@ namespace ChatGPTCaller.Services
                                         linkedlist_type = new
                                         {
                                             type = "string",
-                                            @enum = new [] {"single", "double" },
-                                            description = "Kiểu danh sách liên kết"
+                                            @enum = new [] {"single", "double", "circular" },
+                                            description = "The linked list data structure, eg. Single linked list, Double linked list, Circular linked list"
                                         }
                                     },
                                     required = new[] { "linkedlist_type" }
                                 }
                             },
-                        }
+                        },
+                        new
+                        {
+                            type = "function",
+                            function = new
+                            {
+                                name = "get_link_about_queue",
+                                description = "Get youtube videos about queue",
+                                parameters = new
+                                {
+                                    type = "object",
+                                    properties = new
+                                    {
+                                        linkedlist_type = new
+                                        {
+                                            type = "string",
+                                            @enum = new [] {"priority", "queue" },
+                                            description = "The queue data structure, eg. Priority queue, normal queue"
+                                        }
+                                    },
+                                    required = new[] { "queue_type" }
+                                }
+                            },
+                        },
+                        new
+                        {
+                            type="function",
+                            function = new
+                            {
+                                name = "get_link_about_stack",
+                                description = "Get youtube videos about stack",
+                                parameters = new
+                                {
+                                    type ="object",
+                                    properties = new
+                                    {
+                                        stack_type = new
+                                        {
+                                            type="string",
+                                            @enum = new[] {"stack"},
+                                            description = "The stack data structure"
+                                        }
+                                    },
+                                    required = new[] {"stack_type"}
+                                }
+                            },
+                        },
+                        new
+                        {
+                            type="function",
+                            function = new
+                            {
+                                name = "get_link_about_hash",
+                                description = "Get youtube videos about hash table",
+                                parameters = new
+                                {
+                                    type ="object",
+                                    properties = new
+                                    {
+                                        hash_process = new
+                                        {
+                                            type="string",
+                                            @enum = new[] {"hash table"},
+                                            description = "The hash table algorithm"
+                                        }
+                                    },
+                                    required = new[] {"hash_process"}
+                                }
+                            },
+                        },
+                        new
+                        {
+                            type="function",
+                            function = new
+                            {
+                                name = "get_link_about_DFS",
+                                description = "Get youtube videos about Depth First Search",
+                                parameters = new
+                                {
+                                    type ="object",
+                                    properties = new
+                                    {
+                                        DFS_process = new
+                                        {
+                                            type="string",
+                                            @enum = new[] {"Depth First Search"},
+                                            description = "The Depth First Search algorithm"
+                                        }
+                                    },
+                                    required = new[] {"DFS_process"}
+                                }
+                            },
+                        },
+                        new
+                        {
+                            type="function",
+                            function = new
+                            {
+                                name = "get_link_about_BFS",
+                                description = "Get youtube videos about Breadth First Search",
+                                parameters = new
+                                {
+                                    type ="object",
+                                    properties = new
+                                    {
+                                        BFS_process = new
+                                        {
+                                            type="string",
+                                            @enum = new[] {"Breadth First Search"},
+                                            description = "The Breadth First Search algorithm"
+                                        }
+                                    },
+                                    required = new[] {"BFS_process"}
+                                }
+                            },
+                        },
+                        new
+                        {
+                            type="function",
+                            function = new
+                            {
+                                name = "get_link_about_binary_tree",
+                                description = "Get youtube videos about binary tree",
+                                parameters = new
+                                {
+                                    type ="object",
+                                    properties = new
+                                    {
+                                        BinaryTree_process = new
+                                        {
+                                            type="string",
+                                            @enum = new[] {"binary tree"},
+                                            description = "The binary tree data structure"
+                                        }
+                                    },
+                                    required = new[] {"BinaryTree_process"}
+                                }
+                            },
+                        },
                     },
                     tool_choice = "auto",
                     temperature = 0.2
@@ -261,7 +496,7 @@ namespace ChatGPTCaller.Services
 
                 var requestBody = new
                 {
-                    model = "ft:gpt-3.5-turbo-0613:personal::8hjFRloj",
+                    model = "ft:gpt-3.5-turbo-0613:personal::9BNpkE3C",
                     messages = Messages,
                 };
 

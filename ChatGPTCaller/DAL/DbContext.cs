@@ -15,7 +15,7 @@ namespace ChatGPTCaller.DAL
         private MySqlConnection _connection;
         public DbContext(IConfiguration configuration)
         {
-            connectionString = configuration.GetConnectionString("userdb");
+            connectionString = "Database=gpt_user;Uid=root;Pwd=haizdank0302;";
             _connection = new MySqlConnection(connectionString);
         }
         public DbContext() { }
